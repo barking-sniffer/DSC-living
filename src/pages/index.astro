@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro'
+import StickyBar from '../components/StickyBar.astro'
+import Hero from '../components/sections/Hero.astro'
+import Services from '../components/sections/Services.astro'
+import HowItWorks from '../components/sections/HowItWorks.astro'
+import PromiseSection from '../components/sections/Promise.astro'
+import Comparison from '../components/sections/Comparison.astro'
+import Contact from '../components/sections/Contact.astro'
+import { nl } from '../i18n/nl'
+
+const t = nl
+---
+
+<Base t={t} path="/">
+  <Nav t={t} locale="nl" path="/" />
+  <main>
+    <Hero t={t} />
+    <Services t={t} />
+    <HowItWorks t={t} />
+    <PromiseSection t={t} />
+    <Comparison t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} locale="nl" />
+  <FloatingWhatsApp />
+  <StickyBar t={t} />
+</Base>

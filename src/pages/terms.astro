@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro'
+import Nav from '../components/Nav.astro'
+import Footer from '../components/Footer.astro'
+import { nl } from '../i18n/nl'
+
+const t = nl
+---
+
+<Base t={t} path="/terms" title={`Terms — ${t.footer.company}`}>
+  <Nav t={t} locale="nl" path="/terms" />
+  <main class="section bg-paper">
+    <div class="content-wrap max-w-[70ch]">
+      <p class="eyebrow mb-3">LEGAL</p>
+      <h1 class="h2 mb-6">Terms</h1>
+      <p class="lead mb-4">[TODO] — real terms and conditions required before launch.</p>
+      <p class="body-copy">
+        This page will set out the terms under which DSC Living B.V. (KvK {t.footer.kvk}, BTW{' '}
+        {t.footer.btw}) provides household and facility services, including scope, pricing,
+        cancellation, and liability. It is not yet in force.
+      </p>
+    </div>
+  </main>
+  <Footer t={t} locale="nl" />
+</Base>

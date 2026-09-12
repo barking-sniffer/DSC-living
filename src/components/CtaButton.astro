@@ -1,0 +1,59 @@
+---
+// The single seam for every call to action on the site. In phase 1 every
+// kind opens WhatsApp with a prefilled message. In phase 2, swap this
+// component's internals for a real endpoint/booking flow without touching
+// any section file.
+import { waLink } from '../lib/whatsapp'
+
+interface Props {
+  kind: 'audit' | 'package' | 'question' | 'compose'
+  message?: string
+  href?: string
+  variant?: 'solid' | 'outline' | 'ghost'
+  size?: 'md' | 'lg'
+  class?: string
+  location: string // where on the page this CTA lives, for analytics
+  id?: string
+}
+
+const {
+  kind,
+  message = '',
+  href,
+  variant = 'solid',
+  size = 'md',
+  class: className = '',
+  location,
+  id,
+} = Astro.props
+
+// PHASE 2: replace this WhatsApp link with a real enquiry/booking endpoint.
+// `kind` and `location` are already threaded through every call site so
+// that swap happens here only.
+const resolvedHref = href ?? waLink(message)
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-[3px] px-6 py-3 text-[13px] font-bold tracking-[0.02em] uppercase min-h-[44px] whitespace-nowrap'
+const variants: Record<string, string> = {
+  solid: 'bg-accent text-onDark hover:bg-accentHi',
+  outline: 'border border-ink text-ink hover:bg-ink hover:text-onDark',
+  ghost: 'border border-onDark/40 text-onDark hover:bg-onDark/10',
+}
+const sizes: Record<string, string> = {
+  md: 'px-5 py-2.5 text-[12.5px]',
+  lg: 'px-7 py-3.5 text-[13px]',
+}
+---
+
+<a
+  id={id}
+  href={resolvedHref}
+  target="_blank"
+  rel="noopener"
+  data-wa-cta
+  data-wa-kind={kind}
+  data-wa-location={location}
+  class={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+>
+  <slot />
+</a>

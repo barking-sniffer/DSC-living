@@ -1,0 +1,62 @@
+---
+import type { Dict } from '../../i18n/en'
+import Figure from '../Figure.astro'
+import CtaButton from '../CtaButton.astro'
+import { images } from '../../data/images'
+import { waMessages } from '../../lib/whatsapp'
+
+interface Props {
+  t: Dict
+}
+
+const { t } = Astro.props
+const img = images.howItWorks
+---
+
+<section id="how-it-works" class="section bg-ink text-onDarkSoft">
+  <div class="content-wrap grid grid-cols-1 gap-10 md:grid-cols-[1.32fr_1fr] md:gap-14">
+    <div class="order-2 md:order-1">
+      <p class="eyebrow mb-3">{t.howItWorks.eyebrow}</p>
+      <h2 class="h2 !text-onDark mb-4">{t.howItWorks.h2}</h2>
+      <p class="lead !text-onDarkSoft mb-8 max-w-[52ch]">{t.howItWorks.lead}</p>
+
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {t.howItWorks.steps.map((step, i) => (
+          <div class={`border-t pt-4 ${i === 2 ? 'border-accent' : 'border-darkRule'}`}>
+            <div class="mb-2 flex items-baseline gap-2">
+              <span class="font-display text-[42px] leading-none text-accent">{step.number}</span>
+              {step.tag && (
+                <span class="rounded-[3px] bg-accent/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.1em] text-accentLt">
+                  {step.tag}
+                </span>
+              )}
+            </div>
+            <h3 class="h3 !text-onDark mb-1">{step.title}</h3>
+            <p class="body-copy !text-onDarkSoft">{step.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-9 flex items-start gap-4 rounded-[3px] border-l-[3px] border-accent bg-[#35302A] p-5">
+        <svg class="mt-1 h-6 w-6 shrink-0 text-accentLt" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6" />
+          <path d="M3 9H21" stroke="currentColor" stroke-width="1.6" />
+          <path d="M7 3V6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M17 3V6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+        <div>
+          <p class="h3 !text-onDark mb-1">{t.howItWorks.calloutTitle}</p>
+          <p class="body-copy !text-onDarkSoft">{t.howItWorks.calloutBody}</p>
+        </div>
+      </div>
+
+      <CtaButton kind="audit" message={waMessages.audit} location="how-it-works" size="lg" class="mt-8">
+        {t.howItWorks.cta}
+      </CtaButton>
+    </div>
+
+    <div class="order-1 md:order-2">
+      <Figure src={img.src} alt={img.alt} note={img.note} ratio="4/5" dark class="rounded-[3px]" />
+    </div>
+  </div>
+</section>

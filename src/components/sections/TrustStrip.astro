@@ -1,0 +1,29 @@
+---
+import type { Dict } from '../../i18n/en'
+
+interface Props {
+  t: Dict
+  showPromiseLink?: boolean
+}
+
+const { t, showPromiseLink = false } = Astro.props
+---
+
+<div class="bg-ink px-5 py-6 md:px-14">
+  <div class="content-wrap flex flex-col gap-4">
+    <div class="grid grid-cols-2 gap-x-6 gap-y-4 md:flex md:flex-wrap md:items-center md:justify-between md:gap-0">
+      {t.trustStrip.map((item, i) => (
+        <div class={`flex items-start gap-3 md:flex-1 ${i > 0 ? 'md:border-l md:border-darkRule md:pl-6' : ''}`}>
+          <p class="text-[13px] leading-[1.4] text-onDarkSoft">
+            <span class="font-bold text-onDark">{item.bold}</span>{item.rest ? ` ${item.rest}` : ''}
+          </p>
+        </div>
+      ))}
+    </div>
+    {showPromiseLink && (
+      <a href="#promise-detail" class="text-[12px] font-bold tracking-[0.03em] text-accentLt underline underline-offset-2 hover:text-onDark">
+        {t.promise.ctaReadFull}
+      </a>
+    )}
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+import type { Dict } from '../../i18n/en'
+import Figure from '../Figure.astro'
+import CtaButton from '../CtaButton.astro'
+import TrustStrip from './TrustStrip.astro'
+import { images } from '../../data/images'
+import { waMessages } from '../../lib/whatsapp'
+
+interface Props {
+  t: Dict
+}
+
+const { t } = Astro.props
+const hero = images.hero
+---
+
+<section id="top" class="relative pt-28 md:pt-32">
+  <div class="content-wrap grid grid-cols-1 items-center gap-8 px-5 pb-10 md:grid-cols-[1fr_1.18fr] md:gap-14 md:px-14 md:pb-16">
+    <div class="order-2 md:order-1">
+      <p class="eyebrow mb-4">{t.hero.eyebrow}</p>
+      <h1 class="h1 mb-5">{t.hero.h1}</h1>
+      <p class="lead mb-7 max-w-[46ch]">{t.hero.lead}</p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <CtaButton kind="audit" message={waMessages.auditWithPostcode} location="hero-primary" size="lg">
+          {t.hero.ctaPrimary}
+        </CtaButton>
+        <a
+          href="#how-it-works"
+          class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[3px] border border-ink px-7 py-3.5 text-[13px] font-bold uppercase tracking-[0.02em] text-ink hover:bg-ink hover:text-onDark"
+        >
+          {t.hero.ctaSecondary}
+        </a>
+      </div>
+      <p class="small-copy mt-5">{t.hero.microcopy}</p>
+    </div>
+    <div class="order-1 md:order-2">
+      <!-- Two ratio variants toggled by breakpoint: inline aspect-ratio
+           styles can't be overridden by a media query on the same
+           element, so the mobile (16/10) and desktop (4/5) crops render
+           as separate, breakpoint-hidden instances instead. -->
+      <Figure
+        src={hero.src}
+        alt={hero.alt}
+        note={hero.note}
+        ratio="16/10"
+        priority
+        class="rounded-[3px] md:hidden"
+      />
+      <Figure
+        src={hero.src}
+        alt={hero.alt}
+        note={hero.note}
+        ratio="4/5"
+        priority
+        class="hidden rounded-[3px] md:block"
+      />
+    </div>
+  </div>
+  <TrustStrip t={t} showPromiseLink />
+</section>

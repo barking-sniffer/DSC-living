@@ -1,0 +1,142 @@
+---
+import type { Dict } from '../i18n/en'
+import CtaButton from './CtaButton.astro'
+import { waMessages } from '../lib/whatsapp'
+
+interface Props {
+  t: Dict
+  locale: 'nl' | 'en'
+  path: string
+}
+
+const { t, locale, path } = Astro.props
+const homeHref = locale === 'en' ? '/en/' : '/'
+const altHref = locale === 'en' ? (path.replace(/^\/en/, '') || '/') : `/en${path === '/' ? '' : path}`
+
+const links = [
+  { label: t.nav.home, href: `${homeHref}#top` },
+  { label: t.nav.services, href: `${homeHref}#services` },
+  { label: t.nav.howItWorks, href: `${homeHref}#how-it-works` },
+  { label: t.nav.pricing, href: `${homeHref}#pricing` },
+  // No dedicated "for buildings" section exists yet (out of scope for this
+  // build) — points at Contact rather than a dead anchor.
+  { label: t.nav.forBuildings, href: `${homeHref}#contact` },
+  { label: t.nav.contact, href: `${homeHref}#contact` },
+]
+---
+
+<header id="site-nav" class="fixed inset-x-0 top-0 z-50 transition-colors duration-200" data-nav>
+  <div class="content-wrap flex items-center justify-between px-5 py-4 md:px-14">
+    <a href={homeHref} class="flex items-baseline gap-2">
+      <span class="font-display text-[22px] leading-none text-ink md:text-[24px]">DSC Living</span>
+      <span class="eyebrow hidden sm:inline">NEDERLAND</span>
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
+      {links.map((link) => (
+        <a href={link.href} class="text-[13px] font-semibold text-inkSoft hover:text-accent">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-5 lg:flex">
+      <a href="#" aria-disabled="true" tabindex="-1" class="text-[13px] text-muted cursor-not-allowed">
+        {t.nav.login}
+      </a>
+      <a
+        href={altHref}
+        class="text-[12px] font-bold tracking-[0.05em] text-inkSoft hover:text-accent"
+        aria-label="Switch language"
+      >
+        {locale === 'en' ? 'NL / EN' : 'NL / EN'}
+      </a>
+      <CtaButton kind="audit" message={waMessages.audit} location="nav" size="md">
+        {t.nav.cta}
+      </CtaButton>
+    </div>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="flex h-11 w-11 items-center justify-center lg:hidden"
+      aria-expanded="false"
+      aria-controls="nav-overlay"
+      aria-label="Open menu"
+    >
+      <svg id="nav-icon-open" width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <path d="M0 1H22" stroke="#2A2622" stroke-width="2" />
+        <path d="M0 8H22" stroke="#2A2622" stroke-width="2" />
+        <path d="M0 15H22" stroke="#2A2622" stroke-width="2" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="nav-overlay"
+    class="fixed inset-0 z-40 hidden flex-col bg-paper px-5 py-6 lg:hidden"
+  >
+    <div class="flex items-center justify-between">
+      <span class="font-display text-[22px] text-ink">DSC Living</span>
+      <button id="nav-close" type="button" class="flex h-11 w-11 items-center justify-center" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M1 1L17 17M17 1L1 17" stroke="#2A2622" stroke-width="2" />
+        </svg>
+      </button>
+    </div>
+    <nav class="mt-10 flex flex-1 flex-col gap-6" aria-label="Mobile">
+      {links.map((link) => (
+        <a href={link.href} class="text-[22px] font-display text-ink" data-nav-link>
+          {link.label}
+        </a>
+      ))}
+      <a href={altHref} class="text-[13px] font-bold text-inkSoft">NL / EN</a>
+    </nav>
+    <CtaButton kind="audit" message={waMessages.audit} location="nav-mobile" size="lg" class="w-full">
+      {t.nav.cta}
+    </CtaButton>
+  </div>
+</header>
+
+<style>
+  [data-nav].is-scrolled {
+    background-color: #faf7f2;
+    border-bottom: 1px solid #e3dcd2;
+  }
+  #nav-overlay.is-open {
+    display: flex;
+  }
+</style>
+
+<script>
+  // Mobile nav: full-screen overlay toggle. Also flips the header from
+  // transparent-over-hero to a solid bar with a hairline after 80px of
+  // scroll.
+  const nav = document.querySelector<HTMLElement>('[data-nav]')
+  const toggle = document.getElementById('nav-toggle')
+  const closeBtn = document.getElementById('nav-close')
+  const overlay = document.getElementById('nav-overlay')
+
+  const setScrolled = () => {
+    if (!nav) return
+    if (window.scrollY > 80) nav.classList.add('is-scrolled')
+    else nav.classList.remove('is-scrolled')
+  }
+  setScrolled()
+  window.addEventListener('scroll', setScrolled, { passive: true })
+
+  const openOverlay = () => {
+    overlay?.classList.add('is-open')
+    document.body.style.overflow = 'hidden'
+    toggle?.setAttribute('aria-expanded', 'true')
+  }
+  const closeOverlay = () => {
+    overlay?.classList.remove('is-open')
+    document.body.style.overflow = ''
+    toggle?.setAttribute('aria-expanded', 'false')
+  }
+
+  toggle?.addEventListener('click', openOverlay)
+  closeBtn?.addEventListener('click', closeOverlay)
+  overlay?.querySelectorAll('[data-nav-link]').forEach((el) => el.addEventListener('click', closeOverlay))
+</script>

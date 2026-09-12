@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/newsreader-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/karla-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/karla-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/karla-latin-700-normal.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-paper text-prose font-sans antialiased;
+  }
+  /* Offsets anchor-jump targets so the fixed nav bar never covers a
+     section heading when the nav links / footer jump to an #id. */
+  [id] {
+    scroll-margin-top: 96px;
+  }
+  h1, h2, h3 {
+    @apply font-display text-ink;
+  }
+  a {
+    @apply transition-colors duration-150;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[10px] tracking-[0.18em] uppercase font-sans font-bold text-accent;
+  }
+  .h1 {
+    @apply text-[38px] leading-[1.08] tracking-[-0.018em] font-display font-normal text-ink md:text-[62px] md:leading-[1.03];
+  }
+  .h2 {
+    @apply text-[30px] leading-[1.14] tracking-[-0.014em] font-display font-normal text-ink md:text-[44px] md:leading-[1.10];
+  }
+  .h3 {
+    @apply text-[20px] leading-[1.25] font-display font-medium text-ink md:text-[22px];
+  }
+  .lead {
+    @apply text-[15px] leading-[1.6] text-prose md:text-[17px];
+  }
+  .body-copy {
+    @apply text-[14px] leading-[1.6] text-prose md:text-[14.5px];
+  }
+  .small-copy {
+    @apply text-[12.5px] leading-[1.55] text-muted md:text-[13px];
+  }
+  .section {
+    @apply py-10 px-5 md:py-16 md:px-14;
+  }
+  .content-wrap {
+    @apply max-w-content mx-auto;
+  }
+}

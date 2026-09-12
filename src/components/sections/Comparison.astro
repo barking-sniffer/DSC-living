@@ -1,0 +1,91 @@
+---
+import type { Dict } from '../../i18n/en'
+import CtaButton from '../CtaButton.astro'
+import { waMessages } from '../../lib/whatsapp'
+
+interface Props {
+  t: Dict
+}
+
+const { t } = Astro.props
+---
+
+<section id="pricing" class="section bg-paper">
+  <div class="content-wrap">
+    <div class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow mb-3">{t.comparison.eyebrow}</p>
+        <h2 class="h2">{t.comparison.h2}</h2>
+      </div>
+      <p class="lead max-w-[38ch] md:text-right">{t.comparison.intro}</p>
+    </div>
+
+    <!-- Desktop / tablet: full table -->
+    <div class="hidden overflow-x-auto md:block">
+      <table class="w-full border-collapse text-left">
+        <colgroup>
+          <col style="width:22%" />
+          <col style="width:37%" />
+          <col style="width:41%" />
+        </colgroup>
+        <thead>
+          <tr class="border-b border-rule2">
+            <th class="py-4"></th>
+            <th class="px-4 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-muted">
+              {t.comparison.headers.middle}
+            </th>
+            <th class="px-4 py-4 text-[10px] font-bold uppercase tracking-[0.14em] text-ink">
+              {t.comparison.headers.right}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {t.comparison.rows.map((row) => (
+            <tr class="border-b border-rule">
+              <td class={`py-5 pr-4 text-[14px] ${row.keyBold ? 'font-bold text-ink' : 'font-semibold text-ink'}`}>
+                {row.key}
+              </td>
+              <td class="px-4 py-5 text-[13.5px] text-muted">
+                {row.middle}
+              </td>
+              <td class="border-l-[3px] border-accent px-4 py-5 text-[13.5px] text-ink">
+                <span class={row.rightBold ? 'font-bold' : ''}>{row.right}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile: stacked cards -->
+    <div class="flex flex-col gap-5 md:hidden">
+      {t.comparison.rows.map((row) => (
+        <div class="rounded-[3px] border border-rule bg-surface p-5">
+          <p class={`mb-3 text-[15px] ${row.keyBold ? 'font-bold' : 'font-semibold'} text-ink`}>{row.key}</p>
+          <div class="mb-3">
+            <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-muted">
+              {t.comparison.mobileMiddleLabel}
+            </p>
+            <p class="mt-1 text-[13.5px] text-muted">{row.middle}</p>
+          </div>
+          <div class="border-l-[3px] border-accent pl-3">
+            <p class="text-[10px] font-bold uppercase tracking-[0.12em] text-ink">
+              {t.comparison.mobileRightLabel}
+            </p>
+            <p class={`mt-1 text-[13.5px] text-ink ${row.rightBold ? 'font-bold' : ''}`}>{row.right}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 flex flex-col gap-5 rounded-[3px] bg-tint p-6 md:flex-row md:items-center md:justify-between md:p-8">
+      <div class="max-w-[56ch]">
+        <h3 class="h3 mb-2">{t.comparison.calloutTitle}</h3>
+        <p class="body-copy">{t.comparison.calloutBody}</p>
+      </div>
+      <CtaButton kind="audit" message={waMessages.audit} location="comparison" size="lg" class="shrink-0">
+        {t.comparison.cta}
+      </CtaButton>
+    </div>
+  </div>
+</section>

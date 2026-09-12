@@ -1,0 +1,165 @@
+---
+import type { Dict } from '../../i18n/en'
+import Figure from '../Figure.astro'
+import CtaButton from '../CtaButton.astro'
+import { images } from '../../data/images'
+import { waMessages } from '../../lib/whatsapp'
+
+interface Props {
+  t: Dict
+}
+
+const { t } = Astro.props
+const img = images.contact
+const serviceKeys = Object.keys(t.serviceNames) as Array<keyof typeof t.serviceNames>
+---
+
+<section id="contact" class="section bg-paper">
+  <div class="content-wrap grid grid-cols-1 gap-10 md:grid-cols-[1.12fr_1fr] md:gap-14">
+    <div class="order-2 md:order-1">
+      <Figure src={img.src} alt={img.alt} note={img.note} ratio="4/5" class="rounded-[3px]" />
+    </div>
+
+    <div class="order-1 md:order-2">
+      <p class="eyebrow mb-3">{t.contact.eyebrow}</p>
+      <h2 class="h2 mb-4">{t.contact.h2}</h2>
+      <p class="lead mb-8 max-w-[52ch]">{t.contact.lead}</p>
+
+      <form id="contact-composer" class="flex flex-col gap-5" novalidate>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-name" class="text-[12px] font-bold text-inkSoft">{t.contact.form.name}</label>
+            <input id="cf-name" type="text" name="name" autocomplete="name"
+              class="min-h-[44px] rounded-[3px] border border-rule2 bg-surface px-3 text-[14px] text-ink placeholder:text-faint" />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-email" class="text-[12px] font-bold text-inkSoft">{t.contact.form.email}</label>
+            <input id="cf-email" type="email" name="email" autocomplete="email"
+              class="min-h-[44px] rounded-[3px] border border-rule2 bg-surface px-3 text-[14px] text-ink placeholder:text-faint" />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-phone" class="text-[12px] font-bold text-inkSoft">{t.contact.form.phone}</label>
+            <input id="cf-phone" type="tel" name="phone" autocomplete="tel"
+              class="min-h-[44px] rounded-[3px] border border-rule2 bg-surface px-3 text-[14px] text-ink placeholder:text-faint" />
+          </div>
+          <div class="flex flex-col gap-1.5">
+            <label for="cf-postcode" class="text-[12px] font-bold text-inkSoft">{t.contact.form.postcode}</label>
+            <input id="cf-postcode" type="text" name="postcode" autocomplete="postal-code"
+              class="min-h-[44px] rounded-[3px] border border-rule2 bg-surface px-3 text-[14px] text-ink placeholder:text-faint" />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="cf-home" class="text-[12px] font-bold text-inkSoft">{t.contact.form.homeType}</label>
+          <select id="cf-home" name="homeType"
+            class="min-h-[44px] rounded-[3px] border border-rule2 bg-surface px-3 text-[14px] text-ink">
+            <option value=""></option>
+            {t.contact.form.homeTypeOptions.map((opt) => <option value={opt}>{opt}</option>)}
+          </select>
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="mb-1 text-[12px] font-bold text-inkSoft">{t.contact.form.services}</legend>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+            {serviceKeys.map((key) => (
+              <label class="flex items-center gap-2 text-[13.5px] text-prose">
+                <input
+                  type="checkbox"
+                  name="services"
+                  value={t.serviceNames[key]}
+                  data-contact-service
+                  class="h-4 w-4 accent-accent"
+                />
+                {t.serviceNames[key]}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="cf-note" class="text-[12px] font-bold text-inkSoft">{t.contact.form.note}</label>
+          <textarea id="cf-note" name="note" rows="3" placeholder={t.contact.form.notePlaceholder}
+            class="rounded-[3px] border border-rule2 bg-surface px-3 py-2.5 text-[14px] text-ink placeholder:text-faint"></textarea>
+        </div>
+
+        <div class="mt-2 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <CtaButton
+            id="composer-send"
+            kind="compose"
+            href={`https://wa.me/31621313588`}
+            location="contact-composer"
+            size="lg"
+          >
+            {t.contact.ctaSend}
+          </CtaButton>
+          <CtaButton kind="question" message={waMessages.audit} location="contact-direct" variant="outline" size="lg">
+            {t.contact.ctaDirect}
+          </CtaButton>
+        </div>
+        <p class="small-copy">{t.contact.disclaimer}</p>
+      </form>
+
+      <div class="mt-10 border-t border-rule pt-6 text-[13.5px]">
+        <p class="text-ink">
+          <a href="tel:+31621313588" class="font-semibold hover:text-accent">{t.contact.footer.phone}</a>
+          <span class="mx-2 text-rule2">·</span>
+          <a href="mailto:care@dscliving.nl" class="font-semibold hover:text-accent">{t.contact.footer.email}</a>
+          <span class="mx-2 text-rule2">·</span>
+          <span class="text-muted">{t.contact.footer.site}</span>
+        </p>
+        <p class="small-copy mt-3">
+          <span class="font-bold uppercase tracking-[0.1em] text-muted">{t.contact.footer.areaLabel}</span>
+          {' → '}{t.contact.footer.areas}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // The contact "form" is a message composer, not a form: it never submits
+  // anywhere. It reads the fields, builds a WhatsApp message (omitting any
+  // line the visitor left blank), and rewrites the send button's href.
+  const WA_NUMBER = '31621313588'
+  function waLink(message: string) {
+    return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`
+  }
+
+  const form = document.getElementById('contact-composer') as HTMLFormElement | null
+  const sendBtn = document.getElementById('composer-send') as HTMLAnchorElement | null
+
+  function buildMessage(): string {
+    // Email and phone are collected for a future (phase 2) backend but,
+    // per the approved message template, are not folded into the
+    // WhatsApp text itself — only name, postcode, home type, services and
+    // the free-text note are.
+    if (!form) return "Hi DSC Living, I'd like to book a free home audit."
+    const name = (form.querySelector('#cf-name') as HTMLInputElement)?.value.trim()
+    const postcode = (form.querySelector('#cf-postcode') as HTMLInputElement)?.value.trim()
+    const homeType = (form.querySelector('#cf-home') as HTMLSelectElement)?.value.trim()
+    const note = (form.querySelector('#cf-note') as HTMLTextAreaElement)?.value.trim()
+    const services = Array.from(form.querySelectorAll<HTMLInputElement>('[data-contact-service]:checked')).map(
+      (el) => el.value,
+    )
+
+    const lines = ["Hi DSC Living, I'd like to book a free home audit.", '']
+    if (name) lines.push(`Name: ${name}`)
+    if (postcode) lines.push(`Postcode: ${postcode}`)
+    if (homeType) lines.push(`Home: ${homeType}`)
+    if (services.length) lines.push(`Services: ${services.join(', ')}`)
+    if (note) lines.push(`Note: ${note}`)
+
+    // Trim the message back to just the greeting if nothing else was filled in.
+    if (lines.length === 2) return lines[0]
+    return lines.join('\n')
+  }
+
+  function updateHref() {
+    if (!sendBtn) return
+    sendBtn.setAttribute('href', waLink(buildMessage()))
+  }
+
+  form?.addEventListener('input', updateHref)
+  form?.addEventListener('change', updateHref)
+  updateHref()
+</script>

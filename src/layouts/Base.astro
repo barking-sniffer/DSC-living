@@ -1,0 +1,169 @@
+---
+// Fonts are self-hosted from the @fontsource packages, but with our own
+// @font-face rules in global.css pointing at public/fonts/ (copied from
+// node_modules/@fontsource/*/files at build time) rather than importing
+// fontsource's CSS directly — that keeps the file URLs stable so the
+// <link rel="preload"> below actually matches the served file.
+import '../styles/global.css'
+import type { Dict } from '../i18n/en'
+
+interface Props {
+  t: Dict
+  path: string // '/' or '/en/'
+  title?: string
+  description?: string
+}
+
+const { t, path, title, description } = Astro.props
+const siteUrl = 'https://dscliving.nl'
+const isEn = path.startsWith('/en')
+const canonical = `${siteUrl}${path}`
+const altPath = isEn ? path.replace(/^\/en/, '') || '/' : `/en${path === '/' ? '' : path}`
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      name: 'DSC Living',
+      image: `${siteUrl}/images/og.jpg`,
+      url: siteUrl,
+      telephone: '+31621313588',
+      email: 'care@dscliving.nl',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Hoofddorp',
+        addressCountry: 'NL',
+      },
+      areaServed: ['Hoofddorp', 'Amstelveen', 'Haarlemmermeer', 'Amsterdam'],
+    },
+    {
+      '@type': 'Service',
+      serviceType: 'Household and facility management',
+      provider: { '@type': 'LocalBusiness', name: 'DSC Living' },
+      areaServed: ['Hoofddorp', 'Amstelveen', 'Haarlemmermeer', 'Amsterdam'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Household services',
+        itemListElement: [
+          'Cleaning',
+          'Laundry & ironing',
+          'Wardrobe & organising',
+          'Gardening',
+          'Cooking',
+          'Car care',
+        ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How much does DSC Living cost?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Packages start from €599 per month, minimum 8 hours, priced after a free home audit.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What happens if my cleaner is sick or on holiday?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'DSC Living arranges cover at no extra cost, without you needing to ask.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: "Is there a contract or employer obligation for the household?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Everyone who works for DSC Living is directly employed by DSC Living on a permanent Dutch contract, so the household is a customer, not an employer.',
+          },
+        },
+      ],
+    },
+  ],
+}
+---
+
+<!doctype html>
+<html lang={t.meta.lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title ?? t.meta.title}</title>
+    <meta name="description" content={description ?? t.meta.description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang="nl" href={`${siteUrl}${isEn ? altPath : path}`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${isEn ? path : altPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${isEn ? altPath : path}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title ?? t.meta.title} />
+    <meta property="og:description" content={description ?? t.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${siteUrl}/images/og.jpg`} />
+    <meta property="og:locale" content={t.meta.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? t.meta.title} />
+    <meta name="twitter:description" content={description ?? t.meta.description} />
+    <meta name="twitter:image" content={`${siteUrl}/images/og.jpg`} />
+
+    <!-- Preload the hero image and both fonts for fast LCP -->
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/newsreader-latin-400-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/karla-latin-400-normal.woff2"
+      crossorigin
+    />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!--
+      Analytics: Plausible, EU-hosted and cookieless. No consent banner
+      needed because no cookies are set and no personal data is processed.
+      Replace data-domain with the live domain before launch.
+    -->
+    <script
+      is:inline
+      defer
+      data-domain="dscliving.nl"
+      src="https://plausible.io/js/script.outbound-links.js"
+    ></script>
+  </head>
+  <body class="bg-paper">
+    <slot />
+
+    <script>
+      // Fire a Plausible custom event, labelled by location, for every
+      // outbound WhatsApp click. This is the only conversion metric in
+      // phase 1 — every CtaButton and direct wa.me link carries
+      // data-wa-location so this single listener covers the whole site.
+      document.addEventListener('click', (event) => {
+        const target = (event.target as HTMLElement)?.closest('[data-wa-cta]') as HTMLElement | null
+        if (!target) return
+        const location = target.getAttribute('data-wa-location') || 'unknown'
+        const kind = target.getAttribute('data-wa-kind') || 'unknown'
+        const plausible = (window as typeof window & {
+          plausible?: (event: string, opts?: { props?: Record<string, string> }) => void
+        }).plausible
+        if (typeof plausible === 'function') {
+          plausible('WhatsApp Click', { props: { location, kind } })
+        }
+      })
+    </script>
+  </body>
+</html>

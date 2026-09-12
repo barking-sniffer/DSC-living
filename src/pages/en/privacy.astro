@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import { en } from '../../i18n/en'
+
+const t = en
+---
+
+<Base t={t} path="/en/privacy" title={`Privacy statement — ${t.footer.company}`}>
+  <Nav t={t} locale="en" path="/en/privacy" />
+  <main class="section bg-paper">
+    <div class="content-wrap max-w-[70ch]">
+      <p class="eyebrow mb-3">LEGAL</p>
+      <h1 class="h2 mb-6">Privacy statement</h1>
+      <p class="lead mb-4">[TODO] — real privacy statement required before launch.</p>
+      <p class="body-copy mb-4">
+        This website does not use cookies and does not run a form that submits or stores personal
+        data. Every enquiry is composed as a WhatsApp message that opens in WhatsApp itself —
+        nothing is transmitted to or stored on dscliving.nl. WhatsApp is operated by Meta and is
+        subject to Meta's own privacy policy once a message is sent.
+      </p>
+      <p class="body-copy">
+        This site uses a cookieless, EU-hosted analytics service to measure aggregate visits. It
+        does not use cookies or collect personal data. A full statement covering data controller
+        details, retention, and visitor rights under the AVG/GDPR will replace this page before
+        launch.
+      </p>
+    </div>
+  </main>
+  <Footer t={t} locale="en" />
+</Base>

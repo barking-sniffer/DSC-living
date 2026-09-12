@@ -1,0 +1,44 @@
+---
+import type { Dict } from '../i18n/en'
+import { waLink, waMessages } from '../lib/whatsapp'
+
+interface Props {
+  t: Dict
+  locale: 'nl' | 'en'
+}
+
+const { t, locale } = Astro.props
+const prefix = locale === 'en' ? '/en' : ''
+---
+
+<footer class="bg-ink px-5 py-10 text-onDarkSoft md:px-14 md:py-14">
+  <div class="content-wrap flex flex-col gap-6 border-t border-darkRule pt-8 text-[13px] md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-1">
+      <span class="font-display text-[18px] text-onDark">{t.footer.company}</span>
+      <span class="small-copy text-onDarkMute">
+        KvK {t.footer.kvk} · BTW {t.footer.btw}
+      </span>
+    </div>
+
+    <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Legal">
+      <a href={`${prefix}/privacy`} class="hover:text-onDark">{t.footer.privacy}</a>
+      <a href={`${prefix}/terms`} class="hover:text-onDark">{t.footer.terms}</a>
+      <a href={`${prefix}/cookie-policy`} class="hover:text-onDark">{t.footer.cookiePolicy}</a>
+    </nav>
+
+    <div class="flex flex-wrap gap-x-6 gap-y-2">
+      <a href="mailto:care@dscliving.nl" class="hover:text-onDark">{t.footer.email}</a>
+      <a
+        href={waLink(waMessages.question)}
+        target="_blank"
+        rel="noopener"
+        data-wa-cta
+        data-wa-kind="question"
+        data-wa-location="footer"
+        class="hover:text-onDark"
+      >
+        {t.footer.whatsapp}
+      </a>
+    </div>
+  </div>
+</footer>

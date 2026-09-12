@@ -1,0 +1,126 @@
+---
+import type { Dict } from '../../i18n/en'
+import Figure from '../Figure.astro'
+import CtaButton from '../CtaButton.astro'
+import { images } from '../../data/images'
+import { waMessages } from '../../lib/whatsapp'
+
+interface Props {
+  t: Dict
+}
+
+const { t } = Astro.props
+
+const serviceImageMap: Record<string, keyof typeof images> = {
+  cleaning: 'serviceCleaning',
+  laundry: 'serviceLaundry',
+  organising: 'serviceOrganising',
+  garden: 'serviceGarden',
+  cooking: 'serviceCooking',
+  car: 'serviceCar',
+}
+---
+
+<section id="services" class="section bg-paper">
+  <div class="content-wrap">
+    <div class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow mb-3">{t.services.eyebrow}</p>
+        <h2 class="h2">{t.services.h2}</h2>
+      </div>
+      <p class="lead max-w-[38ch] md:text-right">{t.services.intro}</p>
+    </div>
+
+    <div id="service-selector" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {t.services.items.map((item) => {
+        const img = images[serviceImageMap[item.key]]
+        return (
+          <div class="flex flex-col rounded-[3px] border border-rule bg-surface">
+            <Figure src={img.src} alt={img.alt} note={img.note} ratio="4/3" class="rounded-t-[3px]" />
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <label class="flex cursor-pointer items-start gap-3">
+                <span class="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[3px] border-2 border-accent">
+                  <input
+                    type="checkbox"
+                    class="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                    data-service-checkbox
+                    data-service-label={item.title}
+                    aria-label={item.title}
+                  />
+                  <svg
+                    class="hidden h-3 w-3 peer-checked:block pointer-events-none"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                  >
+                    <path d="M2 6L5 9L10 2.5" stroke="#B4552F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span
+                    class="absolute inset-0 rounded-[2px] bg-accent opacity-0 peer-checked:opacity-100 pointer-events-none"
+                    aria-hidden="true"
+                  ></span>
+                </span>
+                <span class="flex items-center gap-2">
+                  <span class="h3">{item.title}</span>
+                  {item.tag && (
+                    <span class="rounded-[3px] bg-tint2 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.1em] text-inkSoft">
+                      {item.tag}
+                    </span>
+                  )}
+                </span>
+              </label>
+              <p class="body-copy">{item.description}</p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4 border-t border-rule pt-8 md:flex-row md:items-center md:justify-between">
+      <div class="max-w-[52ch]">
+        <p class="body-copy font-semibold text-inkSoft">{t.services.footerNote1}</p>
+        <p class="small-copy mt-1">{t.services.footerNote2}</p>
+      </div>
+      <CtaButton
+        id="build-package-cta"
+        kind="package"
+        message={waMessages.audit}
+        location="services-build-package"
+        size="lg"
+        class="shrink-0"
+      >
+        {t.services.ctaBuildPackage}
+      </CtaButton>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ auditMessage: waMessages.audit }}>
+  // Implements "step 1" of How It Works with no backend: as services are
+  // ticked, the Build Your Package link's WhatsApp text is rebuilt live.
+  // Nothing here is submitted anywhere — it only ever rewrites an <a href>.
+  const WA_NUMBER = '31621313588'
+  function waLink(message) {
+    return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`
+  }
+
+  const checkboxes = document.querySelectorAll('[data-service-checkbox]')
+  const cta = document.getElementById('build-package-cta')
+
+  function updateCta() {
+    if (!cta) return
+    const chosen = Array.from(checkboxes)
+      .filter((el) => el.checked)
+      .map((el) => el.getAttribute('data-service-label'))
+
+    if (chosen.length === 0) {
+      cta.setAttribute('href', waLink(auditMessage))
+      return
+    }
+
+    const message = `Hi DSC Living, I'd like an estimate for: ${chosen.join(', ')}.\nMy postcode is: `
+    cta.setAttribute('href', waLink(message))
+  }
+
+  checkboxes.forEach((el) => el.addEventListener('change', updateCta))
+  updateCta()
+</script>

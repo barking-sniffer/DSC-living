@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro'
+import Nav from '../../components/Nav.astro'
+import Footer from '../../components/Footer.astro'
+import { en } from '../../i18n/en'
+
+const t = en
+---
+
+<Base t={t} path="/en/cookie-policy" title={`Cookie policy — ${t.footer.company}`}>
+  <Nav t={t} locale="en" path="/en/cookie-policy" />
+  <main class="section bg-paper">
+    <div class="content-wrap max-w-[70ch]">
+      <p class="eyebrow mb-3">LEGAL</p>
+      <h1 class="h2 mb-6">Cookie policy</h1>
+      <p class="lead mb-4">[TODO] — confirm and expand before launch.</p>
+      <p class="body-copy">
+        This website does not set cookies. It uses a cookieless, EU-hosted analytics service that
+        does not track individuals across sites or store identifiers in the browser, so no
+        cookie consent banner is shown.
+      </p>
+    </div>
+  </main>
+  <Footer t={t} locale="en" />
+</Base>

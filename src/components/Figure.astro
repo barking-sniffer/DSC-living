@@ -1,0 +1,62 @@
+---
+// The image placeholder system. Every image on the site goes through this
+// component. When `src` is empty (the default for every slot in
+// src/data/images.ts) it renders a styled, labelled placeholder that holds
+// the exact same box the real photo will occupy — so dropping a file into
+// public/images/ and setting `src` in images.ts never shifts the layout.
+//
+// Images live in public/images/ and are referenced by absolute path, so
+// they're served as-is (not through the astro:assets build pipeline, which
+// only processes images imported from src/). Real photos should be
+// pre-sized/compressed before they're dropped in.
+
+interface Props {
+  src?: string
+  alt?: string
+  note: string
+  ratio?: string
+  dark?: boolean
+  class?: string
+  priority?: boolean
+}
+
+const {
+  src,
+  alt = '',
+  note,
+  ratio = '4/3',
+  dark = false,
+  class: className = '',
+  priority = false,
+} = Astro.props
+
+const hasImage = typeof src === 'string' && src.length > 0
+---
+
+{hasImage ? (
+  <div class={`relative overflow-hidden ${className}`} style={`aspect-ratio: ${ratio};`}>
+    <img
+      src={src}
+      alt={alt}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchpriority={priority ? 'high' : 'auto'}
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+  </div>
+) : (
+  <div
+    class={`relative overflow-hidden border border-rule ${dark ? 'bg-[#3A342D]' : 'bg-tint'} ${className}`}
+    style={`aspect-ratio: ${ratio};`}
+    role="img"
+    aria-label={note}
+  >
+    <span
+      class={`absolute bottom-3 left-3 rounded-[3px] px-2 py-1 text-[8.5px] uppercase tracking-[0.13em] ${
+        dark ? 'bg-black/30 text-onDarkMute' : 'bg-white/50 text-faint'
+      }`}
+    >
+      {note}
+    </span>
+  </div>
+)}
