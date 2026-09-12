@@ -11,7 +11,7 @@ interface Props {
 
 const { t, locale, path } = Astro.props
 const homeHref = locale === 'en' ? '/en/' : '/'
-const altHref = locale === 'en' ? (path.replace(/^\/en/, '') || '/') : `/en${path === '/' ? '' : path}`
+const altHref = locale === 'en' ? (path.replace(/^\/en/, '') || '/') : `/en${path === '/' ? '/' : path}`
 
 const links = [
   { label: t.nav.home, href: `${homeHref}#top` },

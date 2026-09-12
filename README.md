@@ -99,9 +99,14 @@ back to the plain audit-booking message.
 
 `/` is Dutch (default), `/en/` is English. Both are real static routes
 sharing the same section components; only `src/i18n/nl.ts` /
-`src/i18n/en.ts` differ. **`nl.ts` currently holds English placeholder text**
-— see the `// TODO: NL` marker at the top of that file — and needs the
-supplied Dutch copy before launch.
+`src/i18n/en.ts` differ. `nl.ts` holds a full Dutch translation of the
+approved English copy — same claims, same numbers, nothing added.
+
+Note: the WhatsApp message templates themselves (in `src/lib/whatsapp.ts`
+and the composer scripts in `Services.astro` / `Contact.astro`) stay in
+English on both locales — that's the literal text specified in the brief.
+If DSC Living wants Dutch visitors to compose Dutch WhatsApp messages
+instead, that's a small follow-up, not a bug.
 
 ## Analytics
 
@@ -123,8 +128,6 @@ quietly forgotten:
 
 - **KvK and BTW numbers** — `src/i18n/en.ts` / `nl.ts`, `footer.kvk` /
   `footer.btw`. Shown in the site footer.
-- **Dutch copy** — `src/i18n/nl.ts` is scaffolded with English placeholder
-  text; the real Dutch copy needs to replace it key-for-key.
 - **Privacy statement, Terms, Cookie policy** — `src/pages/privacy.astro`,
   `terms.astro`, `cookie-policy.astro` (and their `/en/` counterparts) are
   stubs. They're short because the site itself processes no personal data,
@@ -160,4 +163,4 @@ change when that happens.
       deployed URL (Lighthouse in a local headless run under-reports LCP
       versus a real CDN)
 - [x] 390px wide: sticky bar, nav overlay, and comparison cards checked
-- [x] `[TODO]` markers still visible for KvK, BTW, and the NL copy
+- [x] `[TODO]` markers still visible for KvK and BTW
