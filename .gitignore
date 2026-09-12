@@ -9,6 +9,11 @@ node_modules/
 .env
 .env.production
 
+# secrets — SSH keys, credentials
+*.pem
+*.key
+.aws/
+
 # macOS
 .DS_Store
 

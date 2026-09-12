@@ -18,6 +18,9 @@ interface Props {
   dark?: boolean
   class?: string
   priority?: boolean
+  focus?: string // CSS object-position, for when the source photo's own
+  // aspect ratio doesn't match the box (e.g. a landscape photo in a
+  // portrait slot) and a plain center-crop would cut off the subject.
 }
 
 const {
@@ -28,6 +31,7 @@ const {
   dark = false,
   class: className = '',
   priority = false,
+  focus = '50% 50%',
 } = Astro.props
 
 const hasImage = typeof src === 'string' && src.length > 0
@@ -42,6 +46,7 @@ const hasImage = typeof src === 'string' && src.length > 0
       decoding="async"
       fetchpriority={priority ? 'high' : 'auto'}
       class="absolute inset-0 h-full w-full object-cover"
+      style={`object-position: ${focus};`}
     />
   </div>
 ) : (
