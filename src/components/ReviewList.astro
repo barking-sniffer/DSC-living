@@ -1,0 +1,35 @@
+---
+// Renders reviews.ts. Emits no aggregateRating or review structured data
+// while the array is empty — claiming a rating that doesn't exist is the
+// same offence as a fabricated review, and it's machine-checkable (brief
+// §3.2), so this component simply doesn't emit anything until reviews.ts
+// holds real, verified entries.
+import { reviews } from '../data/reviews'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+---
+
+{reviews.length === 0 ? (
+  <div class="rounded-[3px] border border-rule bg-surface p-8 text-center">
+    <p class="body-copy">
+      {isNl
+        ? 'Er staan hier nog geen reviews. Zodra klanten reviews achterlaten, worden die hier getoond — alleen na verificatie en met toestemming, nooit verzonnen of gekocht.'
+        : 'There are no reviews here yet. Once customers leave reviews, they will appear here — only after verification and with consent, never invented or bought.'}
+    </p>
+  </div>
+) : (
+  <div class="flex flex-col gap-6">
+    {reviews.map((r) => (
+      <div class="border-t border-rule2 pt-4">
+        <p class="mb-1 text-[13px] font-bold text-ink">
+          {r.author} · {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}
+        </p>
+        <p class="body-copy">{r.text}</p>
+      </div>
+    ))}
+  </div>
+)}

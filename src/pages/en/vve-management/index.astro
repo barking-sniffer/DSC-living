@@ -1,0 +1,83 @@
+---
+import Service from '../../../layouts/Service.astro'
+import { images } from '../../../data/images'
+
+const img = images.vveHero
+---
+
+<Service
+  locale="en"
+  path="/en/vve-management/"
+  altPath="/vve-beheer/"
+  title="VvE Management Haarlemmermeer | DSC Living"
+  description="Communal-area upkeep, window cleaning, garden and coordinated inspections under one contract, with a condition report built for your long-term maintenance plan."
+  serviceType="VvE property management"
+  h1="VvE management and cleaning for apartment buildings"
+  lead="As a board member of a VvE in Haarlemmermeer, you're usually arranging communal-area upkeep through several separate suppliers. DSC Living brings cleaning, window cleaning, garden care and coordinated inspections under one contract, with a condition report you can use directly for your long-term maintenance plan (MJOP)."
+  breadcrumbs={[{ label: 'Home', href: '/en/' }, { label: 'VvE management' }]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Request a proposal"
+>
+  <h2 class="h2 mt-10 mb-4">What does VvE cleaning cost per apartment?</h2>
+  <p class="body-copy mb-4">
+    That depends on the number of apartments, the size of the communal areas, and how often you
+    want cleaning and upkeep. We visit for a free audit of the building, discuss the board's
+    priorities, and send a written proposal within two working days — including a per-apartment
+    indication so it drops straight into your budget.
+  </p>
+  <p class="body-copy mb-4">
+    Because cleaning, window cleaning, garden care and inspection coordination run under one
+    agreement, the VvE receives one invoice instead of several from several suppliers — and the
+    board has one point of contact instead of five.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">What counts as a communal area?</h2>
+  <p class="body-copy mb-4">
+    Entrance, stairwell, lift area, galleries, storage corridors, and any shared garden or car
+    park — in short, everything that isn't part of an individual apartment but is used daily by
+    every resident. We build a job sheet with the board: which space, how often, and to what
+    standard.
+  </p>
+  <p class="body-copy mb-4">
+    For communal window cleaning and shared garden maintenance we use the same permanent staff
+    as our other services — not a different subcontractor for every job.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Inspections we coordinate</h2>
+  <p class="body-copy mb-4">
+    Fire safety, lift inspections, communal-area electrics — mandatory inspections each run on
+    their own schedule with their own certifying body. We manage the calendar, make sure the
+    right certified firm attends, and archive the certificate once the inspection is complete.
+  </p>
+  <p class="body-copy mb-4">
+    We don't carry out these inspections ourselves — that's done by the certified firms
+    licensed to. Our role is coordination: keeping the calendar, informing the board, and making
+    sure the paperwork is in order when an insurer or inspector asks for it.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Condition reporting for your MJOP</h2>
+  <p class="body-copy mb-4">
+    At every visit we record the condition of the communal areas — what needs attention now,
+    what's due within the year, and what can reasonably wait, each with a cost indication. This
+    reporting is built to feed directly into your long-term maintenance plan, rather than leaving
+    the board to compile everything from scratch.
+  </p>
+  <p class="body-copy mb-4">
+    That's the real difference from a one-off cleaning arrangement: you get not just a clean
+    entrance, but a running record of the building's condition.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">A proposal for your AGM</h2>
+  <p class="body-copy mb-4">
+    Preparing for a general members' meeting? We put together a clear, written proposal you can
+    put straight on the agenda — scope, frequency and a per-apartment cost indication, so members
+    can see exactly what they're voting on.
+  </p>
+  <p class="body-copy">
+    Everyone who works for us is permanently employed on a Dutch contract and screened before
+    their first visit. More on that is on our
+    <a href="/en/safety/" class="text-accent hover:underline">safety and security</a> page. Also
+    managing individual homes alongside the building? See our
+    <a href="/en/residential/" class="text-accent hover:underline">residential services</a>.
+  </p>
+</Service>

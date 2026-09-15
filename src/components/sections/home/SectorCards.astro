@@ -1,0 +1,48 @@
+---
+// Brief Part 7.4 — the two sector hubs. Images per 6.2: sector-residential
+// and sector-commercial, both 3:2, empty and architectural.
+import Figure from '../../Figure.astro'
+import { images } from '../../../data/images'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+const wonenHref = isNl ? '/wonen/' : '/en/residential/'
+const zakelijkHref = isNl ? '/zakelijk/' : '/en/commercial/'
+---
+
+<section class="section bg-paper">
+  <div class="content-wrap grid grid-cols-1 gap-8 md:grid-cols-2">
+    <a href={wonenHref} class="group block rounded-[3px] border border-rule bg-surface">
+      <Figure src={images.sectorResidential.src} alt={images.sectorResidential.alt} note={images.sectorResidential.note} ratio="3/2" class="rounded-t-[3px]" />
+      <div class="p-6">
+        <h3 class="h3 mb-2">{isNl ? 'Wonen' : 'Residential'}</h3>
+        <p class="body-copy mb-4">
+          {isNl
+            ? 'Woningen, appartementen en VvE’s. Wekelijkse zorg, ondersteuning bij verhuur en verkoop, en alles daartussen.'
+            : 'Homes, apartments and VvE buildings. Weekly care, letting and sale support, and everything in between.'}
+        </p>
+        <span class="text-[13px] font-bold text-accent group-hover:underline">
+          {isNl ? 'Bekijk onze diensten voor wonen →' : 'See residential services →'}
+        </span>
+      </div>
+    </a>
+
+    <a href={zakelijkHref} class="group block rounded-[3px] border border-rule bg-surface">
+      <Figure src={images.sectorCommercial.src} alt={images.sectorCommercial.alt} note={images.sectorCommercial.note} ratio="3/2" class="rounded-t-[3px]" />
+      <div class="p-6">
+        <h3 class="h3 mb-2">{isNl ? 'Zakelijk' : 'Commercial'}</h3>
+        <p class="body-copy mb-4">
+          {isNl
+            ? 'Kantoren, sportscholen, praktijken en winkelruimten. Uitstraling, keuringsroutines en reparaties.'
+            : 'Offices, gyms, clinics and retail units. Presentation, compliance routines and reactive maintenance.'}
+        </p>
+        <span class="text-[13px] font-bold text-accent group-hover:underline">
+          {isNl ? 'Bekijk onze zakelijke diensten →' : 'See commercial services →'}
+        </span>
+      </div>
+    </a>
+  </div>
+</section>

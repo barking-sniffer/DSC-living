@@ -1,0 +1,31 @@
+---
+// Short cross-link from /wonen to /vve-beheer — brief Part 8 lists this
+// in the page order without giving verbatim teaser copy, so this stays
+// short and only restates what's confirmed elsewhere (condition
+// reporting feeding the MJOP, coordinating inspections).
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+const vveHref = isNl ? '/vve-beheer/' : '/en/vve-management/'
+---
+
+<section class="section bg-tint">
+  <div class="content-wrap flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+    <div class="max-w-[52ch]">
+      <p class="eyebrow mb-2">{isNl ? 'BENT U BESTUURSLID VAN EEN VVE?' : 'ON A VVE BOARD?'}</p>
+      <h3 class="h3 mb-2">
+        {isNl ? 'Beheer en schoonmaak voor appartementencomplexen' : 'Management and cleaning for apartment buildings'}
+      </h3>
+      <p class="body-copy">
+        {isNl
+          ? 'Onderhoud van algemene ruimten, gecoördineerde keuringen en een conditierapportage die rechtstreeks voedt in uw MJOP.'
+          : 'Communal-area upkeep, coordinated inspections, and a condition report that feeds directly into your long-term maintenance plan.'}
+      </p>
+    </div>
+    <a href={vveHref} class="shrink-0 text-[13px] font-bold text-accent hover:underline">
+      {isNl ? 'Bekijk VvE-beheer →' : 'See VvE management →'}
+    </a>
+  </div>
+</section>

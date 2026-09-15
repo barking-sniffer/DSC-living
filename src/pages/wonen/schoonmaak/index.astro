@@ -1,0 +1,115 @@
+---
+// The highest-volume page on the site — brief §3.1 "/wonen/schoonmaak".
+import Service from '../../../layouts/Service.astro'
+import { images } from '../../../data/images'
+
+const img = images.schoonmaakHero
+---
+
+<Service
+  locale="nl"
+  path="/wonen/schoonmaak/"
+  altPath="/en/residential/cleaning/"
+  title="Schoonmaakbedrijf Hoofddorp voor particulieren | DSC Living"
+  description="Vaste, gescreende schoonmakers in loondienst. Wekelijks of tweewekelijks, vervanging bij ziekte, verzekerd werk. Vraag een gratis opname aan."
+  serviceType="Residential cleaning"
+  h1="Schoonmaak aan huis in Hoofddorp, Amstelveen en Haarlemmermeer"
+  lead="Op zoek naar een betrouwbaar schoonmaakbedrijf in Hoofddorp? DSC Living verzorgt de wekelijkse of tweewekelijkse schoonmaak aan huis voor gezinnen in Hoofddorp, Amstelveen en de rest van Haarlemmermeer — met vaste, gescreende medewerkers in loondienst, niet via een wisselende poule."
+  breadcrumbs={[
+    { label: 'Home', href: '/' },
+    { label: 'Wonen', href: '/wonen/' },
+    { label: 'Schoonmaak' },
+  ]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Plan uw gratis opname"
+>
+  <h2 class="h2 mt-10 mb-4">Wat kost schoonmaak aan huis?</h2>
+  <p class="body-copy mb-4">
+    Elke woning is anders, dus wij werken niet met een vast bedrag per vierkante meter. De prijs
+    hangt af van de grootte van de woning, hoe vaak u schoonmaak wilt en wat er precies in het
+    werkpakket zit. Na een gratis opname ontvangt u binnen twee werkdagen een schriftelijk
+    voorstel, vrijblijvend en zonder verplichting.
+  </p>
+  <p class="body-copy mb-4">
+    Schoonmaak wordt in de praktijk vaak gecombineerd met andere diensten — was en strijk,
+    glazenwassen, tuinonderhoud — onder één overeenkomst en één factuur. Dat scheelt vaak meer
+    dan losse afspraken bij losse leveranciers, en u heeft nog altijd maar één aanspreekpunt als
+    er iets moet veranderen.
+  </p>
+  <p class="body-copy mb-4">
+    In de offerte ziet u precies waarvoor u betaalt: het aantal uur per bezoek, de frequentie, en
+    wat er twee keer per jaar bij de grote schoonmaakbeurt wordt meegenomen. Er zijn geen
+    verborgen toeslagen achteraf — wijzigt uw wens tussentijds, dan past u de werkkaart aan en
+    ziet u vooraf wat dat voor de prijs betekent.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Hoe werkt het?</h2>
+  <p class="body-copy mb-4">
+    Het begint met een gratis opname bij u thuis. Wij bekijken de woning, bespreken welke
+    ruimtes aandacht nodig hebben en op welke standaard, en leggen dat vast in een werkkaart.
+    Die werkkaart is het uitgangspunt voor elk bezoek — geen los briefje, maar een vast document
+    dat u op elk moment kunt laten aanpassen wanneer uw wensen veranderen.
+  </p>
+  <p class="body-copy mb-4">
+    Daarna plant u een wekelijks of tweewekelijks bezoek op een moment dat u uitkomt, en twee
+    keer per jaar een grote schoonmaakbeurt waarin ook de plekken worden meegenomen die bij een
+    gewone ronde blijven liggen.
+  </p>
+  <p class="body-copy mb-4">
+    Elk bezoek staat in uw eigen agenda — wij synchroniseren met Google, Outlook en Apple, zodat
+    u nooit hoeft te raden welke dag het is en direct ziet wanneer wij een bezoek verzetten. Een
+    vaste accountmanager is uw enige aanspreekpunt: verzoeken en wijzigingen komen bij ons
+    binnen, niet bij de persoon die in uw keuken staat.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Wat is inbegrepen?</h2>
+  <p class="body-copy mb-4">
+    Keukens, badkamers, vloeren, oppervlakken, stoffen en afval — kamer voor kamer, volgens uw
+    werkkaart. Wilt u ook extra's zoals de binnenkant van de oven, de koelkast of ramen aan de
+    binnenzijde? Dat spreekt u vooraf af, zodat er nooit onduidelijkheid bestaat over wat er wel
+    en niet wordt gedaan.
+  </p>
+  <p class="body-copy mb-4">
+    Voor <a href="/wonen/glazenwassen/" class="text-accent hover:underline">glazenwassen aan de buitenzijde</a> en
+    <a href="/wonen/tuinonderhoud/" class="text-accent hover:underline">tuinonderhoud</a> hebben
+    wij aparte, gespecialiseerde diensten — ook die zijn onder dezelfde overeenkomst te regelen,
+    zodat u niet met meerdere leveranciers en meerdere facturen blijft zitten.
+  </p>
+  <p class="body-copy mb-4">
+    Niet tevreden over een specifiek punt? U heeft 48 uur om dat te melden en wij doen het
+    kosteloos over — en lopen zo nodig samen de werkkaart door, voor het geval de afspraak zelf
+    moet worden bijgesteld in plaats van de uitvoering.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Wie komt er bij u thuis?</h2>
+  <p class="body-copy mb-4">
+    Iedereen die bij u schoonmaakt is in dienst van DSC Living, met een Nederlandse
+    arbeidsovereenkomst — geen wisselende zzp'ers, geen onderaanneming. Voor het eerste bezoek
+    wordt iedereen gescreend, en u weet vooraf wie er langskomt. Wordt iemand ziek of gaat iemand
+    op vakantie, dan regelen wij vervanging zonder dat u daar zelf achteraan hoeft.
+  </p>
+  <p class="body-copy mb-4">
+    Ons werk is gedekt door een bedrijfsaansprakelijkheidsverzekering, dus gaat er onverhoopt
+    iets kapot, dan wordt dat vervangen. Meer over hoe wij screenen en met sleutels omgaan leest
+    u op onze pagina over <a href="/veiligheid/" class="text-accent hover:underline">veiligheid</a>.
+  </p>
+  <p class="body-copy mb-4">
+    Dat is een ander uitgangspunt dan een schoonmaker die u zelf, rechtstreeks, via een
+    advertentie of een groep op social media inhuurt. In dat geval bent u volgens de Nederlandse
+    wet al snel de werkgever — met de verplichtingen die daarbij horen, zelfs zonder schriftelijk
+    contract. Bij DSC Living heeft u een leverancier en een factuur, en liggen die verplichtingen
+    bij ons.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">In welke plaatsen werken wij?</h2>
+  <p class="body-copy mb-4">
+    Wij verzorgen schoonmaak aan huis in Hoofddorp, Amstelveen en de rest van Haarlemmermeer, en
+    werken ook in Amsterdam. Twijfelt u of uw adres binnen ons werkgebied valt? Stuur ons een
+    bericht — dat weten we meestal binnen een paar minuten.
+  </p>
+  <p class="body-copy">
+    Schoonmaak is één van de zes diensten die u bij ons kunt combineren onder één contract. Een
+    volledig overzicht, inclusief was en strijk, organiseren, tuin, koken en autoverzorging,
+    staat op de <a href="/wonen/" class="text-accent hover:underline">pagina voor wonen</a>.
+  </p>
+</Service>

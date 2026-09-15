@@ -1,0 +1,292 @@
+---
+// Sticky mega-menu header — brief Part 4. Three panels (Your needs,
+// Services, Company), one open at a time, click to open (not hover),
+// closed by Escape / outside click / route change. Below 900px the
+// panels become an accordion in a full-screen overlay.
+import CtaButton from './CtaButton.astro'
+import { waMessages } from '../lib/whatsapp'
+import { serviceRoutes, legalRoutes } from '../data/routes'
+
+interface Props {
+  locale: 'nl' | 'en'
+  path: string // current path, for the language switcher and active state
+  altPath: string // the exact counterpart path in the other locale
+}
+
+const { locale, path, altPath } = Astro.props
+const isNl = locale === 'nl'
+const home = isNl ? '/' : '/en/'
+const wonen = isNl ? '/wonen/' : '/en/residential/'
+const zakelijk = isNl ? '/zakelijk/' : '/en/commercial/'
+const vve = isNl ? '/vve-beheer/' : '/en/vve-management/'
+const contact = `${wonen}#contact`
+
+const t = {
+  yourNeeds: isNl ? 'Uw situatie' : 'Your needs',
+  services: isNl ? 'Diensten' : 'Services',
+  company: isNl ? 'Bedrijf' : 'Company',
+  contact: isNl ? 'Contact' : 'Contact',
+  login: isNl ? 'Inloggen' : 'Log in',
+  cta: isNl ? 'Plan uw gratis opname' : 'Book your free audit',
+  langLabel: 'NL / EN',
+  close: isNl ? 'Sluiten' : 'Close',
+  openMenu: isNl ? 'Menu openen' : 'Open menu',
+}
+
+const needs = isNl
+  ? [
+      { h: 'Ik woon er zelf en wil het uit handen geven', sub: 'De wekelijkse routine, volledig geregeld.', href: `${wonen}#bewoond` },
+      { h: 'Ik ben weg, of het pand staat leeg', sub: 'Controle, post en toegang terwijl u er niet bent.', href: `${wonen}leegstandsbeheer/` },
+      { h: 'Ik verhuur een pand', sub: 'Gereedmaken, vastleggen, één aanspreekpunt.', href: `${wonen}#verhuur` },
+      { h: 'Ik verkoop een pand', sub: 'Bezichtigingsklaar tot de sleuteloverdracht.', href: `${wonen}#verkoop` },
+      { h: 'Ik zit in een VvE-bestuur', sub: 'Algemene ruimten, keuringen, het MJOP.', href: vve },
+      { h: 'Ik heb een bedrijfsruimte', sub: 'Uitstraling, keuringen, reparaties.', href: zakelijk },
+    ]
+  : [
+      { h: 'I live in my home and want it looked after', sub: 'The weekly routine, fully arranged.', href: `${wonen}#bewoond` },
+      { h: 'I am away, or the property is empty', sub: 'Checks, post and access while you are away.', href: `${wonen}vacant-property/` },
+      { h: 'I am letting a property', sub: 'Prepared, documented, one point of contact.', href: `${wonen}#verhuur` },
+      { h: 'I am selling a property', sub: 'Viewing-ready through to the handover.', href: `${wonen}#verkoop` },
+      { h: 'I am on a VvE board', sub: 'Communal areas, inspections, the MJOP.', href: vve },
+      { h: 'I run a commercial space', sub: 'Presentation, inspections, repairs.', href: zakelijk },
+    ]
+
+const wonenServices = serviceRoutes.filter((r) => r.sector === 'wonen')
+const zakelijkServices = serviceRoutes.filter((r) => r.sector === 'zakelijk')
+
+const companyLinks = legalRoutes.filter((r) =>
+  ['about', 'veiligheid', 'faq', 'reviews', 'company-details', 'careers'].includes(r.slug),
+)
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 bg-paper border-b border-rule" data-header style={`padding-top: env(safe-area-inset-top, 0px);`}>
+  <div class="content-wrap flex h-16 items-center justify-between px-5 md:h-[76px] md:px-14">
+    <a href={home} class="font-display text-[20px] leading-none text-ink md:text-[22px]">DSC Living</a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+      <button type="button" data-panel-trigger="needs" aria-expanded="false" aria-controls="panel-needs" class="flex items-center gap-1 rounded-[3px] px-3 py-2 text-[13.5px] font-semibold text-inkSoft hover:text-accent">
+        {t.yourNeeds}
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+      </button>
+      <button type="button" data-panel-trigger="services" aria-expanded="false" aria-controls="panel-services" class="flex items-center gap-1 rounded-[3px] px-3 py-2 text-[13.5px] font-semibold text-inkSoft hover:text-accent">
+        {t.services}
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+      </button>
+      <button type="button" data-panel-trigger="company" aria-expanded="false" aria-controls="panel-company" class="flex items-center gap-1 rounded-[3px] px-3 py-2 text-[13.5px] font-semibold text-inkSoft hover:text-accent">
+        {t.company}
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+      </button>
+      <a href={contact} class="rounded-[3px] px-3 py-2 text-[13.5px] font-semibold text-inkSoft hover:text-accent">{t.contact}</a>
+    </nav>
+
+    <div class="hidden items-center gap-5 lg:flex">
+      <a href="#" aria-disabled="true" tabindex="-1" class="text-[13px] text-muted cursor-not-allowed">{t.login}</a>
+      <a href={altPath} class="text-[12px] font-bold tracking-[0.05em] text-inkSoft hover:text-accent" aria-label="Switch language">{t.langLabel}</a>
+      <CtaButton kind="audit" message={waMessages.audit} location="header" size="md">{t.cta}</CtaButton>
+    </div>
+
+    <button id="mobile-menu-toggle" type="button" class="flex h-11 w-11 items-center justify-center lg:hidden" aria-expanded="false" aria-controls="mobile-overlay" aria-label={t.openMenu}>
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M0 1H22" stroke="#2A2622" stroke-width="2" /><path d="M0 8H22" stroke="#2A2622" stroke-width="2" /><path d="M0 15H22" stroke="#2A2622" stroke-width="2" /></svg>
+    </button>
+  </div>
+
+  <!-- Desktop panels -->
+  <div id="panel-needs" data-panel role="region" aria-label={t.yourNeeds} hidden class="absolute inset-x-0 top-full hidden border-y border-rule bg-surface lg:block">
+    <div class="content-wrap grid grid-cols-3 gap-x-10 gap-y-6 px-14 py-10">
+      {needs.map((n) => (
+        <a href={n.href} class="group block">
+          <p class="text-[14px] font-semibold text-ink group-hover:text-accent">{n.h}</p>
+          <p class="mt-1 text-[13px] text-muted">{n.sub}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div id="panel-services" data-panel role="region" aria-label={t.services} hidden class="absolute inset-x-0 top-full hidden border-y border-rule bg-surface lg:block">
+    <div class="content-wrap grid grid-cols-2 gap-10 px-14 py-10">
+      <div>
+        <p class="eyebrow mb-3">{isNl ? 'WONEN' : 'RESIDENTIAL'}</p>
+        <ul class="flex flex-col gap-2.5">
+          {wonenServices.map((s) => (
+            <li>
+              <a href={isNl ? s.nlPath : s.enPath} class="text-[14px] text-inkSoft hover:text-accent">
+                {isNl ? s.nlTitle : s.enTitle}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">{isNl ? 'VASTGOED' : 'PROPERTY'}</p>
+        <ul class="flex flex-col gap-2.5">
+          <li><a href={vve} class="text-[14px] text-inkSoft hover:text-accent">{isNl ? 'VvE-beheer' : 'VvE management'}</a></li>
+          {zakelijkServices.map((s) => (
+            <li>
+              <a href={isNl ? s.nlPath : s.enPath} class="text-[14px] text-inkSoft hover:text-accent">
+                {isNl ? s.nlTitle : s.enTitle}
+              </a>
+            </li>
+          ))}
+          <li><a href={vve} class="text-[14px] text-inkSoft hover:text-accent">{isNl ? 'Onderhoud en vakmensen' : 'Maintenance and trades'}</a></li>
+          <li><a href={`${wonen}#verhuur`} class="text-[14px] text-inkSoft hover:text-accent">{isNl ? 'Verhuur- en verkoopbegeleiding' : 'Letting and sale support'}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-company" data-panel role="region" aria-label={t.company} hidden class="absolute inset-x-0 top-full hidden border-y border-rule bg-surface lg:block">
+    <div class="content-wrap px-14 py-10">
+      <ul class="flex flex-wrap gap-x-10 gap-y-3">
+        {companyLinks.map((c) => (
+          <li>
+            <a href={isNl ? c.nlPath : c.enPath} class="text-[14px] text-inkSoft hover:text-accent">
+              {isNl ? c.nlTitle : c.enTitle}
+            </a>
+          </li>
+        ))}
+        <li><a href={contact} class="text-[14px] text-inkSoft hover:text-accent">{t.contact}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mobile overlay: accordion of the same three groups -->
+  <div id="mobile-overlay" class="fixed inset-0 z-40 hidden flex-col overflow-y-auto bg-paper px-5 py-6 lg:hidden">
+    <div class="flex items-center justify-between">
+      <span class="font-display text-[20px] text-ink">DSC Living</span>
+      <button id="mobile-close" type="button" class="flex h-11 w-11 items-center justify-center" aria-label={t.close}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1 1L17 17M17 1L1 17" stroke="#2A2622" stroke-width="2" /></svg>
+      </button>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-1">
+      {[
+        { label: t.yourNeeds, items: needs.map((n) => ({ label: n.h, href: n.href })) },
+        {
+          label: t.services,
+          items: [
+            { label: isNl ? 'VvE-beheer' : 'VvE management', href: vve },
+            ...wonenServices.map((s) => ({ label: isNl ? s.nlTitle : s.enTitle, href: isNl ? s.nlPath : s.enPath })),
+            ...zakelijkServices.map((s) => ({ label: isNl ? s.nlTitle : s.enTitle, href: isNl ? s.nlPath : s.enPath })),
+          ],
+        },
+        { label: t.company, items: companyLinks.map((c) => ({ label: isNl ? c.nlTitle : c.enTitle, href: isNl ? c.nlPath : c.enPath })) },
+      ].map((group, gi) => (
+        <div class="border-b border-rule py-2">
+          <button type="button" data-accordion-trigger={gi} aria-expanded="false" aria-controls={`accordion-${gi}`} class="flex w-full items-center justify-between py-3 text-left text-[16px] font-semibold text-ink">
+            {group.label}
+            <svg data-accordion-icon width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1L6 6L11 1" stroke="#2A2622" stroke-width="1.5" /></svg>
+          </button>
+          <div id={`accordion-${gi}`} data-accordion-panel hidden class="flex flex-col gap-3 pb-4 pl-1">
+            {group.items.map((it) => (
+              <a href={it.href} class="text-[14px] text-inkSoft" data-mobile-link>{it.label}</a>
+            ))}
+          </div>
+        </div>
+      ))}
+      <a href={contact} class="border-b border-rule py-4 text-[16px] font-semibold text-ink" data-mobile-link>{t.contact}</a>
+      <a href={altPath} class="py-4 text-[14px] font-bold text-inkSoft" data-mobile-link>{t.langLabel}</a>
+    </div>
+
+    <CtaButton kind="audit" message={waMessages.audit} location="header-mobile" size="lg" class="mt-6 w-full">{t.cta}</CtaButton>
+  </div>
+</header>
+
+<style>
+  #panel-needs:not([hidden]), #panel-services:not([hidden]), #panel-company:not([hidden]) {
+    display: block;
+  }
+  #mobile-overlay.is-open { display: flex; }
+</style>
+
+<script>
+  // One panel open at a time. Click to open (not hover). Escape, outside
+  // click, and route change (any link click) all close it, and focus
+  // returns to the trigger that opened it.
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-panel-trigger]'))
+  const panels: Record<string, HTMLElement> = {}
+  triggers.forEach((btn) => {
+    const key = btn.getAttribute('data-panel-trigger')!
+    const el = document.getElementById(`panel-${key}`)
+    if (el) panels[key] = el
+  })
+  let openKey: string | null = null
+  let lastTrigger: HTMLButtonElement | null = null
+
+  function closeAll(returnFocus = false) {
+    for (const key in panels) {
+      panels[key].hidden = true
+    }
+    triggers.forEach((b) => b.setAttribute('aria-expanded', 'false'))
+    if (returnFocus && lastTrigger) lastTrigger.focus()
+    openKey = null
+  }
+
+  function openPanel(key: string, trigger: HTMLButtonElement) {
+    if (openKey === key) {
+      closeAll()
+      return
+    }
+    closeAll()
+    panels[key].hidden = false
+    trigger.setAttribute('aria-expanded', 'true')
+    openKey = key
+    lastTrigger = trigger
+  }
+
+  triggers.forEach((btn) => {
+    btn.addEventListener('click', () => openPanel(btn.getAttribute('data-panel-trigger')!, btn))
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && openKey) closeAll(true)
+  })
+  document.addEventListener('click', (e) => {
+    if (!openKey) return
+    const target = e.target as HTMLElement
+    if (target.closest('[data-panel]') || target.closest('[data-panel-trigger]')) return
+    closeAll()
+  })
+  // Route change: any in-panel link click closes the panel immediately
+  // (before navigation), satisfying "route change closes it".
+  document.querySelectorAll('[data-panel] a').forEach((a) => a.addEventListener('click', () => closeAll()))
+
+  // Solid header from first paint (no hero to sit transparently over on
+  // these content pages), but keep the hook for a scrolled state if a
+  // future hero page wants it.
+  const header = document.querySelector<HTMLElement>('[data-header]')
+  const setScrolled = () => {
+    if (!header) return
+    if (window.scrollY > 8) header.classList.add('shadow-sm')
+    else header.classList.remove('shadow-sm')
+  }
+  setScrolled()
+  window.addEventListener('scroll', setScrolled, { passive: true })
+
+  // Mobile overlay + accordion
+  const mobileToggle = document.getElementById('mobile-menu-toggle')
+  const mobileClose = document.getElementById('mobile-close')
+  const mobileOverlay = document.getElementById('mobile-overlay')
+
+  mobileToggle?.addEventListener('click', () => {
+    mobileOverlay?.classList.add('is-open')
+    document.body.style.overflow = 'hidden'
+    mobileToggle.setAttribute('aria-expanded', 'true')
+  })
+  function closeMobile() {
+    mobileOverlay?.classList.remove('is-open')
+    document.body.style.overflow = ''
+    mobileToggle?.setAttribute('aria-expanded', 'false')
+  }
+  mobileClose?.addEventListener('click', closeMobile)
+  document.querySelectorAll('[data-mobile-link]').forEach((a) => a.addEventListener('click', closeMobile))
+
+  document.querySelectorAll<HTMLButtonElement>('[data-accordion-trigger]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const panelId = btn.getAttribute('aria-controls')!
+      const panel = document.getElementById(panelId) as HTMLElement
+      const isOpen = btn.getAttribute('aria-expanded') === 'true'
+      btn.setAttribute('aria-expanded', String(!isOpen))
+      panel.hidden = isOpen
+    })
+  })
+</script>

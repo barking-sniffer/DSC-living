@@ -1,0 +1,41 @@
+---
+// Brief Part 7.3 — five points, dark section for contrast against the
+// lighter sections either side.
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+
+const pointsNl = [
+  { t: 'Eén leverancier in plaats van meerdere.', d: 'Schoonmaak, tuinonderhoud, autoverzorging, was en strijk, en de vakmensen — elektra, loodgieterswerk, timmerwerk, schilderwerk — geregeld via één overeenkomst, met één planning en één factuur. Gecertificeerd werk wordt uitgevoerd door gecertificeerde bedrijven; wij regelen het, houden er toezicht op en staan ervoor in.' },
+  { t: 'Wij inventariseren, u beslist.', d: 'Na de opname stellen wij een werkkaart voor: wat er gebeurt, hoe vaak, en volgens welke standaard. U past die aan tot hij klopt met wat u werkelijk wilt, en u kunt hem daarna op elk moment herzien.' },
+  { t: 'Meld het, wanneer het u uitkomt.', d: 'Onze supportlijn is dag en nacht bereikbaar. Meldt u een storing of schade, dan hoort u dezelfde dag van ons, en staat het werk binnen 24 uur ingepland voor zover het aan ons is om in te plannen.' },
+  { t: 'Transparante prijzen bij elk werk.', d: 'Of het nu om een keuken gaat, een garage of een kinderkamer: u ontvangt vooraf een volledige materiaalstaat naast de offerte voor het arbeidsloon. U ziet apart wat de materialen kosten en wat het werk kost.' },
+  { t: 'Ingepland op uw moment.', d: 'Bezoeken en werkzaamheden worden op uw week afgestemd, niet op de onze. Vraagt een klus om toegang op een lastig tijdstip, dan maken wij daar doorgaans een gewoon tijdstip van.' },
+]
+
+const pointsEn = [
+  { t: 'One supplier, not several.', d: 'Cleaning, gardening, car care, laundry and ironing, and the trades — electrical, plumbing, carpentry, decorating — arranged through a single agreement, with one schedule and one invoice. Certified work is carried out by certified firms; we arrange it, oversee it and stand behind it.' },
+  { t: 'We assess, you decide.', d: 'After the audit we propose a job sheet: what gets done, how often, and to what standard. You adjust it until it reflects what you actually want, and you can revise it at any point afterwards.' },
+  { t: 'Report anything, any time.', d: 'Our support line is open around the clock. Report a fault or a piece of damage and you will hear back the same day, with the work scheduled within 24 hours wherever it is ours to schedule.' },
+  { t: 'Transparent pricing on every job.', d: 'Whether it is a kitchen, a garage or a child’s bedroom, you receive a proper bill of materials alongside the labour quote, before anything begins. You can see what the parts cost and what the work costs, separately.' },
+  { t: 'Scheduled around you.', d: 'Visits and works are planned to suit your week, not ours. Where a job needs access at an awkward hour, we will usually find a way to make that the normal hour instead.' },
+]
+
+const points = isNl ? pointsNl : pointsEn
+---
+
+<section class="section bg-ink text-onDarkSoft">
+  <div class="content-wrap">
+    <h2 class="h2 text-onDark mb-10">{isNl ? 'Alle diensten onder één dak' : 'All services under one roof'}</h2>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {points.map((p) => (
+        <div>
+          <h3 class="h3 text-onDark mb-2">{p.t}</h3>
+          <p class="body-copy text-onDarkSoft">{p.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+// New for /wonen — brief Part 8. Carries the page's one H1 (the SEO
+// heading) and the four "need" anchors the header's mega-menu links
+// straight into: #bewoond, #leeg, #verhuur, #verkoop.
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+
+const situations = isNl
+  ? [
+      { id: 'bewoond', h: 'Bewoond.', d: 'De wekelijkse of tweewekelijkse routine, en één nummer voor al het andere dat het huis nodig heeft.' },
+      { id: 'leeg', h: 'Leegstaand.', d: 'Een periode in het buitenland, een tweede woning, een huis tussen bewoners in. Wij controleren, handelen de post af, spoelen de leidingen door, laten monteurs binnen en reageren als er iets misgaat.' },
+      { id: 'verhuur', h: 'Verhuurd.', d: 'Gereedgemaakt, vastgelegd en onderhouden, met één aanspreekpunt voor de bewoner en periodieke rapportage aan u.' },
+      { id: 'verkoop', h: 'Te koop.', d: 'Bezichtigingsklaar zolang het duurt, met de praktische kant van de overdracht geregeld bij de sleuteloverdracht.' },
+    ]
+  : [
+      { id: 'bewoond', h: 'Occupied.', d: 'The weekly or fortnightly routine, and one number for everything else the house needs.' },
+      { id: 'leeg', h: 'Vacant.', d: 'A period abroad, a second home, a house between occupants. We check in, handle the post, flush the pipes, let tradespeople in and respond if anything goes wrong.' },
+      { id: 'verhuur', h: 'Let.', d: 'Prepared, documented and maintained, with one point of contact for the occupant and periodic reporting to you.' },
+      { id: 'verkoop', h: 'For sale.', d: 'Viewing-ready for as long as it takes, with the practical side of the handover arranged at the key transfer.' },
+    ]
+---
+
+<section class="section bg-paper">
+  <div class="content-wrap max-w-[68ch]">
+    <h1 class="h1 mb-5">
+      {isNl ? 'Huishoudelijke diensten en woningbeheer in Haarlemmermeer' : 'Home services and property care in Haarlemmermeer'}
+    </h1>
+    <p class="lead mb-8">
+      {isNl
+        ? 'Een woning heeft onderhoud nodig, of er nu iemand woont of niet. Wij zorgen voor woningen in vier situaties, en u wisselt niet van leverancier wanneer de uwe verschuift.'
+        : 'A home needs upkeep whether someone lives in it or not. We look after properties across four situations, and you never have to switch supplier when yours changes.'}
+    </p>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {situations.map((s) => (
+        <div id={s.id} class="border-t border-rule2 pt-4">
+          <h3 class="h3 mb-1.5">{s.h}</h3>
+          <p class="body-copy">{s.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

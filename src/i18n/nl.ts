@@ -3,6 +3,7 @@
 // nothing added or invented. Keep this file's key shape identical to
 // en.ts — section components read both locales through the same keys.
 import type { Dict } from './types'
+import { company } from '../data/company'
 
 export const nl: Dict = {
   meta: {
@@ -38,7 +39,7 @@ export const nl: Dict = {
   trustStrip: [
     { bold: 'VOG-gescreend', rest: 'vóór het eerste bezoek' },
     { bold: 'In vaste dienst', rest: 'op een permanent Nederlands contract' },
-    { bold: '€1 miljoen aansprakelijkheidsverzekering', rest: '' },
+    { bold: `${company.liabilityCover.amountShortNL} aansprakelijkheidsverzekering`, rest: '' },
     { bold: 'Vervanging gegarandeerd', rest: 'bij ziekte en vakantie' },
   ],
 
@@ -155,7 +156,7 @@ export const nl: Dict = {
           'Door ons geregeld, zonder extra kosten, zonder dat u ernaar hoeft te vragen. Dat is precies het punt.',
       },
       {
-        title: '€1 miljoen aansprakelijkheidsverzekering',
+        title: `${company.liabilityCover.amountShortNL} aansprakelijkheidsverzekering`,
         description:
           'Gaat er iets kapot, dan vervangen wij het. U onderhandelt nooit met een individu, en betaalt er nooit voor.',
       },
@@ -198,7 +199,7 @@ export const nl: Dict = {
       {
         key: 'Materiële schade',
         middle: 'Een ongemakkelijk gesprek. U draait ervoor op.',
-        right: 'Vervangen onder onze verzekering van €1 miljoen.',
+        right: `Vervangen onder onze verzekering van ${company.liabilityCover.amountShortNL}.`,
       },
       {
         key: 'Werkgeversaansprakelijkheid',

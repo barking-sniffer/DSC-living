@@ -1,0 +1,42 @@
+---
+import Base from '../../../layouts/Base.astro'
+import Header from '../../../components/Header.astro'
+import Footer from '../../../components/Footer.astro'
+import FloatingWhatsApp from '../../../components/FloatingWhatsApp.astro'
+import StickyBar from '../../../components/StickyBar.astro'
+import WonenIntro from '../../../components/sections/WonenIntro.astro'
+import Hero from '../../../components/sections/Hero.astro'
+import Services from '../../../components/sections/Services.astro'
+import HowItWorks from '../../../components/sections/HowItWorks.astro'
+import VveTeaser from '../../../components/sections/VveTeaser.astro'
+import PromiseSection from '../../../components/sections/Promise.astro'
+import Comparison from '../../../components/sections/Comparison.astro'
+import Contact from '../../../components/sections/Contact.astro'
+import { en } from '../../../i18n/en'
+
+const t = en
+---
+
+<Base
+  lang="en"
+  path="/en/residential/"
+  altPath="/wonen/"
+  title="Home Services Hoofddorp & Amstelveen | DSC Living"
+  description="Cleaning, laundry, windows, garden and car care from one employed team. One contract, one invoice, English-speaking. Book a free home audit."
+  serviceType="Residential household services"
+>
+  <Header locale="en" path="/en/residential/" altPath="/wonen/" />
+  <main>
+    <WonenIntro locale="en" />
+    <Hero t={t} />
+    <Services t={t} />
+    <HowItWorks t={t} />
+    <VveTeaser locale="en" />
+    <PromiseSection t={t} />
+    <Comparison t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer locale="en" />
+  <FloatingWhatsApp />
+  <StickyBar locale="en" />
+</Base>

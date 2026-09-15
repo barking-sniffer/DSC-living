@@ -1,0 +1,40 @@
+---
+// Brief Part 7.5 — explicitly marked "in development", no live product
+// implied (Art. 6:193c BW misleading-commercial-practice rule). Excluded
+// from structured data entirely — no JSON-LD is emitted anywhere on this
+// section.
+import Figure from '../../Figure.astro'
+import CtaButton from '../../CtaButton.astro'
+import { images } from '../../../data/images'
+import { aiInterestMessage } from '../../../lib/whatsapp'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+const img = images.aiPlaceholder
+---
+
+<section class="section bg-tint">
+  <div class="content-wrap grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+    <div>
+      <p class="eyebrow mb-3">{isNl ? 'IN ONTWIKKELING' : 'IN DEVELOPMENT'}</p>
+      <h2 class="h2 mb-4">{isNl ? 'Verbeter uw woning met AI' : 'Upgrade your home with AI'}</h2>
+      <p class="body-copy mb-4">
+        {isNl
+          ? 'Wekelijks voor een pand zorgen levert veel informatie op over dat pand. Wij bouwen aan hulpmiddelen die daar iets bruikbaars van maken voor de eigenaar: wat er waarschijnlijk als volgende aandacht vraagt, wat dat gaat kosten, en wat de moeite waard is om nu te doen in plaats van later.'
+          : 'Looking after a property every week produces a great deal of information about it. We are building tools that turn that into something useful for the owner: what is likely to need attention next, what it will cost, and what is worth doing now rather than later.'}
+      </p>
+      <p class="body-copy font-semibold text-inkSoft mb-6">
+        {isNl
+          ? 'Dit is nog niet beschikbaar. Wilt u horen wanneer het zover is, laat het ons weten — dan bent u de eerste die het hoort.'
+          : 'Nothing here is live yet. If you would like to hear when it is, let us know and we will tell you first.'}
+      </p>
+      <CtaButton kind="question" message={aiInterestMessage(locale)} location="ai-upgrade" variant="outline" size="md">
+        {isNl ? 'Houd mij op de hoogte →' : 'Register your interest →'}
+      </CtaButton>
+    </div>
+    <Figure src={img.src} alt={img.alt} note={img.note} ratio="16/9" class="rounded-[3px]" />
+  </div>
+</section>

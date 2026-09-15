@@ -1,31 +1,36 @@
 ---
 import Base from '../../layouts/Base.astro'
-import Nav from '../../components/Nav.astro'
+import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
 import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro'
 import StickyBar from '../../components/StickyBar.astro'
-import Hero from '../../components/sections/Hero.astro'
-import Services from '../../components/sections/Services.astro'
-import HowItWorks from '../../components/sections/HowItWorks.astro'
-import PromiseSection from '../../components/sections/Promise.astro'
-import Comparison from '../../components/sections/Comparison.astro'
-import Contact from '../../components/sections/Contact.astro'
-import { en } from '../../i18n/en'
-
-const t = en
+import HomeHero from '../../components/sections/home/HomeHero.astro'
+import WhatWeDo from '../../components/sections/home/WhatWeDo.astro'
+import AllServicesRoof from '../../components/sections/home/AllServicesRoof.astro'
+import SectorCards from '../../components/sections/home/SectorCards.astro'
+import AiUpgrade from '../../components/sections/home/AiUpgrade.astro'
+import WhoComesToProperty from '../../components/sections/home/WhoComesToProperty.astro'
+import PricingClose from '../../components/sections/home/PricingClose.astro'
 ---
 
-<Base t={t} path="/en/">
-  <Nav t={t} locale="en" path="/en/" />
+<Base
+  lang="en"
+  path="/en/"
+  altPath="/"
+  title="Property Management Hoofddorp & Amstelveen | DSC Living"
+  description="One company for cleaning, garden, windows and maintenance of your home or commercial property in Hoofddorp, Amstelveen and Amsterdam. English-speaking team."
+>
+  <Header locale="en" path="/en/" altPath="/" />
   <main>
-    <Hero t={t} />
-    <Services t={t} />
-    <HowItWorks t={t} />
-    <PromiseSection t={t} />
-    <Comparison t={t} />
-    <Contact t={t} />
+    <HomeHero locale="en" />
+    <WhatWeDo locale="en" />
+    <AllServicesRoof locale="en" />
+    <SectorCards locale="en" />
+    <AiUpgrade locale="en" />
+    <WhoComesToProperty locale="en" />
+    <PricingClose locale="en" />
   </main>
-  <Footer t={t} locale="en" />
+  <Footer locale="en" />
   <FloatingWhatsApp />
-  <StickyBar t={t} />
+  <StickyBar locale="en" />
 </Base>

@@ -1,0 +1,33 @@
+---
+import Service from '../../layouts/Service.astro'
+import { zakelijkStubSlugs } from '../../data/routes'
+import { serviceEnquiryMessage } from '../../lib/whatsapp'
+import CtaButton from '../../components/CtaButton.astro'
+
+export function getStaticPaths() {
+  return zakelijkStubSlugs().map((r) => ({ params: { slug: r.slug }, props: { route: r } }))
+}
+
+const { route } = Astro.props as { route: ReturnType<typeof zakelijkStubSlugs>[number] }
+---
+
+<Service
+  locale="nl"
+  path={route.nlPath}
+  altPath={route.enPath}
+  title={`${route.nlTitle} | DSC Living`}
+  description={`${route.nlTitle} voor bedrijfspanden bij DSC Living. Deze pagina wordt binnenkort aangevuld — stuur ons een bericht voor een gratis rondgang.`}
+  h1={`${route.nlTitle} in Haarlemmermeer`}
+  lead={`Deze pagina wordt op dit moment geschreven. ${route.nlTitle} is al wel gewoon te boeken bij DSC Living — stuur ons een bericht en wij nemen dezelfde dag contact op.`}
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Zakelijk', href: '/zakelijk/' }, { label: route.nlTitle }]}
+  ctaLabel="Vraag een gratis rondgang aan"
+>
+  <p class="eyebrow mb-4">BINNENKORT VOLLEDIG ONLINE</p>
+  <p class="body-copy mb-6">
+    Wilt u nu al weten wat {route.nlTitle.toLowerCase()} bij ons kost of inhoudt? Stuur ons een
+    bericht op WhatsApp.
+  </p>
+  <CtaButton kind="question" message={serviceEnquiryMessage('nl', route.nlTitle)} location="stub-page" size="md">
+    Stuur ons een WhatsApp-bericht over {route.nlTitle.toLowerCase()}
+  </CtaButton>
+</Service>

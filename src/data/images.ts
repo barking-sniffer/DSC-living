@@ -15,9 +15,9 @@ export interface ImageSlot {
 }
 
 export const images: Record<string, ImageSlot> = {
-  // public/images/hero.jpg — 2400×1600 — Sunlit Dutch interior, no people, no products
+  // public/images/woonkamer-hoofddorp-daglicht.jpg — 2400×1600 — Sunlit Dutch interior, no people, no products
   hero: {
-    src: '/images/hero.jpg',
+    src: '/images/woonkamer-hoofddorp-daglicht.jpg',
     alt: 'A sunlit living room in a Dutch home, tidy and lived-in',
     note: 'Sunlit Dutch interior — no people, no products',
   },
@@ -80,5 +80,68 @@ export const images: Record<string, ImageSlot> = {
     src: '/images/og.jpg',
     alt: 'DSC Living — household management for busy families',
     note: 'Open Graph card',
+  },
+
+  // --- Property-management homepage slots — brief Part 6.2. Buildings as
+  // the subject, wide and architectural, empty and immaculate, natural
+  // daylight. Distinct in tone from the warmer /wonen photography above.
+
+  // public/images/property/hero-portfolio.jpg — 21:9 — Wide architectural view, a Dutch residential block or street, low angle low sun, or an aerial over Hoofddorp housing. Reads as a portfolio, not one home.
+  heroPortfolio: {
+    src: '',
+    alt: 'A wide architectural view of a Dutch residential street in low sun',
+    note: 'Wide architectural portfolio view — Hoofddorp housing',
+  },
+  // public/images/property/survey.jpg — 4:3 — A condition survey underway: a tablet against a stairwell wall, a drawing on a worktop. Hands at most, no faces.
+  survey: {
+    src: '',
+    alt: 'A tablet held against a stairwell wall during a condition survey',
+    note: 'Condition survey underway — hands only, no faces',
+  },
+  // public/images/property/one-roof.jpg — 3:2 — An immaculate empty communal entrance, or a finished room in clean daylight.
+  oneRoof: {
+    src: '',
+    alt: 'An immaculate, empty communal entrance in clean daylight',
+    note: 'Immaculate empty communal entrance — the result',
+  },
+  // public/images/property/sector-residential.jpg — 3:2 — A Dutch terraced street or an apartment block façade.
+  sectorResidential: {
+    src: '',
+    alt: 'A Dutch terraced street of houses',
+    note: 'Dutch terraced street or apartment façade',
+  },
+  // public/images/property/sector-commercial.jpg — 3:2 — A modern office reception or an empty gym floor, daylight, nobody present.
+  sectorCommercial: {
+    src: '',
+    alt: 'A modern, empty office reception in daylight',
+    note: 'Modern office reception or empty gym floor',
+  },
+  // public/images/property/ai-placeholder.jpg — 16:9 — Abstract and technical: a floor plan, an elevation, a tablet showing a building plan. Not a robot, not a glowing brain.
+  aiPlaceholder: {
+    src: '',
+    alt: 'A tablet displaying a building floor plan',
+    note: 'Floor plan or elevation on a tablet — abstract, technical',
+  },
+
+  // --- Service-page hero slots. Filenames follow brief §3.5: descriptive
+  // and hyphenated, never hero-1.jpg.
+
+  // public/images/services/schoonmaak-hoofddorp-keuken.jpg — 16/10 — Clean kitchen surfaces, empty, daylight
+  schoonmaakHero: {
+    src: '/images/services/cleaning.jpg',
+    alt: 'Schone, lege keukenoppervlakken in een woning in Hoofddorp',
+    note: 'Kitchen surfaces, clean and empty',
+  },
+  // public/images/property/vve-appartementencomplex.jpg — 16/10 — Communal entrance / stairwell of an apartment block, immaculate
+  vveHero: {
+    src: '',
+    alt: 'Een onberispelijke algemene ruimte in een appartementencomplex',
+    note: 'Immaculate communal entrance — apartment complex',
+  },
+  // public/images/property/kantoor-hoofddorp.jpg — 16/10 — Empty modern office space, daylight
+  zakelijkHero: {
+    src: '',
+    alt: 'Een leeg, modern kantoor in daglicht',
+    note: 'Modern office interior, empty, daylight',
   },
 }

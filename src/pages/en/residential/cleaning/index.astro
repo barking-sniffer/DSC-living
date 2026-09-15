@@ -1,0 +1,110 @@
+---
+import Service from '../../../../layouts/Service.astro'
+import { images } from '../../../../data/images'
+
+const img = images.schoonmaakHero
+---
+
+<Service
+  locale="en"
+  path="/en/residential/cleaning/"
+  altPath="/wonen/schoonmaak/"
+  title="Cleaning Service Hoofddorp & Amstelveen | DSC Living"
+  description="English-speaking cleaning service with employed, screened staff. Weekly or fortnightly, cover when someone is ill, fully insured. Free home audit."
+  serviceType="Residential cleaning"
+  h1="House cleaning in Hoofddorp, Amstelveen and Amsterdam"
+  lead="Looking for a reliable, English-speaking cleaning service in Hoofddorp? DSC Living handles weekly or fortnightly house cleaning for families across Hoofddorp, Amstelveen and the wider Haarlemmermeer area — with permanent, screened staff on our own payroll, not a rotating pool."
+  breadcrumbs={[
+    { label: 'Home', href: '/en/' },
+    { label: 'Residential', href: '/en/residential/' },
+    { label: 'Cleaning' },
+  ]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Book your free audit"
+>
+  <h2 class="h2 mt-10 mb-4">What does house cleaning cost?</h2>
+  <p class="body-copy mb-4">
+    Every home is different, so we don't work from a flat rate per square metre. Price depends
+    on the size of the home, how often you want cleaning, and exactly what's in the job sheet.
+    After a free audit you receive a written proposal within two working days, with no
+    obligation.
+  </p>
+  <p class="body-copy mb-4">
+    Cleaning is often combined with other services — laundry and ironing, window cleaning,
+    garden care — under one agreement and one invoice, which usually works out simpler than
+    separate arrangements with separate suppliers, and you still have just one point of contact
+    if anything needs to change.
+  </p>
+  <p class="body-copy mb-4">
+    The quote shows exactly what you're paying for: hours per visit, frequency, and what's
+    covered in the twice-yearly deep clean. There are no hidden charges afterwards — if your
+    needs change, you adjust the job sheet and see the effect on price before it takes effect.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">How does it work?</h2>
+  <p class="body-copy mb-4">
+    It starts with a free audit at your home. We look at the property, discuss which rooms need
+    attention and to what standard, and set it out in a job sheet. That job sheet is the
+    reference point for every visit afterwards — not a loose note, but a fixed document you can
+    have adjusted whenever your needs change.
+  </p>
+  <p class="body-copy mb-4">
+    From there you schedule a weekly or fortnightly visit at a time that suits you, plus a deep
+    clean twice a year that picks up the spots a regular round doesn't reach.
+  </p>
+  <p class="body-copy mb-4">
+    Every visit lands in your own calendar — we sync to Google, Outlook and Apple, so you never
+    have to guess which day it is and see the moment we reschedule anything. A single dedicated
+    account manager is your only point of contact: requests and changes come to us, never to the
+    person standing in your kitchen.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">What's included?</h2>
+  <p class="body-copy mb-4">
+    Kitchens, bathrooms, floors, surfaces, dusting and bins — room by room, to your job sheet.
+    Want extras like the inside of the oven, the fridge, or interior windows? Those are agreed in
+    advance, so there's never any ambiguity about what is and isn't done.
+  </p>
+  <p class="body-copy mb-4">
+    For <a href="/en/residential/window-cleaning/" class="text-accent hover:underline">exterior window cleaning</a> and
+    <a href="/en/residential/garden/" class="text-accent hover:underline">garden care</a> we run
+    separate, specialised services — also arrangeable under the same agreement, so you're not
+    left juggling multiple suppliers and multiple invoices.
+  </p>
+  <p class="body-copy mb-4">
+    Not happy with something specific? You have 48 hours to tell us and we redo it at no charge —
+    and walk the job sheet with you in case it's the specification, not the execution, that needs
+    adjusting.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Who comes into your home?</h2>
+  <p class="body-copy mb-4">
+    Everyone who cleans for you is employed by DSC Living, on a Dutch employment contract — no
+    rotating freelancers, no subcontracting. Everyone is screened before their first visit, and
+    you're told in advance who's coming. If someone is ill or on holiday, we arrange cover
+    without you having to chase it.
+  </p>
+  <p class="body-copy mb-4">
+    Our work is covered by business liability insurance, so if something is damaged, it's
+    replaced. More on how we screen staff and handle keys is on our
+    <a href="/en/safety/" class="text-accent hover:underline">safety and security</a> page.
+  </p>
+  <p class="body-copy mb-4">
+    That's a different starting point from hiring a cleaner directly through a listing or a
+    social media group. In that case, Dutch law generally treats you as the employer — with the
+    obligations that carries, even without a written contract. With DSC Living, you have a
+    supplier and an invoice, and those obligations sit with us.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Which areas do we work in?</h2>
+  <p class="body-copy mb-4">
+    We provide house cleaning in Hoofddorp, Amstelveen and the wider Haarlemmermeer area, and we
+    also work in Amsterdam. Not sure your address falls inside our service area? Send us a
+    message — we usually know within a few minutes.
+  </p>
+  <p class="body-copy">
+    Cleaning is one of six services you can combine under a single contract. A full overview,
+    including laundry and ironing, organising, garden, cooking and car care, is on the
+    <a href="/en/residential/" class="text-accent hover:underline">residential page</a>.
+  </p>
+</Service>

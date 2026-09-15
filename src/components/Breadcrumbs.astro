@@ -1,0 +1,48 @@
+---
+// Visible breadcrumbs + matching BreadcrumbList JSON-LD, so the two can
+// never diverge (brief Part 3.2). `items` excludes the current page's own
+// entry from having an href — pass the full trail including home.
+interface Crumb {
+  label: string
+  href?: string // omit on the final (current) crumb
+}
+
+interface Props {
+  items: Crumb[]
+  siteUrl?: string
+}
+
+const { items, siteUrl = 'https://dscliving.nl' } = Astro.props
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, siteUrl).href } : {}),
+  })),
+}
+---
+
+<nav aria-label="Breadcrumb" class="py-3">
+  <ol class="flex flex-wrap items-center gap-1.5 text-[12.5px] text-muted">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1.5">
+        {item.href ? (
+          <a href={item.href} class="hover:text-accent hover:underline">
+            {item.label}
+          </a>
+        ) : (
+          <span aria-current="page" class="text-inkSoft">
+            {item.label}
+          </span>
+        )}
+        {i < items.length - 1 && <span aria-hidden="true" class="text-rule2">/</span>}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

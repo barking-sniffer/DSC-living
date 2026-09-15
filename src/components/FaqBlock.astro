@@ -1,0 +1,33 @@
+---
+// Renders a Q&A list and its FAQPage JSON-LD from the exact same array,
+// so the two can never diverge (brief §3.2).
+interface QA {
+  q: string
+  a: string
+}
+interface Props {
+  items: QA[]
+}
+const { items } = Astro.props
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((qa) => ({
+    '@type': 'Question',
+    name: qa.q,
+    acceptedAnswer: { '@type': 'Answer', text: qa.a },
+  })),
+}
+---
+
+<div class="flex flex-col gap-6">
+  {items.map((qa) => (
+    <div class="border-t border-rule2 pt-4">
+      <h3 class="h3 mb-2">{qa.q}</h3>
+      <p class="body-copy">{qa.a}</p>
+    </div>
+  ))}
+</div>
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

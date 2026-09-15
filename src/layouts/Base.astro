@@ -5,144 +5,123 @@
 // fontsource's CSS directly — that keeps the file URLs stable so the
 // <link rel="preload"> below actually matches the served file.
 import '../styles/global.css'
-import type { Dict } from '../i18n/en'
+import { company } from '../data/company'
 
 interface Props {
-  t: Dict
-  path: string // '/' or '/en/'
-  title?: string
-  description?: string
+  lang: 'nl' | 'en'
+  path: string // the current page's own path, e.g. '/wonen/schoonmaak/'
+  altPath: string // the exact counterpart path in the other locale —
+  // passed explicitly rather than derived, because NL and EN slugs are
+  // no longer mechanical prefix-swaps of each other (e.g.
+  // /wonen/schoonmaak/ <-> /en/residential/cleaning/).
+  title: string
+  description: string
+  h1?: string // when present, adds a Service JSON-LD node
+  serviceType?: string
+  ogImage?: string
 }
 
-const { t, path, title, description } = Astro.props
+const {
+  lang,
+  path,
+  altPath,
+  title,
+  description,
+  serviceType,
+  ogImage = '/images/og.jpg',
+} = Astro.props
+
 const siteUrl = 'https://dscliving.nl'
-const isEn = path.startsWith('/en')
 const canonical = `${siteUrl}${path}`
-const altPath = isEn ? path.replace(/^\/en/, '') || '/' : `/en${path === '/' ? '' : path}`
+const nlPath = lang === 'nl' ? path : altPath
+const enPath = lang === 'nl' ? altPath : path
+const locale = lang === 'nl' ? 'nl_NL' : 'en_GB'
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'LocalBusiness',
-      name: 'DSC Living',
-      image: `${siteUrl}/images/og.jpg`,
-      url: siteUrl,
-      telephone: '+31621313588',
-      email: 'care@dscliving.nl',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Hoofddorp',
-        addressCountry: 'NL',
-      },
-      areaServed: ['Hoofddorp', 'Amstelveen', 'Haarlemmermeer', 'Amsterdam'],
+const localBusinessId = `${siteUrl}/#business`
+
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'HomeAndConstructionBusiness',
+    '@id': localBusinessId,
+    name: company.name,
+    legalName: company.legalName,
+    url: siteUrl,
+    telephone: company.phone,
+    email: company.email,
+    image: `${siteUrl}${ogImage}`,
+    priceRange: company.priceRange,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: company.address.street,
+      postalCode: company.address.postcode,
+      addressLocality: company.address.city,
+      addressCountry: company.address.country,
     },
-    {
-      '@type': 'Service',
-      serviceType: 'Household and facility management',
-      provider: { '@type': 'LocalBusiness', name: 'DSC Living' },
-      areaServed: ['Hoofddorp', 'Amstelveen', 'Haarlemmermeer', 'Amsterdam'],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Household services',
-        itemListElement: [
-          'Cleaning',
-          'Laundry & ironing',
-          'Wardrobe & organising',
-          'Gardening',
-          'Cooking',
-          'Car care',
-        ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
-      },
+    areaServed: company.areaServed.map((city) => ({ '@type': 'City', name: city })),
+    ...(company.kvk && !company.kvk.includes('[[')
+      ? { identifier: { '@type': 'PropertyValue', name: 'KvK', value: company.kvk } }
+      : {}),
+    ...(company.btw && !company.btw.includes('[[') ? { vatID: company.btw } : {}),
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+      description: '24/7 support line',
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'How much does DSC Living cost?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Packages start from €599 per month, minimum 8 hours, priced after a free home audit.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'What happens if my cleaner is sick or on holiday?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'DSC Living arranges cover at no extra cost, without you needing to ask.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: "Is there a contract or employer obligation for the household?",
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'No. Everyone who works for DSC Living is directly employed by DSC Living on a permanent Dutch contract, so the household is a customer, not an employer.',
-          },
-        },
-      ],
-    },
-  ],
+    sameAs: Object.values(company.social),
+  },
+]
+
+if (serviceType) {
+  graph.push({
+    '@type': 'Service',
+    serviceType,
+    areaServed: company.areaServed.map((city) => ({ '@type': 'City', name: city })),
+    provider: { '@id': localBusinessId },
+  })
 }
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph }
 ---
 
 <!doctype html>
-<html lang={t.meta.lang}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>{title ?? t.meta.title}</title>
-    <meta name="description" content={description ?? t.meta.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <link rel="alternate" hreflang="nl" href={`${siteUrl}${isEn ? altPath : path}`} />
-    <link rel="alternate" hreflang="en" href={`${siteUrl}${isEn ? path : altPath}`} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${isEn ? altPath : path}`} />
+    <link rel="alternate" hreflang="nl" href={`${siteUrl}${nlPath}`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${nlPath}`} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title ?? t.meta.title} />
-    <meta property="og:description" content={description ?? t.meta.description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${siteUrl}/images/og.jpg`} />
-    <meta property="og:locale" content={t.meta.locale} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:locale" content={locale} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title ?? t.meta.title} />
-    <meta name="twitter:description" content={description ?? t.meta.description} />
-    <meta name="twitter:image" content={`${siteUrl}/images/og.jpg`} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
 
-    <!-- Preload the hero image and both fonts for fast LCP -->
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/newsreader-latin-400-normal.woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href="/fonts/karla-latin-400-normal.woff2"
-      crossorigin
-    />
+    <!-- Preload both display faces for fast LCP -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/newsreader-latin-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/karla-latin-400-normal.woff2" crossorigin />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <!--
       Analytics: Plausible, EU-hosted and cookieless. No consent banner
       needed because no cookies are set and no personal data is processed.
-      Replace data-domain with the live domain before launch.
     -->
-    <script
-      is:inline
-      defer
-      data-domain="dscliving.nl"
-      src="https://plausible.io/js/script.outbound-links.js"
-    ></script>
+    <script is:inline defer data-domain="dscliving.nl" src="https://plausible.io/js/script.outbound-links.js"></script>
   </head>
   <body class="bg-paper">
     <slot />

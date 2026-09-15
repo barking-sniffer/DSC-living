@@ -2,15 +2,15 @@
 // Mobile-only sticky bottom bar, revealed after 60% scroll depth. Carries
 // the primary audit CTA plus a small WhatsApp icon button (this is the
 // mobile stand-in for FloatingWhatsApp, so the two never overlap).
-import type { Dict } from '../i18n/en'
 import CtaButton from './CtaButton.astro'
 import { waLink, waMessages } from '../lib/whatsapp'
 
 interface Props {
-  t: Dict
+  locale: 'nl' | 'en'
 }
 
-const { t } = Astro.props
+const { locale } = Astro.props
+const ctaLabel = locale === 'nl' ? 'Plan uw gratis opname' : 'Book your free audit'
 ---
 
 <div
@@ -19,7 +19,7 @@ const { t } = Astro.props
   data-sticky-bar
 >
   <CtaButton kind="audit" message={waMessages.audit} location="sticky-bar" size="lg" class="flex-1">
-    {t.nav.cta}
+    {ctaLabel}
   </CtaButton>
   <a
     href={waLink(waMessages.question)}

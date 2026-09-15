@@ -1,0 +1,85 @@
+---
+// Brief Part 9. Given verbatim copy for the intro + three point blocks;
+// the five scaffolded H2 headings are written out with new, honest body
+// content (no pricing invented — see "Tarieven" below, same treatment as
+// /wonen/schoonmaak's pricing section).
+import Service from '../../layouts/Service.astro'
+import { images } from '../../data/images'
+
+const img = images.zakelijkHero
+---
+
+<Service
+  locale="nl"
+  path="/zakelijk/"
+  altPath="/en/commercial/"
+  title="Schoonmaakbedrijf voor bedrijven Hoofddorp | DSC Living"
+  description="Kantoren, sportscholen, praktijken en winkelruimten. Dagelijkse uitstraling, keuringscoördinatie en reparaties onder één contract met één factuur."
+  serviceType="Commercial property services"
+  h1="Schoonmaak en beheer van bedrijfspanden in Haarlemmermeer"
+  lead="Een kantoor, sportschool of praktijk wordt beoordeeld voordat er iemand iets zegt. Wij houden bedrijfspanden in de staat die uw bezoekers verwachten, en zorgen dat de routines daarachter — de keuringen, de registraties, de kleine reparaties — niet het vrijdagmiddagprobleem van iemand worden."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Zakelijk' }]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Plan een rondgang"
+>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 mt-10 mb-10">
+    <div>
+      <h2 class="h3 mb-2">Eén contract voor het hele pand.</h2>
+      <p class="body-copy">
+        Dagelijkse of wekelijkse uitstraling, periodiek dieper werk, reparaties en de coördinatie
+        van gecertificeerde keuringen, onder één overeenkomst met één factuur.
+      </p>
+    </div>
+    <div>
+      <h2 class="h3 mb-2">Buiten openingstijden waar dat nodig is.</h2>
+      <p class="body-copy">Werk ingepland rondom uw openingstijden in plaats van er dwars doorheen.</p>
+    </div>
+    <div>
+      <h2 class="h3 mb-2">Registraties die u kunt overleggen.</h2>
+      <p class="body-copy">
+        Elk bezoek wordt vastgelegd op de werkkaart en elke gecoördineerde keuring gearchiveerd,
+        zodat het antwoord al op papier staat wanneer een verhuurder, verzekeraar of inspecteur
+        ernaar vraagt.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2 mt-10 mb-4">Sectoren waarvoor wij werken</h2>
+  <p class="body-copy mb-4">
+    Kantoren, sportscholen, praktijken en winkelruimten — panden waar de eerste indruk direct
+    telt. Voor <a href="/zakelijk/kantoorschoonmaak/" class="text-accent hover:underline">kantoorschoonmaak</a> en
+    <a href="/zakelijk/sportschool-schoonmaak/" class="text-accent hover:underline">sportschoolschoonmaak</a> hebben
+    wij aparte, op de sector toegespitste werkkaarten; de opzet — één contract, één factuur — is
+    voor elke sector gelijk.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Wat een zakelijke overeenkomst omvat</h2>
+  <p class="body-copy mb-4">
+    Schoonmaak volgens een werkkaart die u vaststelt, periodiek dieper werk zoals vloeren en
+    glaswerk, kleine reparaties zodat een storing geen weken blijft liggen, en de coördinatie van
+    verplichte keuringen. Alles onder één aanspreekpunt, zodat u niet zelf tussen leveranciers
+    hoeft te schakelen.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Keuringen die wij coördineren</h2>
+  <p class="body-copy mb-4">
+    Brandveiligheid, elektra, liften waar van toepassing — wij bewaken de planning, zorgen dat de
+    juiste gecertificeerde firma langskomt, en archiveren het certificaat. Wij voeren deze
+    keuringen niet zelf uit; dat doen de daartoe gecertificeerde bedrijven. Onze rol is regie en
+    bewijsvoering, niet de keuring zelf.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Tarieven</h2>
+  <p class="body-copy mb-4">
+    De prijs hangt af van het type pand, het oppervlak en de gewenste frequentie, dus wij werken
+    niet met een vast bedrag vooraf. Na een gratis rondgang ontvangt u binnen twee werkdagen een
+    schriftelijk voorstel, met de scope en de frequentie duidelijk uitgesplitst.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Plan een rondgang</h2>
+  <p class="body-copy">
+    Een rondgang door uw pand kost u niets en verplicht u tot niets. Wij bekijken de ruimtes,
+    bespreken wat er nu al goed gaat en wat aandacht vraagt, en sturen daarna een voorstel dat u
+    op elk moment kunt bijstellen.
+  </p>
+</Service>

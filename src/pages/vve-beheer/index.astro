@@ -1,0 +1,86 @@
+---
+import Service from '../../layouts/Service.astro'
+import { images } from '../../data/images'
+
+const img = images.vveHero
+---
+
+<Service
+  locale="nl"
+  path="/vve-beheer/"
+  altPath="/en/vve-management/"
+  title="VvE beheer en schoonmaak Haarlemmermeer | DSC Living"
+  description="Onderhoud van algemene ruimten, glasbewassing, tuin en coördinatie van keuringen onder één contract. Inclusief conditierapportage voor uw MJOP."
+  serviceType="VvE property management"
+  h1="VvE-beheer en schoonmaak voor appartementencomplexen"
+  lead="Als bestuurslid van een VvE in Haarlemmermeer regelt u het onderhoud van de algemene ruimten meestal via meerdere losse leveranciers. DSC Living brengt schoonmaak, glasbewassing, tuin en de coördinatie van keuringen onder één contract, met een conditierapportage die rechtstreeks bruikbaar is voor uw meerjarenonderhoudsplan."
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'VvE-beheer' }]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Vraag een voorstel aan"
+>
+  <h2 class="h2 mt-10 mb-4">Wat kost VvE-schoonmaak per appartement?</h2>
+  <p class="body-copy mb-4">
+    Dat hangt af van het aantal appartementen, de omvang van de algemene ruimten en hoe vaak u
+    schoonmaak en onderhoud wilt. Wij komen langs voor een gratis opname van het complex,
+    bespreken de wensen van het bestuur en sturen binnen twee werkdagen een schriftelijk
+    voorstel — inclusief een indicatie per appartement, zodat u dat direct in de begroting kunt
+    meenemen.
+  </p>
+  <p class="body-copy mb-4">
+    Omdat schoonmaak, glasbewassing, tuin en de coördinatie van keuringen onder één overeenkomst
+    lopen, betaalt de VvE één factuur in plaats van losse facturen van losse leveranciers — en
+    heeft het bestuur één aanspreekpunt in plaats van vijf.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Wat valt onder algemene ruimten?</h2>
+  <p class="body-copy mb-4">
+    Entree, trappenhuis, liftruimte, galerijen, bergingsgangen en de gemeenschappelijke tuin of
+    het parkeerterrein — kortom, alles wat niet tot een individueel appartement behoort maar wel
+    dagelijks door alle bewoners wordt gebruikt. Wij stellen samen met het bestuur een werkkaart
+    op: welke ruimte, hoe vaak, en tot welke standaard.
+  </p>
+  <p class="body-copy mb-4">
+    Voor glasbewassing van gemeenschappelijke ramen en gevels en voor tuinonderhoud van
+    gedeelde groenstroken werken wij met dezelfde vaste medewerkers als bij onze overige
+    diensten — niet met een wisselende onderaannemer per klus.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Keuringen die wij coördineren</h2>
+  <p class="body-copy mb-4">
+    Brandveiligheid, liftkeuringen, elektra in de algemene ruimten — verplichte keuringen komen
+    met een eigen ritme en een eigen certificerende partij. Wij regelen de planning, zorgen dat
+    de juiste gecertificeerde firma langskomt, en archiveren het certificaat zodra de keuring is
+    afgerond.
+  </p>
+  <p class="body-copy mb-4">
+    Wij voeren deze keuringen niet zelf uit — dat doen de gecertificeerde bedrijven die daarvoor
+    zijn toegelaten. Onze rol is regie: de agenda bewaken, het bestuur informeren, en zorgen dat
+    het bewijs op orde is wanneer een verzekeraar of inspecteur ernaar vraagt.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Conditierapportage voor het MJOP</h2>
+  <p class="body-copy mb-4">
+    Bij elk bezoek leggen wij de staat van de algemene ruimten vast — wat nu aandacht vraagt, wat
+    binnen een jaar aan de beurt is, en wat rustig kan wachten, elk met een kostenindicatie. Deze
+    rapportage is opgebouwd zodat hij direct bruikbaar is als onderlegger voor het
+    meerjarenonderhoudsplan, in plaats van dat het bestuur zelf alles opnieuw moet inventariseren.
+  </p>
+  <p class="body-copy mb-4">
+    Dat is precies het verschil met een losse schoonmaakafspraak: u krijgt niet alleen een schone
+    entree, maar ook een lopend dossier van de staat van het gebouw.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Een voorstel voor uw ALV</h2>
+  <p class="body-copy mb-4">
+    Bereidt u een algemene ledenvergadering voor? Wij stellen een helder, schriftelijk voorstel
+    op dat u zonder verdere bewerking kunt agenderen — met de scope, de frequentie en de
+    kostenindicatie per appartement, zodat de leden in één oogopslag zien waarover zij stemmen.
+  </p>
+  <p class="body-copy">
+    Iedereen die voor ons werkt is in vaste dienst op een Nederlands contract en wordt gescreend
+    vóór het eerste bezoek. Meer daarover leest u op onze pagina over
+    <a href="/veiligheid/" class="text-accent hover:underline">veiligheid</a>. Beheert u ook
+    losse woningen naast het complex? Bekijk dan ook onze
+    <a href="/wonen/" class="text-accent hover:underline">diensten voor wonen</a>.
+  </p>
+</Service>

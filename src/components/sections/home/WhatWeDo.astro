@@ -1,0 +1,41 @@
+---
+// Brief Part 7.2 — five steps as short paragraphs, large accent numerals.
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+
+const stepsNl = [
+  { t: 'Wij nemen uw pand op.', d: 'Wij beginnen met een grondige opname. Indeling, afwerking, installaties, de ouderdom van wat er ligt en de staat waarin het verkeert. Dat komt in één dossier dat vanaf dat moment het uitgangspunt is — zodat niemand het pand twee keer hoeft uit te leggen.' },
+  { t: 'Wij brengen het onderhoud in kaart.', d: 'U ontvangt een schriftelijk conditierapport: wat nu aandacht vraagt, wat binnen een jaar aan de beurt is, en wat rustig kan wachten. Bij elk punt staat een kostenindicatie, zodat het rapport iets is om mee te plannen en niet alleen om door te lezen.' },
+  { t: 'Wij onderhouden het, wekelijks of tweewekelijks.', d: 'Een vast bezoek op een moment dat u schikt, volgens een werkkaart die u heeft vastgesteld. Schoonmaak, was en strijk, ramen, de tuin, de auto — en voor bedrijfspanden de routines die het gebouw representatief en in orde houden.' },
+  { t: 'Wij begeleiden verhuur en oplevering.', d: 'Wordt een pand verhuurd, dan maken wij het gereed, leggen wij de staat vast, zijn wij het dagelijkse aanspreekpunt voor de bewoner en rapporteren wij aan u. Opleveringen worden zorgvuldig vastgelegd, zodat de staat van het pand nooit een kwestie van herinnering is.' },
+  { t: 'Wij begeleiden verkoop en overdracht.', d: 'Gaat een pand in de verkoop, dan houden wij het bezichtigingsklaar zolang dat nodig is, en verzorgen wij de praktische kant van de overdracht bij de sleuteloverdracht.' },
+]
+
+const stepsEn = [
+  { t: 'We onboard your property.', d: 'We start with a proper look around. Layout, surfaces, installations, the age of what is fitted and the state it is in. It goes into a single record that becomes the reference point for everything afterwards — so nobody has to explain the building twice.' },
+  { t: 'We audit it for maintenance.', d: 'You receive a written condition report: what needs attention now, what will need attention within the year, and what can reasonably be left. Costs are indicated against each item, so the report is something you can plan from rather than simply read.' },
+  { t: 'We service it, weekly or fortnightly.', d: 'A regular visit on a schedule that suits you, working to an agreed job sheet. Cleaning, laundry and ironing, windows, the garden, the car — and, for commercial property, the routines your building needs to stay presentable and compliant.' },
+  { t: 'We assist with letting and handover.', d: 'When a property is let, we prepare it, document its condition, act as the day-to-day point of contact for the occupant, and report back to you. Handovers are recorded properly, so the condition of the property is never a matter of recollection.' },
+  { t: 'We assist with sale and transfer.', d: 'When a property goes to market, we keep it viewing-ready for as long as that takes, and we manage the practical side of the handover on completion.' },
+]
+
+const steps = isNl ? stepsNl : stepsEn
+---
+
+<section class="section bg-paper">
+  <div class="content-wrap">
+    <h2 class="h2 mb-10">{isNl ? 'Wat wij doen' : 'What we do'}</h2>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
+      {steps.map((s, i) => (
+        <div class="border-t border-rule2 pt-4">
+          <p class="mb-2 font-display text-[38px] leading-none text-accent">{i + 1}</p>
+          <h3 class="h3 mb-2">{s.t}</h3>
+          <p class="body-copy">{s.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

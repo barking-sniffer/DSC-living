@@ -1,0 +1,40 @@
+---
+// Brief Part 7.7. Deliberately NOT "packages from €89" — see the brief's
+// own note: at the prevailing hourly rate that would misstate what €89
+// actually buys. It's a management/oversight fee, priced from
+// company.entryPrice so the figure is never retyped by hand.
+import CtaButton from '../../CtaButton.astro'
+import { company } from '../../../data/company'
+import { waMessages, auditMessage } from '../../../lib/whatsapp'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+---
+
+<section id="pricing" class="section bg-tint">
+  <div class="content-wrap flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+    <div class="max-w-[54ch]">
+      <h2 class="h2 mb-4">
+        {isNl
+          ? `Beheer en toezicht vanaf ${company.entryPrice.display} per maand`
+          : `Care and oversight from ${company.entryPrice.display} per month`}
+      </h2>
+      <p class="lead">
+        {isNl
+          ? 'Elk pand is anders, dus elke afspraak begint met een gratis opname. Wij bekijken het pand, bespreken wat u uit handen wilt geven, en sturen binnen twee werkdagen een schriftelijk voorstel. Diensten worden apart geoffreerd, op basis van de werkkaart die u vaststelt. Vrijblijvend, en de opname kost u niets.'
+          : 'Every property is different, so every arrangement starts with a free audit. We look at the property, discuss what you would like taken off your hands, and send a written proposal within two working days. Services are quoted separately, against the job sheet you approve. There is no obligation and no charge for the visit.'}
+      </p>
+    </div>
+    <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+      <CtaButton kind="audit" message={auditMessage(locale)} location="home-pricing" size="lg">
+        {isNl ? 'Plan uw gratis opname' : 'Book your free audit'}
+      </CtaButton>
+      <CtaButton kind="question" message={waMessages.question} location="home-pricing-whatsapp" variant="outline" size="lg">
+        {isNl ? 'Stuur ons een WhatsApp-bericht' : 'Message us on WhatsApp'}
+      </CtaButton>
+    </div>
+  </div>
+</section>

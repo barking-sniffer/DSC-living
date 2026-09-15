@@ -1,0 +1,49 @@
+---
+// Shared shell for legal/trust pages — brief §10.1: a 68ch reading
+// column. index,follow always (never noindex — a complete legal
+// footprint is a trust signal per §2.2), regardless of how short the
+// content is.
+import Base from './Base.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro'
+import StickyBar from '../components/StickyBar.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+
+interface Crumb {
+  label: string
+  href?: string
+}
+
+interface Props {
+  locale: 'nl' | 'en'
+  path: string
+  altPath: string
+  title: string
+  description: string
+  h1: string
+  breadcrumbs: Crumb[]
+}
+
+const { locale, path, altPath, title, description, h1, breadcrumbs } = Astro.props
+---
+
+<Base lang={locale} path={path} altPath={altPath} title={title} description={description}>
+  <Header locale={locale} path={path} altPath={altPath} />
+  <main>
+    <div class="content-wrap px-5 md:px-14">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+    <section class="section pt-4">
+      <div class="content-wrap max-w-[68ch]">
+        <h1 class="h2 mb-6">{h1}</h1>
+        <div class="flex flex-col gap-4">
+          <slot />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer locale={locale} />
+  <FloatingWhatsApp />
+  <StickyBar locale={locale} />
+</Base>

@@ -6,6 +6,7 @@
 // object literals with different literal string values are not otherwise
 // structurally assignable to each other.
 import type { Dict } from './types'
+import { company } from '../data/company'
 
 export const en: Dict = {
   meta: {
@@ -41,7 +42,7 @@ export const en: Dict = {
   trustStrip: [
     { bold: 'VOG-screened', rest: 'before the first visit' },
     { bold: 'Directly employed', rest: 'on permanent Dutch contracts' },
-    { bold: '€1m liability cover', rest: '' },
+    { bold: `${company.liabilityCover.amountShortEN} liability cover`, rest: '' },
     { bold: 'Cover guaranteed', rest: 'for illness and holidays' },
   ],
 
@@ -158,7 +159,7 @@ export const en: Dict = {
           'Arranged by us, at no extra cost, without you having to ask. That is the whole point.',
       },
       {
-        title: '€1m liability cover',
+        title: `${company.liabilityCover.amountShortEN} liability cover`,
         description:
           'Something breaks, we replace it. You never negotiate with an individual, and never pay for it.',
       },
@@ -201,7 +202,7 @@ export const en: Dict = {
       {
         key: 'Material damage',
         middle: 'An awkward conversation. You absorb it.',
-        right: 'Replaced under our €1m insurance.',
+        right: `Replaced under our ${company.liabilityCover.amountShortEN} insurance.`,
       },
       {
         key: 'Employer liability',

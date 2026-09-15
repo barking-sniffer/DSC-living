@@ -16,6 +16,32 @@ export const waMessages = {
   direct: `Hi DSC Living, I have a question.`,
 } as const
 
+// Bilingual message builders for the new (v3) pages — each service page
+// passes a message naming that specific service, so the enquiry source is
+// readable in the inbox (brief §10.3), and the AI section's link names
+// that interest specifically rather than reusing the generic audit text.
+export function serviceEnquiryMessage(locale: 'nl' | 'en', serviceName: string): string {
+  return locale === 'nl'
+    ? `Hallo DSC Living, ik wil graag een gratis opname voor: ${serviceName}. Mijn postcode is: `
+    : `Hi DSC Living, I'd like a free audit for: ${serviceName}. My postcode is: `
+}
+
+export function auditMessage(locale: 'nl' | 'en'): string {
+  return locale === 'nl'
+    ? 'Hallo DSC Living, ik wil graag een gratis opname plannen.'
+    : waMessages.audit
+}
+
+export function whatsappQuestionMessage(locale: 'nl' | 'en'): string {
+  return locale === 'nl' ? 'Hallo DSC Living, ik heb een vraag.' : waMessages.question
+}
+
+export function aiInterestMessage(locale: 'nl' | 'en'): string {
+  return locale === 'nl'
+    ? 'Hallo DSC Living, houd mij op de hoogte van de AI-functies zodra die beschikbaar zijn.'
+    : "Hi DSC Living, please let me know when the AI features are live."
+}
+
 // Analytics: fire a cookieless custom event (Plausible) for every outbound
 // WhatsApp click, labelled by where the click happened. This is the only
 // conversion metric in phase 1.

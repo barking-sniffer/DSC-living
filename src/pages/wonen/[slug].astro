@@ -1,0 +1,38 @@
+---
+// Priority 2/3 residential service pages — not yet written in full.
+// Renders a short, honest "coming soon" page rather than a 404, so the
+// header mega-menu (which links to every entry in routes.ts per the
+// brief's own SEO rationale) never points at a dead link. Each still
+// carries a working WhatsApp CTA naming the specific service.
+import Service from '../../layouts/Service.astro'
+import { wonenStubSlugs } from '../../data/routes'
+import { serviceEnquiryMessage } from '../../lib/whatsapp'
+import CtaButton from '../../components/CtaButton.astro'
+
+export function getStaticPaths() {
+  return wonenStubSlugs().map((r) => ({ params: { slug: r.slug }, props: { route: r } }))
+}
+
+const { route } = Astro.props as { route: ReturnType<typeof wonenStubSlugs>[number] }
+---
+
+<Service
+  locale="nl"
+  path={route.nlPath}
+  altPath={route.enPath}
+  title={`${route.nlTitle} | DSC Living`}
+  description={`${route.nlTitle} als onderdeel van uw woningbeheer bij DSC Living. Deze pagina wordt binnenkort aangevuld — stuur ons een bericht voor een gratis opname.`}
+  h1={`${route.nlTitle} in Haarlemmermeer`}
+  lead={`Deze pagina wordt op dit moment geschreven. ${route.nlTitle} is al wel gewoon te boeken als onderdeel van uw pakket bij DSC Living — stuur ons een bericht en wij nemen dezelfde dag contact op.`}
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Wonen', href: '/wonen/' }, { label: route.nlTitle }]}
+  ctaLabel="Vraag een gratis opname aan"
+>
+  <p class="eyebrow mb-4">BINNENKORT VOLLEDIG ONLINE</p>
+  <p class="body-copy mb-6">
+    Wilt u nu al weten wat {route.nlTitle.toLowerCase()} bij ons kost of inhoudt? Stuur ons een
+    bericht op WhatsApp — dat is sneller dan wachten tot deze pagina af is.
+  </p>
+  <CtaButton kind="question" message={serviceEnquiryMessage('nl', route.nlTitle)} location="stub-page" size="md">
+    Stuur ons een WhatsApp-bericht over {route.nlTitle.toLowerCase()}
+  </CtaButton>
+</Service>

@@ -55,6 +55,17 @@
   [id] {
     scroll-margin-top: 96px;
   }
+  /* The header (Header.astro) is fixed at 64px / 76px tall; every page's
+     <main> needs matching top padding so content doesn't start underneath
+     it. */
+  main {
+    padding-top: 64px;
+  }
+  @media (min-width: 768px) {
+    main {
+      padding-top: 76px;
+    }
+  }
   h1, h2, h3 {
     @apply font-display text-ink;
   }

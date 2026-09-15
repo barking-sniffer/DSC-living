@@ -1,0 +1,79 @@
+---
+import Service from '../../../layouts/Service.astro'
+import { images } from '../../../data/images'
+
+const img = images.zakelijkHero
+---
+
+<Service
+  locale="en"
+  path="/en/commercial/"
+  altPath="/zakelijk/"
+  title="Commercial Cleaning Company Hoofddorp | DSC Living"
+  description="Offices, gyms, clinics and retail units. Daily presentation, inspection coordination and repairs under one contract with one invoice."
+  serviceType="Commercial property services"
+  h1="Cleaning and management of commercial property in Haarlemmermeer"
+  lead="An office, gym or clinic is judged before anyone says a word. We keep commercial property in the state your visitors expect, and make sure the routines behind that — inspections, records, small repairs — never become anyone's Friday-afternoon problem."
+  breadcrumbs={[{ label: 'Home', href: '/en/' }, { label: 'Commercial' }]}
+  heroImage={{ src: img.src, alt: img.alt, note: img.note }}
+  ctaLabel="Book a walkthrough"
+>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 mt-10 mb-10">
+    <div>
+      <h2 class="h3 mb-2">One contract for the whole building.</h2>
+      <p class="body-copy">
+        Daily or weekly presentation, periodic deeper work, repairs and the coordination of
+        certified inspections, under one agreement with one invoice.
+      </p>
+    </div>
+    <div>
+      <h2 class="h3 mb-2">Outside opening hours where needed.</h2>
+      <p class="body-copy">Work scheduled around your opening hours instead of straight through them.</p>
+    </div>
+    <div>
+      <h2 class="h3 mb-2">Records you can produce.</h2>
+      <p class="body-copy">
+        Every visit is logged on the job sheet and every coordinated inspection archived, so the
+        answer is already on paper when a landlord, insurer or inspector asks for it.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2 mt-10 mb-4">Sectors we work with</h2>
+  <p class="body-copy mb-4">
+    Offices, gyms, clinics and retail units — properties where the first impression counts
+    immediately. For <a href="/en/commercial/office-cleaning/" class="text-accent hover:underline">office cleaning</a> and
+    <a href="/en/commercial/gym-cleaning/" class="text-accent hover:underline">gym cleaning</a> we
+    run separate, sector-specific job sheets; the underlying setup — one contract, one invoice —
+    stays the same across sectors.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">What a commercial agreement covers</h2>
+  <p class="body-copy mb-4">
+    Cleaning to a job sheet you set, periodic deeper work such as floors and glazing, small
+    repairs so a fault doesn't sit for weeks, and coordination of mandatory inspections. All under
+    one point of contact, so you're not switching between suppliers yourself.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Inspections we coordinate</h2>
+  <p class="body-copy mb-4">
+    Fire safety, electrics, lifts where applicable — we hold the calendar, make sure the right
+    certified firm attends, and archive the certificate. We don't carry out these inspections
+    ourselves; that's done by the firms certified to. Our role is coordination and evidence, not
+    the inspection itself.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Rates</h2>
+  <p class="body-copy mb-4">
+    Price depends on the type of property, its size and the frequency you want, so we don't work
+    from a flat upfront rate. After a free walkthrough you receive a written proposal within two
+    working days, with scope and frequency clearly broken out.
+  </p>
+
+  <h2 class="h2 mt-10 mb-4">Book a walkthrough</h2>
+  <p class="body-copy">
+    A walkthrough of your building costs nothing and commits you to nothing. We look at the
+    spaces, discuss what's already working well and what needs attention, then send a proposal
+    you can adjust at any point.
+  </p>
+</Service>

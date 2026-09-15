@@ -1,0 +1,47 @@
+---
+// Repositioned homepage hero — brief Part 7.1. Image direction per 6.2:
+// wide architectural (21:9), buildings as the subject, no people at close
+// range, no task-in-progress. This is the exception to the rest of the
+// site's warmer domestic photography.
+import Figure from '../../Figure.astro'
+import CtaButton from '../../CtaButton.astro'
+import { images } from '../../../data/images'
+import { waMessages } from '../../../lib/whatsapp'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+const img = images.heroPortfolio
+---
+
+<section id="top" class="section bg-paper">
+  <div class="content-wrap">
+    <Figure src={img.src} alt={img.alt} note={img.note} ratio="21/9" priority class="rounded-[3px]" />
+    <div class="mt-8 max-w-[62ch]">
+      <h1 class="h1 mb-5">
+        {isNl
+          ? '360° vastgoedbeheer voor woningen en bedrijfspanden in Haarlemmermeer'
+          : '360° property management for homes and businesses in Hoofddorp and Amsterdam'}
+      </h1>
+      <p class="lead mb-4">
+        {isNl
+          ? 'Wij nemen uw pand onder onze hoede en houden het in stand — of u er nu woont, werkt, het verhuurt of het gereedmaakt voor verkoop.'
+          : 'We take your property under our care and keep it that way — whether you live in it, work in it, let it, or are preparing to sell.'}
+      </p>
+      <p class="body-copy font-semibold text-inkSoft mb-7">
+        {isNl ? 'Eén team. Eén afspraak. Eén aanspreekpunt.' : 'One team. One agreement. One point of contact.'}
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <CtaButton kind="audit" message={waMessages.auditWithPostcode} location="home-hero" size="lg">
+          {isNl ? 'Plan uw gratis opname' : 'Book your free audit'}
+        </CtaButton>
+        <CtaButton kind="question" message={waMessages.question} location="home-hero-whatsapp" variant="outline" size="lg">
+          {isNl ? 'Stuur ons een WhatsApp-bericht' : 'Message us on WhatsApp'}
+        </CtaButton>
+      </div>
+      <p class="small-copy mt-5">Hoofddorp · Haarlemmermeer · Amstelveen · Amsterdam</p>
+    </div>
+  </div>
+</section>

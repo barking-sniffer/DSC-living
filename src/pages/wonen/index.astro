@@ -1,0 +1,45 @@
+---
+// Brief Part 8: the former single-page homepage relocated here, content
+// unchanged, with a new intro (this page's own H1 + the four situations)
+// and a VvE cross-link ahead of it, per the given page order.
+import Base from '../../layouts/Base.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import FloatingWhatsApp from '../../components/FloatingWhatsApp.astro'
+import StickyBar from '../../components/StickyBar.astro'
+import WonenIntro from '../../components/sections/WonenIntro.astro'
+import Hero from '../../components/sections/Hero.astro'
+import Services from '../../components/sections/Services.astro'
+import HowItWorks from '../../components/sections/HowItWorks.astro'
+import VveTeaser from '../../components/sections/VveTeaser.astro'
+import PromiseSection from '../../components/sections/Promise.astro'
+import Comparison from '../../components/sections/Comparison.astro'
+import Contact from '../../components/sections/Contact.astro'
+import { nl } from '../../i18n/nl'
+
+const t = nl
+---
+
+<Base
+  lang="nl"
+  path="/wonen/"
+  altPath="/en/residential/"
+  title="Huishoudelijke diensten Hoofddorp en Amstelveen | DSC Living"
+  description="Schoonmaak, was en strijk, ramen, tuin en autoverzorging door vaste medewerkers in dienstverband. Eén contract, één factuur. Gratis opname."
+  serviceType="Residential household services"
+>
+  <Header locale="nl" path="/wonen/" altPath="/en/residential/" />
+  <main>
+    <WonenIntro locale="nl" />
+    <Hero t={t} />
+    <Services t={t} />
+    <HowItWorks t={t} />
+    <VveTeaser locale="nl" />
+    <PromiseSection t={t} />
+    <Comparison t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer locale="nl" />
+  <FloatingWhatsApp />
+  <StickyBar locale="nl" />
+</Base>

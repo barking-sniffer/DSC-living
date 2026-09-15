@@ -1,0 +1,139 @@
+---
+import Legal from '../../layouts/Legal.astro'
+import FaqBlock from '../../components/FaqBlock.astro'
+import ReviewList from '../../components/ReviewList.astro'
+import { legalRoutes } from '../../data/routes'
+import { company } from '../../data/company'
+import { lastSegment } from '../../lib/paths'
+
+
+export function getStaticPaths() {
+  return legalRoutes.map((r) => ({ params: { slug: lastSegment(r.enPath) }, props: { route: r } }))
+}
+
+const { route } = Astro.props as { route: (typeof legalRoutes)[number] }
+const slugKey = lastSegment(route.enPath)
+
+const meta: Record<string, { title: string; description: string; h1: string }> = {
+  safety: {
+    title: 'Safety and Screening of Our Staff | DSC Living',
+    description: 'Who comes into your home, how we screen, how we handle keys and alarm codes, and what happens if something goes wrong.',
+    h1: 'Safety and security at your property',
+  },
+  faq: {
+    title: 'Frequently Asked Questions | DSC Living',
+    description: 'Answers to the questions we get asked most, on pricing, screening, scheduling and cover.',
+    h1: 'Frequently asked questions',
+  },
+  about: { title: 'About Us | DSC Living', description: 'Who DSC Living is, and why we organise property management this way.', h1: 'About DSC Living' },
+  privacy: { title: 'Privacy Statement | DSC Living', description: 'How DSC Living handles your personal data, and what rights you have.', h1: 'Privacy statement' },
+  terms: { title: 'Terms | DSC Living', description: 'The terms under which DSC Living provides services to individuals and businesses.', h1: 'Terms' },
+  disclaimer: { title: 'Disclaimer | DSC Living', description: 'Limitations and conditions for using this website.', h1: 'Disclaimer' },
+  complaints: { title: 'Complaints | DSC Living', description: 'How to raise a complaint with us, and what you can expect.', h1: 'Complaints' },
+  reviews: { title: 'Reviews | DSC Living', description: 'Real, verified reviews from DSC Living customers — never invented or bought.', h1: 'Reviews' },
+  accessibility: { title: 'Accessibility | DSC Living', description: 'Our commitment to an accessible website, and how to report an accessibility issue.', h1: 'Accessibility' },
+  'company-details': { title: 'Company Details | DSC Living', description: "DSC Living's statutory details: KvK, VAT, address and contact.", h1: 'Company details' },
+  cookies: { title: 'Cookie Policy | DSC Living', description: 'This website does not use cookies. Here is exactly why not, and what happens instead.', h1: 'Cookie policy' },
+  careers: { title: 'Careers | DSC Living', description: 'Working at DSC Living — current openings and how to apply.', h1: 'Careers' },
+}
+
+const m = meta[slugKey]
+const faqItems = [
+  {
+    q: 'What does DSC Living cost?',
+    a: `Management and oversight starts from ${company.entryPrice.display} per month. Individual services such as cleaning are quoted separately after a free, no-obligation audit — you always receive a written proposal before anything starts.`,
+  },
+  {
+    q: 'What happens if my staff member is ill or on holiday?',
+    a: 'We arrange cover, at no extra cost and without you having to chase it. That is the whole point of a team rather than one person.',
+  },
+  {
+    q: 'Who comes into my home or office?',
+    a: 'Everyone who works for us is permanently employed on a Dutch contract and screened before their first visit. You are told in advance who is coming, and everyone carries a photo ID card.',
+  },
+  {
+    q: 'Which areas does DSC Living work in?',
+    a: `We work in ${company.areaServed.join(', ')}. Not sure your address is in our service area? Just send us a message.`,
+  },
+  {
+    q: 'How quickly do I get a price?',
+    a: 'After the free audit you receive a written proposal within two working days. There is no obligation, and the audit itself costs nothing.',
+  },
+  {
+    q: 'Is there a contract, and can I change it?',
+    a: 'You sign up for the service, not a fixed job sheet forever — you can have the job sheet adjusted at any point as your needs change.',
+  },
+]
+---
+
+<Legal
+  locale="en"
+  path={route.enPath}
+  altPath={route.nlPath}
+  title={m.title}
+  description={m.description}
+  h1={m.h1}
+  breadcrumbs={[{ label: 'Home', href: '/en/' }, { label: m.h1 }]}
+>
+  {slugKey === 'safety' && (
+    <>
+      <p class="lead">Everything in black and white — written down, agreed before we start, and yours to change at any time.</p>
+      <h3 class="h3 mt-4">Verified and skilled staff, every time</h3>
+      <p class="body-copy">Screened before their first visit, and everyone carries a photo ID card with their DSC number.</p>
+      <h3 class="h3 mt-4">Your keys, handled properly</h3>
+      <p class="body-copy">Logged custody, never labelled with your address, revoked the day someone leaves us.</p>
+      <h3 class="h3 mt-4">Cover for illness and holidays</h3>
+      <p class="body-copy">Arranged by us, at no extra cost, without you having to ask.</p>
+      <h3 class="h3 mt-4">Liability insurance</h3>
+      <p class="body-copy">Something breaks, we replace it. You never negotiate with an individual, and never pay for it.</p>
+      <h3 class="h3 mt-4">Not right? 48 hours to tell us</h3>
+      <p class="body-copy">We redo it at no charge, and walk the job sheet with you in case it's the spec that's wrong.</p>
+      <h3 class="h3 mt-4">One dedicated account manager</h3>
+      <p class="body-copy">One name, one number, one thread. Requests come to us, never to the person working at your property.</p>
+      <p class="small-copy mt-4">Everyone who works for us is permanently employed on a Dutch contract at collective-agreement wages, with pension and full insurance.</p>
+    </>
+  )}
+
+  {slugKey === 'faq' && <FaqBlock items={faqItems} />}
+
+  {slugKey === 'privacy' && (
+    <>
+      <p class="body-copy">{company.tradeName}, a trade name of {company.legalName}, looks after residential and commercial property in the Amsterdam region. We take the protection of your personal data seriously.</p>
+      <p class="body-copy">This website uses no cookies and has no form that stores or transmits data. Every enquiry is composed as a WhatsApp message that opens in WhatsApp itself — nothing is sent to or stored on dscliving.nl. WhatsApp is operated by Meta and is covered by Meta's own privacy policy once a message is sent.</p>
+      <p class="body-copy">What we receive from you via WhatsApp, phone or email is used only to answer your enquiry and deliver the service you asked for. We keep it no longer than necessary or legally required, and never sell it.</p>
+      <p class="body-copy">This site uses a cookieless, EU-hosted analytics service to measure aggregate visits. It uses no cookies and collects no personal data.</p>
+      <p class="small-copy">[[ TO POPULATE — full statement including retention periods and your rights under the GDPR ]]</p>
+    </>
+  )}
+
+  {slugKey === 'reviews' && (
+    <>
+      <p class="lead">We show only real, verified reviews from customers who have given consent.</p>
+      <ReviewList locale="en" />
+    </>
+  )}
+
+  {slugKey === 'company-details' && (
+    <>
+      <p class="body-copy">{company.name} — {company.legalName}</p>
+      <p class="body-copy">{company.address.street}, {company.address.postcode} {company.address.city}, the Netherlands</p>
+      <p class="body-copy">KvK: {company.kvk}</p>
+      <p class="body-copy">VAT: {company.btw}</p>
+      <p class="body-copy">Phone: {company.phoneDisplay} · Email: {company.email}</p>
+    </>
+  )}
+
+  {slugKey === 'cookies' && (
+    <>
+      <p class="body-copy">This website does not set cookies.</p>
+      <p class="body-copy">We use a cookieless, EU-hosted analytics service that sets no cookies and does not track visitors across sites, so no cookie banner is needed here.</p>
+    </>
+  )}
+
+  {['about', 'terms', 'disclaimer', 'complaints', 'accessibility', 'careers'].includes(slugKey) && (
+    <>
+      <p class="body-copy">[[ TO POPULATE ]] — this page is still awaiting content.</p>
+      <p class="small-copy">Have a question about this now? Reach us on WhatsApp or by email — {company.email}.</p>
+    </>
+  )}
+</Legal>

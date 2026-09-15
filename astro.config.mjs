@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   site: 'https://dscliving.nl',
   output: 'static',
+  trailingSlash: 'always',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({

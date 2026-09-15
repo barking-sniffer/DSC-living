@@ -1,0 +1,208 @@
+---
+// Every Dutch trust/legal page — brief §2.2 and §10.1. Six are written in
+// full (veiligheid, faq, privacy, reviews, company-details, cookies);
+// the rest are honest "content pending" stubs using the brief's own
+// [[ TO POPULATE ]] convention rather than invented legal text — they
+// still render index,follow, matching the brief's explicit instruction
+// that legal pages are never noindex regardless of how short they are.
+import Legal from '../layouts/Legal.astro'
+import FaqBlock from '../components/FaqBlock.astro'
+import ReviewList from '../components/ReviewList.astro'
+import { legalRoutes } from '../data/routes'
+import { company } from '../data/company'
+import { lastSegment } from '../lib/paths'
+
+export function getStaticPaths() {
+  // The URL segment is the actual Dutch slug from nlPath (e.g.
+  // "veelgestelde-vragen"), not the internal `route.slug` key (e.g.
+  // "faq") used only to index the `meta`/body lookup below — those two
+  // only coincide for some entries (veiligheid, privacy, disclaimer,
+  // complaints, reviews, cookies), which is what masked this earlier.
+  return legalRoutes.map((r) => ({ params: { slug: lastSegment(r.nlPath) }, props: { route: r } }))
+}
+
+const { route } = Astro.props as { route: (typeof legalRoutes)[number] }
+
+const meta: Record<string, { title: string; description: string; h1: string }> = {
+  veiligheid: {
+    title: 'Veiligheid en screening van onze medewerkers | DSC Living',
+    description:
+      'Wie er bij u thuis komt, hoe wij screenen, hoe wij met sleutels en alarmcodes omgaan, en wat er gebeurt als er iets misgaat.',
+    h1: 'Veiligheid en zekerheid bij u thuis',
+  },
+  faq: {
+    title: 'Veelgestelde vragen | DSC Living',
+    description: 'Antwoorden op de vragen die wij het vaakst krijgen, over prijzen, screening, planning en dekking.',
+    h1: 'Veelgestelde vragen',
+  },
+  about: {
+    title: 'Over ons | DSC Living',
+    description: 'Wie DSC Living is en waarom wij vastgoedbeheer op deze manier organiseren.',
+    h1: 'Over ons',
+  },
+  privacy: {
+    title: 'Privacyverklaring | DSC Living',
+    description: 'Hoe DSC Living omgaat met uw persoonsgegevens, en welke rechten u heeft.',
+    h1: 'Privacyverklaring',
+  },
+  terms: {
+    title: 'Algemene voorwaarden | DSC Living',
+    description: 'De voorwaarden waaronder DSC Living diensten levert aan particulieren en bedrijven.',
+    h1: 'Algemene voorwaarden',
+  },
+  disclaimer: {
+    title: 'Disclaimer | DSC Living',
+    description: 'Beperkingen en voorwaarden voor het gebruik van deze website.',
+    h1: 'Disclaimer',
+  },
+  complaints: {
+    title: 'Klachten | DSC Living',
+    description: 'Hoe u een klacht bij ons indient, en wat u van ons mag verwachten.',
+    h1: 'Klachten',
+  },
+  reviews: {
+    title: 'Reviews | DSC Living',
+    description: 'Echte, geverifieerde reviews van klanten van DSC Living — nooit verzonnen of gekocht.',
+    h1: 'Reviews',
+  },
+  accessibility: {
+    title: 'Toegankelijkheid | DSC Living',
+    description: 'Onze inzet voor een toegankelijke website, en hoe u een toegankelijkheidsprobleem meldt.',
+    h1: 'Toegankelijkheid',
+  },
+  'company-details': {
+    title: 'Bedrijfsgegevens | DSC Living',
+    description: 'De statutaire gegevens van DSC Living: KvK, BTW, adres en contact.',
+    h1: 'Bedrijfsgegevens',
+  },
+  cookies: {
+    title: 'Cookiebeleid | DSC Living',
+    description: 'Deze website gebruikt geen cookies. Hier leest u precies waarom niet, en wat er wel gebeurt.',
+    h1: 'Cookiebeleid',
+  },
+  careers: {
+    title: 'Vacatures | DSC Living',
+    description: 'Werken bij DSC Living — huidige vacatures en hoe u kunt solliciteren.',
+    h1: 'Vacatures',
+  },
+}
+
+const m = meta[route.slug]
+const faqItems = [
+  {
+    q: 'Wat kost DSC Living?',
+    a: `Beheer en toezicht begint vanaf ${company.entryPrice.display} per maand. Losse diensten zoals schoonmaak worden apart geoffreerd na een gratis, vrijblijvende opname — u ontvangt altijd eerst een schriftelijk voorstel voordat er iets begint.`,
+  },
+  {
+    q: 'Wat gebeurt er als mijn medewerker ziek is of op vakantie?',
+    a: 'Wij regelen vervanging, zonder extra kosten en zonder dat u daar zelf achteraan hoeft. Dat is precies het punt van een team in plaats van één persoon.',
+  },
+  {
+    q: 'Wie komt er bij mij thuis of op kantoor?',
+    a: 'Iedereen die voor ons werkt is in vaste dienst op een Nederlands contract en wordt gescreend vóór het eerste bezoek. U weet vooraf wie er komt, en iedereen draagt een pasje met foto.',
+  },
+  {
+    q: 'In welke plaatsen werkt DSC Living?',
+    a: `Wij werken in ${company.areaServed.join(', ')}. Twijfelt u of uw adres binnen ons werkgebied valt, stuur ons dan gerust een bericht.`,
+  },
+  {
+    q: 'Hoe snel krijg ik een prijs?',
+    a: 'Na de gratis opname ontvangt u binnen twee werkdagen een schriftelijk voorstel. Er is geen verplichting en de opname zelf kost u niets.',
+  },
+  {
+    q: 'Is er een contract, en kan ik het aanpassen?',
+    a: 'U tekent voor de dienstverlening, niet voor een vaste werkkaart voor altijd — u kunt de werkkaart op elk moment laten aanpassen als uw wensen veranderen.',
+  },
+]
+---
+
+<Legal
+  locale="nl"
+  path={route.nlPath}
+  altPath={route.enPath}
+  title={m.title}
+  description={m.description}
+  h1={m.h1}
+  breadcrumbs={[{ label: 'Home', href: '/' }, { label: m.h1 }]}
+>
+  {route.slug === 'veiligheid' && (
+    <>
+      <p class="lead">Alles zwart-op-wit — vastgelegd, afgesproken voordat we beginnen, en op elk moment door u aan te passen.</p>
+      <h3 class="h3 mt-4">Geverifieerd en vakkundig personeel, elke keer</h3>
+      <p class="body-copy">VOG-gescreend vóór het eerste bezoek, en iedereen draagt een pasje met foto en DSC-nummer.</p>
+      <h3 class="h3 mt-4">Uw sleutels, zorgvuldig behandeld</h3>
+      <p class="body-copy">Geregistreerd beheer, nooit gelabeld met uw adres, ingetrokken op de dag dat iemand bij ons vertrekt.</p>
+      <h3 class="h3 mt-4">Dekking bij ziekte en vakantie</h3>
+      <p class="body-copy">Door ons geregeld, zonder extra kosten, zonder dat u ernaar hoeft te vragen.</p>
+      <h3 class="h3 mt-4">Aansprakelijkheidsverzekering</h3>
+      <p class="body-copy">Gaat er iets kapot, dan vervangen wij het. U onderhandelt nooit met een individu, en betaalt er nooit voor.</p>
+      <h3 class="h3 mt-4">Niet naar wens? 48 uur om het te melden</h3>
+      <p class="body-copy">Wij doen het kosteloos over, en lopen zo nodig het werkblad met u door als de afspraak niet klopt.</p>
+      <h3 class="h3 mt-4">Eén vaste accountmanager</h3>
+      <p class="body-copy">Eén naam, één nummer, één lijn. Verzoeken komen bij ons binnen, nooit bij degene die bij u aan het werk is.</p>
+      <p class="small-copy mt-4">Iedereen die voor ons werkt, is in vaste dienst op een permanent Nederlands contract tegen cao-loon, met pensioen en volledige verzekering.</p>
+    </>
+  )}
+
+  {route.slug === 'faq' && <FaqBlock items={faqItems} />}
+
+  {route.slug === 'privacy' && (
+    <>
+      <p class="body-copy">
+        {company.tradeName}, handelsnaam van {company.legalName}, beheert woningen en
+        bedrijfspanden in de regio Amsterdam. Wij nemen de bescherming van uw persoonsgegevens
+        serieus.
+      </p>
+      <p class="body-copy">
+        Deze website gebruikt geen cookies en heeft geen formulier dat gegevens opslaat of
+        verstuurt. Elke aanvraag wordt samengesteld als een WhatsApp-bericht dat in WhatsApp zelf
+        opent — er wordt niets verzonden naar of opgeslagen op dscliving.nl. WhatsApp is een
+        dienst van Meta en valt na verzending onder het privacybeleid van Meta.
+      </p>
+      <p class="body-copy">
+        Wat wij via WhatsApp, telefoon of e-mail van u ontvangen, gebruiken wij uitsluitend om uw
+        vraag te beantwoorden en de dienst te leveren waar u om heeft gevraagd. Wij bewaren dat
+        niet langer dan nodig of wettelijk vereist, en verkopen het nooit aan derden.
+      </p>
+      <p class="body-copy">
+        Deze site gebruikt een cookieloze, EU-gehoste analysedienst om geaggregeerde bezoeken te
+        meten. Die gebruikt geen cookies en verzamelt geen persoonsgegevens.
+      </p>
+      <p class="small-copy">[[ TO POPULATE — volledige verklaring inclusief bewaartermijnen en uw rechten onder de AVG ]]</p>
+    </>
+  )}
+
+  {route.slug === 'reviews' && (
+    <>
+      <p class="lead">Wij tonen alleen echte, geverifieerde reviews van klanten die daar toestemming voor hebben gegeven.</p>
+      <ReviewList locale="nl" />
+    </>
+  )}
+
+  {route.slug === 'company-details' && (
+    <>
+      <p class="body-copy">{company.name} — {company.legalName}</p>
+      <p class="body-copy">{company.address.street}, {company.address.postcode} {company.address.city}, {company.address.countryName}</p>
+      <p class="body-copy">KvK: {company.kvk}</p>
+      <p class="body-copy">BTW: {company.btw}</p>
+      <p class="body-copy">Telefoon: {company.phoneDisplay} · E-mail: {company.email}</p>
+    </>
+  )}
+
+  {route.slug === 'cookies' && (
+    <>
+      <p class="body-copy">Deze website plaatst geen cookies.</p>
+      <p class="body-copy">
+        Wij gebruiken een cookieloze, EU-gehoste analysedienst die geen cookies plaatst en
+        bezoekers niet volgt over websites heen, zodat hier geen cookiebanner nodig is.
+      </p>
+    </>
+  )}
+
+  {['about', 'terms', 'disclaimer', 'complaints', 'accessibility', 'careers'].includes(route.slug) && (
+    <>
+      <p class="body-copy">[[ TO POPULATE ]] — deze pagina wacht nog op inhoud.</p>
+      <p class="small-copy">Heeft u hier nu al een vraag over? Neem contact op via WhatsApp of e-mail — {company.email}.</p>
+    </>
+  )}
+</Legal>

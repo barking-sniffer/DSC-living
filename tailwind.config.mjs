@@ -11,7 +11,9 @@ export default {
         ink: '#2A2622',
         inkSoft: '#3E3831',
         prose: '#5C554D',
-        muted: '#8A8177',
+        // #6E6155, not the #8A8177 this replaced — that value failed
+        // WCAG AA at body sizes on #FAF7F2 (brief Part 6.1).
+        muted: '#6E6155',
         faint: '#A89B8C',
         rule: '#E3DCD2',
         rule2: '#D8C9B9',

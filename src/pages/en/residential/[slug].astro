@@ -1,0 +1,35 @@
+---
+import Service from '../../../layouts/Service.astro'
+import { wonenStubSlugs } from '../../../data/routes'
+import { serviceEnquiryMessage } from '../../../lib/whatsapp'
+import CtaButton from '../../../components/CtaButton.astro'
+import { lastSegment } from '../../../lib/paths'
+
+
+export function getStaticPaths() {
+  return wonenStubSlugs().map((r) => ({ params: { slug: lastSegment(r.enPath) }, props: { route: r } }))
+}
+
+const { route } = Astro.props as { route: ReturnType<typeof wonenStubSlugs>[number] }
+---
+
+<Service
+  locale="en"
+  path={route.enPath}
+  altPath={route.nlPath}
+  title={`${route.enTitle} | DSC Living`}
+  description={`${route.enTitle} as part of your property care with DSC Living. This page is being written — message us for a free audit in the meantime.`}
+  h1={`${route.enTitle} in Haarlemmermeer`}
+  lead={`This page is currently being written. ${route.enTitle} is already bookable as part of your package with DSC Living — send us a message and we'll get back to you the same day.`}
+  breadcrumbs={[{ label: 'Home', href: '/en/' }, { label: 'Residential', href: '/en/residential/' }, { label: route.enTitle }]}
+  ctaLabel="Request a free audit"
+>
+  <p class="eyebrow mb-4">FULL PAGE COMING SOON</p>
+  <p class="body-copy mb-6">
+    Want to know what {route.enTitle.toLowerCase()} costs or includes right now? Message us on
+    WhatsApp — faster than waiting for this page to be finished.
+  </p>
+  <CtaButton kind="question" message={serviceEnquiryMessage('en', route.enTitle)} location="stub-page" size="md">
+    Ask about {route.enTitle.toLowerCase()} on WhatsApp
+  </CtaButton>
+</Service>
