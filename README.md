@@ -1,166 +1,157 @@
 # DSC Living — marketing site
 
-A static, single-page marketing site for DSC Living (household and facility
-services, Hoofddorp NL). Built with Astro + Tailwind CSS. No backend, no
-database, no login. Every enquiry opens WhatsApp with a prefilled message.
+A multi-page marketing site for DSC Living (property management, Hoofddorp NL).
+Built with Astro + Tailwind. No backend, no database, no login. Every
+enquiry opens WhatsApp with a prefilled message.
+
+The site follows the **v3 build brief** (15 Sept 2026): the homepage is
+positioned as 360° property management, the former single-page site moved
+to `/wonen` as the residential hub, and dedicated service pages carry the
+actual search demand. See that brief for the full rationale and copy —
+this README covers what's built, what isn't yet, and how to work on it.
 
 ## Setup
 
 ```bash
 npm install
 npm run dev        # http://localhost:4321
-npm run build      # type-checks then builds to dist/
-npm run preview    # serve the production build locally
+npm run build       # type-checks, then builds to dist/
+npm run guards      # runs the 12 postbuild guards against dist/ — see below
+npm run preview     # serve the production build locally
 ```
 
-Node 18+ recommended.
+## Site map — what's live
 
-## Project shape
+**Priority 1 (built in full):**
+
+| Dutch | English | Status |
+|---|---|---|
+| `/` | `/en/` | New positioning homepage |
+| `/wonen` | `/en/residential` | Residential hub (old homepage content) |
+| `/wonen/schoonmaak` | `/en/residential/cleaning` | Full bespoke content |
+| `/vve-beheer` | `/en/vve-management` | Full bespoke content |
+| `/zakelijk` | `/en/commercial` | Full bespoke content (brief gave this copy too) |
+
+**Priority 2/3 service pages** — `glazenwassen`, `tuinonderhoud`,
+`was-en-strijk`, `autoreiniging`, `leegstandsbeheer` (under `/wonen/`),
+`kantoorschoonmaak`, `sportschool-schoonmaak` (under `/zakelijk/`) — are
+**not written yet**. They render as short, honest "coming soon" pages via
+a shared dynamic route (`src/pages/wonen/[slug].astro`,
+`src/pages/zakelijk/[slug].astro`, and the `/en/` equivalents), each with
+a working WhatsApp CTA naming the service, so the mega-menu never links
+to a 404 while these are being written. To turn one into a full page,
+give it its own `index.astro` next to the others (same pattern as
+`/wonen/schoonmaak`) — the dynamic route's `getStaticPaths` already
+excludes any slug once it stops being a "stub" in `src/data/routes.ts`.
+
+**Trust/legal pages** (`src/pages/[slug].astro` / `src/pages/en/[slug].astro`,
+driven by `src/data/routes.ts`):
+
+- Written in full: `/veiligheid`, `/veelgestelde-vragen`, `/privacy`,
+  `/reviews`, `/bedrijfsgegevens`, `/cookies` (+ `/en/` equivalents)
+- Honest `[[ TO POPULATE ]]` stubs, still `index,follow` per the brief:
+  `/over-ons`, `/algemene-voorwaarden`, `/disclaimer`, `/klachten`,
+  `/toegankelijkheid`, `/vacatures`
+
+`/terms/` and `/cookie-policy/` (the old paths) 301-redirect to
+`/algemene-voorwaarden/` and `/cookies/` at the nginx layer on the server.
+
+## Key files
 
 ```
-src/
-  components/            Figure.astro, CtaButton.astro, Nav.astro, Footer.astro,
-                          FloatingWhatsApp.astro, StickyBar.astro
-  components/sections/   Hero, TrustStrip, Services, HowItWorks, Promise,
-                          Comparison, Contact
-  data/images.ts         every image slot on the site — see "Adding photos" below
-  i18n/en.ts, nl.ts       all page copy, one file per locale
-  i18n/types.ts           the shared Dict shape both locales must satisfy
-  lib/whatsapp.ts         the WhatsApp number and link builder — see below
-  layouts/Base.astro      <head>, fonts, JSON-LD, analytics
-  pages/index.astro       Dutch (default, /)
-  pages/en/index.astro    English (/en/)
-  pages/privacy.astro, terms.astro, cookie-policy.astro   legal stubs (+ /en/ versions)
+src/data/company.ts     single source of truth for identity, KvK, BTW, insurance figure
+src/data/routes.ts       the site map as data — drives the mega-menu, footer, stub pages
+src/data/images.ts       every Figure slot — src:'' until photography lands
+src/data/reviews.ts      empty array, typed so an unverified entry can't compile
+src/layouts/Base.astro   <head>: lang, canonical, hreflang, OG, JSON-LD
+src/layouts/Service.astro  shell for service/hub pages (breadcrumbs, hero, closing CTA)
+src/layouts/Legal.astro    shell for trust/legal pages (68ch column)
+src/components/Header.astro  the mega-menu (Your needs / Services / Company)
+src/components/Footer.astro  statutory block + legal links, sourced from company.ts
+scripts/guards.mjs       the 12 postbuild guards from the brief
 ```
+
+Deviation from the brief's `src/content/{legal,services}/{nl,en}/*.md`
+content-collection plan: given the scope of this pass, page copy lives as
+typed data/props inside the `.astro` files themselves rather than in a
+separate Markdown content collection. Functionally equivalent (no copy is
+hardcoded in a shared component), but if a real CMS-editing workflow is
+wanted later, migrating to content collections is a clean follow-up.
 
 ## Adding a photo
 
-Every image on the site is a labelled placeholder until a real photo is
-added — dropping one in never shifts the layout, because the placeholder
-already reserves the exact box (ratio) the photo will fill.
+Every image is a placeholder until a real photo lands — see
+`src/data/images.ts`. Save the file into `public/images/` using a
+**descriptive, hyphenated filename** (the brief is explicit: never
+`hero-1.jpg` — `scripts/guards.mjs` guard 11 fails the build on that
+pattern), then set that slot's `src`. Property-management-tone slots
+(`heroPortfolio`, `survey`, `oneRoof`, `sectorResidential`,
+`sectorCommercial`, `aiPlaceholder`, `vveHero`, `zakelijkHero`) still need
+photography — see the brief's §6.2 image direction (buildings as the
+subject, empty and architectural, natural daylight, no task-in-progress).
 
-1. Save the photo into `public/images/` using the filename below.
-2. Open `src/data/images.ts` and set that slot's `src` to the matching path,
-   e.g. `src: '/images/hero.jpg'`.
-3. That's it — nothing else changes.
+## Build guards
 
-| Slot (in images.ts) | File                          | Size      | Subject |
-|---|---|---|---|
-| `hero`               | `public/images/hero.jpg`                  | 2400×1600 | Sunlit Dutch interior, no people, no products |
-| `serviceCleaning`    | `public/images/services/cleaning.jpg`     | 1200×900  | Kitchen surfaces, clean and empty |
-| `serviceLaundry`     | `public/images/services/laundry.jpg`      | 1200×900  | Pressed shirts on hangers |
-| `serviceOrganising`  | `public/images/services/organising.jpg`   | 1200×900  | Ordered wardrobe, folded stacks |
-| `serviceGarden`      | `public/images/services/garden.jpg`       | 1200×900  | Trimmed hedge, Dutch back garden |
-| `serviceCooking`     | `public/images/services/cooking.jpg`      | 1200×900  | Hands preparing a family meal |
-| `serviceCar`         | `public/images/services/car.jpg`          | 1200×900  | Car on a driveway, finished by hand |
-| `howItWorks`         | `public/images/how-it-works.jpg`          | 1600×2000 | Team member with the shared calendar |
-| `promise`            | `public/images/promise.jpg`               | 1600×2000 | ID card and keys on a hallway table |
-| `contact`            | `public/images/contact.jpg`               | 1600×2000 | Dutch house, clean path, clipped hedging |
-| `og`                 | `public/images/og.jpg`                    | 1200×630  | Open Graph card |
+`npm run guards` implements the brief's 12 postbuild checks. As of this
+build: **0 failing, 1 expected warning** — `company.ts` still holds
+`[[ TO POPULATE ]]` for the legal entity name, address, KvK and BTW
+number. That's a warning rather than a hard failure here (so the site can
+still deploy with the gap clearly marked); flip it to a hard `fail()` in
+`scripts/guards.mjs` once those values are real, ahead of a proper launch
+gate.
 
-Pre-size and compress photos before adding them — images placed in
-`public/` are served as-is, not processed by Astro's image pipeline.
+## Hosting
 
-## Changing the WhatsApp number
+Deployed to the existing EC2 instance behind nginx (`https://dscliving.nl`,
+Let's Encrypt cert, Cloudflare proxied in front) rather than the brief's
+S3 + CloudFront target — that's a separate infrastructure migration, not
+attempted in this pass. nginx's `try_files` already resolves clean
+directory URLs correctly, so the brief's CloudFront Function §11 doesn't
+apply here; if S3/CloudFront is still wanted, that Function is exactly
+what the brief specifies and can be lifted as-is.
 
-Edit `WA_NUMBER` in `src/lib/whatsapp.ts` (digits only, no `+`, no spaces,
-country code included). Every CTA on the site reads from this one constant.
+**Cloudflare's managed robots.txt is overwriting this repo's `robots.txt`
+on every request** — confirmed live: `curl https://dscliving.nl/robots.txt`
+shows Cloudflare's own AI-crawler block list appended after this site's
+`Content-Signal` directive, disallowing ClaudeBot/GPTBot/CCBot/etc exactly
+as the brief warned it might. **Action needed in the Cloudflare
+dashboard**: turn off the managed robots.txt feature (Security → Settings,
+or the Bots section, depending on plan) so `public/robots.txt` actually
+takes effect.
 
-## The contact form is not a form
+## Outstanding — brief Part 14
 
-The "Book your free home audit" form in the Contact section never submits
-anywhere. It reads its own fields with a small script and rewrites the
-"Send on WhatsApp" button's link on every keystroke, composing a message
-like:
+- **Company details** — entity name, KvK, BTW, registered address, all
+  `[[ TO POPULATE ]]` in `src/data/company.ts` and the pages that render
+  from it (footer, `/bedrijfsgegevens`, `/en/company-details`, JSON-LD).
+- **Insurance figure** — the site states €1m (`company.liabilityCover`).
+  Per the brief: confirm the AVB limit and whether it covers damage to
+  property while being worked on; if excluded, the claim needs to come
+  off before launch.
+- **Screening policy** — confirm every employee actually provides a
+  certificate of conduct (VOG) before their first visit; it's the
+  strongest line on `/veiligheid` and it has to be true.
+- **Terms** — two sets (consumer and business), with the 14-day
+  WhatsApp-distance-contract withdrawal mechanism the brief specifies
+  (§10.3) built into the flow, not just written into the terms text.
+  `/algemene-voorwaarden` is currently a stub.
+- **Keyword volumes** — the terms in the brief's Part 3 are unverified;
+  check Ahrefs/Semrush/Keyword Planner before committing further build
+  order beyond priority 1.
+- **Photography** — see "Adding a photo" above.
+- **Priority 2/3 service pages** — currently stubs; see "Site map" above.
+- **Package ladder, VvE tiers, founding customers** — flagged in the
+  brief as "to populate" on `/wonen`; not built this pass since no
+  figures were supplied.
+- **Google Business Profile, Search Console, directory listings** — brief
+  Part 13, not a developer task but flagged as higher-priority than most
+  of the remaining build work.
 
-```
-Hi DSC Living, I'd like to book a free home audit.
+## WhatsApp
 
-Name: Kumar
-Postcode: 2132
-Home: Terraced house
-Services: Cleaning, Laundry & ironing
-Note: The kitchen never stays on top of itself.
-```
-
-Any line the visitor left blank is omitted. Nothing is stored, logged, or
-sent anywhere except into the WhatsApp app the visitor opens. This is also
-why there's no cookie banner or consent checkbox — no personal data
-processing happens on the website itself.
-
-## The service selector
-
-In the Services section, ticking any of the six service checkboxes rewrites
-the "Build your package" button so it opens WhatsApp with an estimate
-request naming exactly the services chosen. With nothing ticked, it falls
-back to the plain audit-booking message.
-
-## Languages
-
-`/` is Dutch (default), `/en/` is English. Both are real static routes
-sharing the same section components; only `src/i18n/nl.ts` /
-`src/i18n/en.ts` differ. `nl.ts` holds a full Dutch translation of the
-approved English copy — same claims, same numbers, nothing added.
-
-Note: the WhatsApp message templates themselves (in `src/lib/whatsapp.ts`
-and the composer scripts in `Services.astro` / `Contact.astro`) stay in
-English on both locales — that's the literal text specified in the brief.
-If DSC Living wants Dutch visitors to compose Dutch WhatsApp messages
-instead, that's a small follow-up, not a bug.
-
-## Analytics
-
-A single Plausible (EU-hosted, cookieless) script tag in
-`src/layouts/Base.astro`. Every outbound WhatsApp click fires a "WhatsApp
-Click" custom event labelled by `location` (nav, hero-primary,
-services-build-package, how-it-works, comparison, contact-composer,
-contact-direct, footer, floating-button, sticky-bar, sticky-bar-icon) —
-this is the only conversion signal in phase 1, so it's worth checking in
-the Plausible dashboard which locations actually convert.
-
-Replace `data-domain="dscliving.nl"` in `Base.astro` if the live domain
-differs.
-
-## Before launch — outstanding TODOs
-
-These are left as literal `[TODO]` markers in the code so they can't be
-quietly forgotten:
-
-- **KvK and BTW numbers** — `src/i18n/en.ts` / `nl.ts`, `footer.kvk` /
-  `footer.btw`. Shown in the site footer.
-- **Privacy statement, Terms, Cookie policy** — `src/pages/privacy.astro`,
-  `terms.astro`, `cookie-policy.astro` (and their `/en/` counterparts) are
-  stubs. They're short because the site itself processes no personal data,
-  but they still need real content and won't hold up as-is.
-- **Real photography** — see the image table above.
-- **Two things flagged from the brief that still need a decision** (not
-  blocking a build, but will show up in copy once photos and real numbers
-  land):
-  - `From €599/month · min. 8 hrs` in the Comparison section works out to
-    roughly €75/hour — well above the professional band quoted elsewhere.
-    Confirm what the entry package actually contains.
-  - The Promise section promises "one dedicated account manager"; if any
-    other material promises 24/7 support, pick one and use it consistently.
-
-## Phase 2 seam
-
-Every call-to-action on the site goes through `src/components/CtaButton.astro`,
-which carries a `kind` prop (`audit` | `package` | `question` | `compose`)
-and a `// PHASE 2:` comment marking the one place a real
-enquiry/booking backend would be wired in — no section file needs to
-change when that happens.
-
-## Definition of done
-
-- [x] `npm run build` completes clean, no TypeScript errors
-- [x] Every image slot renders a labelled placeholder; setting a `src` in
-      `images.ts` swaps it with no layout shift
-- [x] All CTAs open WhatsApp with the correct prefilled text
-- [x] Service selector composes correctly and falls back when nothing is ticked
-- [x] Contact composer omits blank lines and submits nothing anywhere
-- [x] No third-party script beyond fonts, images, and the analytics beacon
-- [ ] Lighthouse mobile ≥ 95 across all four categories — verify against a
-      deployed URL (Lighthouse in a local headless run under-reports LCP
-      versus a real CDN)
-- [x] 390px wide: sticky bar, nav overlay, and comparison cards checked
-- [x] `[TODO]` markers still visible for KvK and BTW
+Unchanged mechanism: every CTA opens `wa.me` with a prefilled message,
+`target="_blank" rel="noopener"`, no form submits anywhere. Service pages
+and stub pages now pass a message naming the specific service
+(`src/lib/whatsapp.ts` → `serviceEnquiryMessage`), so the enquiry source
+is readable in the inbox, per brief §10.3. To change the WhatsApp number,
+edit `WA_NUMBER` in `src/lib/whatsapp.ts`.
