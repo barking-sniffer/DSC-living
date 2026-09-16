@@ -22,8 +22,8 @@ const img = images.heroPortfolio
     <div class="mt-8 max-w-[62ch]">
       <h1 class="h1 mb-5">
         {isNl
-          ? '360° vastgoedbeheer voor woningen en bedrijfspanden in Haarlemmermeer'
-          : '360° property management for homes and businesses in Hoofddorp and Amsterdam'}
+          ? '360° vastgoedbeheer voor woningen en bedrijfspanden'
+          : '360° property management for homes and businesses'}
       </h1>
       <p class="lead mb-4">
         {isNl
@@ -41,7 +41,11 @@ const img = images.heroPortfolio
           {isNl ? 'Stuur ons een WhatsApp-bericht' : 'Message us on WhatsApp'}
         </CtaButton>
       </div>
-      <p class="small-copy mt-5">Hoofddorp · Haarlemmermeer · Amstelveen · Amsterdam</p>
+      <p class="small-copy mt-5">
+        {isNl
+          ? 'Geef uw adres door, dan vertellen wij u wat wij daar kunnen doen. Wij werken door heel Nederland, zelf en via geselecteerde partners.'
+          : 'Tell us your address and we will tell you what we can do there. We work across the Netherlands, directly and through vetted partners.'}
+      </p>
     </div>
   </div>
 </section>

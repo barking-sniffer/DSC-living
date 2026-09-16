@@ -25,8 +25,8 @@ const socialIcons: Record<string, string> = {
 const t = {
   privacyLabel: isNl ? 'PRIVACY' : 'PRIVACY',
   privacyBody: isNl
-    ? `${company.tradeName}, handelsnaam van ${company.legalName}, beheert woningen en bedrijfspanden in de regio Amsterdam. Wij nemen de bescherming van uw persoonsgegevens serieus. Wat wij verzamelen gebruiken wij om uw vraag te beantwoorden en de diensten te leveren waar u om heeft gevraagd, bewaren wij niet langer dan nodig of wettelijk vereist, en verkopen wij nooit. Alle details staan in onze privacyverklaring.`
-    : `${company.tradeName}, a trade name of ${company.legalName}, looks after residential and commercial property in the Amsterdam region. We take the protection of your personal information seriously. What we collect is used to answer your enquiry and deliver the services you have asked for, is kept no longer than we need it or the law requires, and is never sold. The full detail is in our Privacy Statement.`,
+    ? `${company.tradeName}, handelsnaam van ${company.legalName}, beheert woningen en bedrijfspanden in Nederland. Wij nemen de bescherming van uw persoonsgegevens serieus. Wat wij verzamelen gebruiken wij om uw vraag te beantwoorden en de diensten te leveren waar u om heeft gevraagd, bewaren wij niet langer dan nodig of wettelijk vereist, en verkopen wij nooit. Alle details staan in onze privacyverklaring.`
+    : `${company.tradeName}, a trade name of ${company.legalName}, looks after residential and commercial property in the Netherlands. We take the protection of your personal information seriously. What we collect is used to answer your enquiry and deliver the services you have asked for, is kept no longer than we need it or the law requires, and is never sold. The full detail is in our Privacy Statement.`,
   footerLinksLabel: isNl
     ? ['veiligheid', 'faq', 'privacy', 'terms', 'disclaimer', 'complaints', 'cookies', 'accessibility', 'company-details']
     : [],
@@ -59,7 +59,9 @@ const privacyHref = isNl ? '/privacy/' : '/en/privacy/'
       </p>
     </div>
 
-    <div class="border-t border-darkRule pt-6 text-[13px] text-onDarkSoft">
+    <!-- data-statutory: the registered address is a legal disclosure, not
+         marketing copy, so it is exempt from the no-place-names rule (guard 17). -->
+    <div class="border-t border-darkRule pt-6 text-[13px] text-onDarkSoft" data-statutory>
       <p>
         {company.name} — {isNl ? 'handelsnaam van' : 'a trade name of'} {company.legalName} ·{' '}
         {company.address.street}, {company.address.postcode} {company.address.city}, {company.address.countryName}

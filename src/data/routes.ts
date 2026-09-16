@@ -17,6 +17,8 @@ export interface RouteEntry {
   nlTitle: string
   enTitle: string
   priority: 1 | 2 | 3
+  nlH1?: string // CR-01 §2.2 heading where one was specified; else the title
+  enH1?: string
   status: 'built' | 'stub'
   sector: 'wonen' | 'zakelijk'
 }
@@ -54,6 +56,8 @@ export const serviceRoutes: RouteEntry[] = [
     enTerm: 'window cleaner Hoofddorp',
     nlTitle: 'Glazenwassen',
     enTitle: 'Window cleaning',
+    nlH1: 'Glazenwassen als onderdeel van uw vaste afspraak',
+    enH1: 'Window cleaning, as part of your standing arrangement',
     priority: 2,
     status: 'stub',
     sector: 'wonen',
@@ -66,6 +70,8 @@ export const serviceRoutes: RouteEntry[] = [
     enTerm: 'garden maintenance Haarlemmermeer',
     nlTitle: 'Tuinonderhoud',
     enTitle: 'Garden care',
+    nlH1: 'Tuinonderhoud het hele jaar door',
+    enH1: 'Year-round garden maintenance',
     priority: 2,
     status: 'stub',
     sector: 'wonen',
@@ -90,6 +96,8 @@ export const serviceRoutes: RouteEntry[] = [
     enTerm: 'vacant property management',
     nlTitle: 'Leegstandsbeheer',
     enTitle: 'Vacant property care',
+    nlH1: 'Toezicht op uw woning als u er niet bent',
+    enH1: 'Looking after your property while you are away',
     priority: 3,
     status: 'stub',
     sector: 'wonen',
@@ -102,6 +110,8 @@ export const serviceRoutes: RouteEntry[] = [
     enTerm: 'office cleaning Hoofddorp',
     nlTitle: 'Kantoorschoonmaak',
     enTitle: 'Office cleaning',
+    nlH1: 'Kantoorschoonmaak buiten kantoortijden',
+    enH1: 'Office cleaning, outside working hours',
     priority: 2,
     status: 'stub',
     sector: 'zakelijk',

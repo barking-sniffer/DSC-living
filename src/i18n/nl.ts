@@ -27,7 +27,7 @@ export const nl: Dict = {
   },
 
   hero: {
-    eyebrow: '360° WONINGBEHEER · HOOFDDORP & AMSTELVEEN',
+    eyebrow: '360° WONINGBEHEER',
     h1: 'Uw tijd verdient aandacht, geen klusjes.',
     lead:
       'Getrainde, gescreende en verzekerde professionals wekelijks bij u thuis. Schoonmaak, was en strijk, organiseren, tuin- en autoverzorging — één vast maandbedrag, zonder werkgeversrompslomp.',
@@ -38,7 +38,7 @@ export const nl: Dict = {
 
   trustStrip: [
     { bold: 'VOG-gescreend', rest: 'vóór het eerste bezoek' },
-    { bold: 'In vaste dienst', rest: 'op een permanent Nederlands contract' },
+    { bold: 'In dienst van DSC Living', rest: 'partnerwerk melden wij vóór het boeken' },
     { bold: `${company.liabilityCover.amountShortNL} aansprakelijkheidsverzekering`, rest: '' },
     { bold: 'Vervanging gegarandeerd', rest: 'bij ziekte en vakantie' },
   ],
@@ -171,7 +171,7 @@ export const nl: Dict = {
       },
     ],
     footerNote:
-      'Iedereen die voor ons werkt, is in vaste dienst op een permanent Nederlands contract tegen cao-loon, met pensioen en volledige verzekering. Geen grijs circuit. Dat is grotendeels waarom wij kosten wat wij kosten.',
+      'Iedereen die wij sturen is in dienst van DSC Living, met een Nederlandse arbeidsovereenkomst. Wordt een dienst door een geselecteerde partner uitgevoerd, dan laten wij dat vóór het boeken weten. Geen grijs circuit. Dat is grotendeels waarom wij kosten wat wij kosten.',
     ctaReadFull: 'Lees de volledige belofte',
   },
 
@@ -258,7 +258,7 @@ export const nl: Dict = {
       email: 'care@dscliving.nl',
       site: 'dscliving.nl',
       areaLabel: 'WAAR WIJ WERKEN',
-      areas: 'Hoofddorp · Amstelveen · Haarlemmermeer · Amsterdam',
+      areas: 'Heel Nederland, zelf en via geselecteerde partners',
     },
   },
 

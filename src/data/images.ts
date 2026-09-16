@@ -86,11 +86,11 @@ export const images: Record<string, ImageSlot> = {
   // the subject, wide and architectural, empty and immaculate, natural
   // daylight. Distinct in tone from the warmer /wonen photography above.
 
-  // public/images/property/hero-portfolio.jpg — 21:9 — Wide architectural view, a Dutch residential block or street, low angle low sun, or an aerial over Hoofddorp housing. Reads as a portfolio, not one home.
+  // public/images/property/hero-portfolio.jpg — 21:9 — Wide architectural view, a Dutch residential block or street, low angle low sun, or an aerial over Dutch housing. Reads as a portfolio, not one home.
   heroPortfolio: {
     src: '',
     alt: 'A wide architectural view of a Dutch residential street in low sun',
-    note: 'Wide architectural portfolio view — Hoofddorp housing',
+    note: 'Wide architectural portfolio view — Dutch housing',
   },
   // public/images/property/survey.jpg — 4:3 — A condition survey underway: a tablet against a stairwell wall, a drawing on a worktop. Hands at most, no faces.
   survey: {
@@ -129,7 +129,7 @@ export const images: Record<string, ImageSlot> = {
   // public/images/services/schoonmaak-hoofddorp-keuken.jpg — 16/10 — Clean kitchen surfaces, empty, daylight
   schoonmaakHero: {
     src: '/images/services/cleaning.jpg',
-    alt: 'Schone, lege keukenoppervlakken in een woning in Hoofddorp',
+    alt: 'Schone, lege keukenoppervlakken in een woning',
     note: 'Kitchen surfaces, clean and empty',
   },
   // public/images/property/vve-appartementencomplex.jpg — 16/10 — Communal entrance / stairwell of an apartment block, immaculate

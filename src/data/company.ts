@@ -16,7 +16,7 @@ export const company = {
   address: {
     street: '[[ TO POPULATE — street and number ]]',
     postcode: '[[ TO POPULATE — postcode ]]',
-    city: 'Hoofddorp',
+    city: '[[ TO POPULATE — city ]]',
     country: 'NL',
     countryName: 'Nederland',
   },

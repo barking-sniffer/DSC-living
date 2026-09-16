@@ -57,6 +57,10 @@ const graph: Record<string, unknown>[] = [
       addressLocality: company.address.city,
       addressCountry: company.address.country,
     },
+    // Deliberately keeps the list of towns. CR-01 §2.6: place names are gone
+    // from visible copy, but areaServed is machine-readable local-search
+    // signal and a large part of what makes the site findable. This is not
+    // an inconsistency to tidy away.
     areaServed: company.areaServed.map((city) => ({ '@type': 'City', name: city })),
     ...(company.kvk && !company.kvk.includes('[[')
       ? { identifier: { '@type': 'PropertyValue', name: 'KvK', value: company.kvk } }

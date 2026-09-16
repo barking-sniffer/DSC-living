@@ -223,6 +223,30 @@ if (existsSafe(distDir)) {
   if (g13 === 0) ok(13)
   if (g16 === 0) ok(16)
 
+  // Guard 15: "admission" never appears in English output (opname mistranslation)
+  const enHits = walk(join(distDir, 'en'), '.html').filter((f) => /admission/i.test(readFileSync(f, 'utf8')))
+  if (enHits.length) fail(15, `"admission" found in: ${enHits.map((f) => relative(distDir, f)).join(', ')}`)
+  else ok(15)
+
+  // Guard 17: no town name in visible headings or paragraphs. Titles, meta
+  // and JSON-LD are allowed to keep them (CR-01 §2.6).
+  const towns = /Hoofddorp|Haarlemmermeer|Amstelveen|Amsterdam|Schiphol/i
+  let g17 = 0
+  for (const f of htmlFiles) {
+    const html = readFileSync(f, 'utf8').replace(/<script\b[\s\S]*?<\/script>/g, '').replace(/<head>[\s\S]*?<\/head>/, '')
+      // Statutory disclosures (registered address) are legal text, not copy
+      .replace(/<(div|section|footer)\b[^>]*data-statutory[^>]*>[\s\S]*?<\/\1>/g, '')
+    for (const m of html.matchAll(/<(h1|h2|h3|p)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
+      const text = m[2].replace(/<[^>]+>/g, ' ')
+      const hit = text.match(towns)
+      if (hit) {
+        fail(17, `${relative(distDir, f)} — "${hit[0]}" inside <${m[1]}>: ${text.trim().slice(0, 80)}`)
+        g17++
+      }
+    }
+  }
+  if (g17 === 0) ok(17)
+
   // Guard 14: built CSS carries the global hidden rule verbatim
   const cssFiles = walk(distDir, '.css')
   const hasHiddenRule = cssFiles.some((f) => readFileSync(f, 'utf8').includes('[hidden]{display:none!important}'))

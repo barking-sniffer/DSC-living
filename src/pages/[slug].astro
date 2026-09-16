@@ -99,11 +99,11 @@ const faqItems = [
   },
   {
     q: 'Wie komt er bij mij thuis of op kantoor?',
-    a: 'Iedereen die voor ons werkt is in vaste dienst op een Nederlands contract en wordt gescreend vóór het eerste bezoek. U weet vooraf wie er komt, en iedereen draagt een pasje met foto.',
+    a: 'Iedereen die wij sturen is in dienst van DSC Living, met een Nederlandse arbeidsovereenkomst. Wordt een dienst door een geselecteerde partner uitgevoerd, dan laten wij dat vóór het boeken weten. Iedereen wordt gescreend vóór het eerste bezoek, u weet vooraf wie er komt, en iedereen draagt een pasje met foto.',
   },
   {
-    q: 'In welke plaatsen werkt DSC Living?',
-    a: `Wij werken in ${company.areaServed.join(', ')}. Twijfelt u of uw adres binnen ons werkgebied valt, stuur ons dan gerust een bericht.`,
+    q: 'Waar werkt DSC Living?',
+    a: 'Geef uw adres door, dan vertellen wij u wat wij daar kunnen doen. Wij werken door heel Nederland, zelf en via geselecteerde partners.',
   },
   {
     q: 'Hoe snel krijg ik een prijs?',
@@ -140,7 +140,7 @@ const faqItems = [
       <p class="body-copy">Wij doen het kosteloos over, en lopen zo nodig het werkblad met u door als de afspraak niet klopt.</p>
       <h3 class="h3 mt-4">Eén vaste accountmanager</h3>
       <p class="body-copy">Eén naam, één nummer, één lijn. Verzoeken komen bij ons binnen, nooit bij degene die bij u aan het werk is.</p>
-      <p class="small-copy mt-4">Iedereen die voor ons werkt, is in vaste dienst op een permanent Nederlands contract tegen cao-loon, met pensioen en volledige verzekering.</p>
+      <p class="small-copy mt-4">Iedereen die wij sturen is in dienst van DSC Living, met een Nederlandse arbeidsovereenkomst. Wordt een dienst door een geselecteerde partner uitgevoerd, dan laten wij dat vóór het boeken weten.</p>
     </>
   )}
 
@@ -150,7 +150,7 @@ const faqItems = [
     <>
       <p class="body-copy">
         {company.tradeName}, handelsnaam van {company.legalName}, beheert woningen en
-        bedrijfspanden in de regio Amsterdam. Wij nemen de bescherming van uw persoonsgegevens
+        bedrijfspanden in Nederland. Wij nemen de bescherming van uw persoonsgegevens
         serieus.
       </p>
       <p class="body-copy">
@@ -180,13 +180,13 @@ const faqItems = [
   )}
 
   {route.slug === 'company-details' && (
-    <>
+    <div data-statutory class="flex flex-col gap-4">
       <p class="body-copy">{company.name} — {company.legalName}</p>
       <p class="body-copy">{company.address.street}, {company.address.postcode} {company.address.city}, {company.address.countryName}</p>
       <p class="body-copy">KvK: {company.kvk}</p>
       <p class="body-copy">BTW: {company.btw}</p>
       <p class="body-copy">Telefoon: {company.phoneDisplay} · E-mail: {company.email}</p>
-    </>
+    </div>
   )}
 
   {route.slug === 'cookies' && (

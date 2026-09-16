@@ -30,7 +30,7 @@ export const en: Dict = {
   },
 
   hero: {
-    eyebrow: '360° HOME MANAGEMENT · HOOFDDORP & AMSTELVEEN',
+    eyebrow: '360° HOME MANAGEMENT',
     h1: 'Your time deserves care, not chores.',
     lead:
       "Trained, vetted, insured professionals in your home every week. Cleaning, laundry, ironing, organising, garden and car care — one monthly price, and none of the employer paperwork.",
@@ -41,7 +41,7 @@ export const en: Dict = {
 
   trustStrip: [
     { bold: 'VOG-screened', rest: 'before the first visit' },
-    { bold: 'Directly employed', rest: 'on permanent Dutch contracts' },
+    { bold: 'Employed by DSC Living', rest: 'partner work disclosed before you book' },
     { bold: `${company.liabilityCover.amountShortEN} liability cover`, rest: '' },
     { bold: 'Cover guaranteed', rest: 'for illness and holidays' },
   ],
@@ -174,7 +174,7 @@ export const en: Dict = {
       },
     ],
     footerNote:
-      'Everyone who works for us is directly employed on permanent Dutch contracts at collective-agreement wages, with pension and full insurance. No grey market. It is most of why we cost what we cost.',
+      'Everyone we send is employed by DSC Living, on a Dutch employment contract. Where a service is delivered by a vetted partner, we tell you before you book. No grey market. It is most of why we cost what we cost.',
     ctaReadFull: 'Read the full promise',
   },
 
@@ -261,7 +261,7 @@ export const en: Dict = {
       email: 'care@dscliving.nl',
       site: 'dscliving.nl',
       areaLabel: 'WHERE WE WORK',
-      areas: 'Hoofddorp · Amstelveen · Haarlemmermeer · Amsterdam',
+      areas: 'Across the Netherlands, directly and through vetted partners',
     },
   },
 

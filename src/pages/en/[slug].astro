@@ -49,11 +49,11 @@ const faqItems = [
   },
   {
     q: 'Who comes into my home or office?',
-    a: 'Everyone who works for us is permanently employed on a Dutch contract and screened before their first visit. You are told in advance who is coming, and everyone carries a photo ID card.',
+    a: 'Everyone we send is employed by DSC Living, on a Dutch employment contract. Where a service is delivered by a vetted partner, we tell you before you book. Everyone is screened before their first visit, you are told in advance who is coming, and everyone carries a photo ID card.',
   },
   {
-    q: 'Which areas does DSC Living work in?',
-    a: `We work in ${company.areaServed.join(', ')}. Not sure your address is in our service area? Just send us a message.`,
+    q: 'Where does DSC Living work?',
+    a: 'Tell us your address and we will tell you what we can do there. We work across the Netherlands, directly and through vetted partners.',
   },
   {
     q: 'How quickly do I get a price?',
@@ -90,7 +90,7 @@ const faqItems = [
       <p class="body-copy">We redo it at no charge, and walk the job sheet with you in case it's the spec that's wrong.</p>
       <h3 class="h3 mt-4">One dedicated account manager</h3>
       <p class="body-copy">One name, one number, one thread. Requests come to us, never to the person working at your property.</p>
-      <p class="small-copy mt-4">Everyone who works for us is permanently employed on a Dutch contract at collective-agreement wages, with pension and full insurance.</p>
+      <p class="small-copy mt-4">Everyone we send is employed by DSC Living, on a Dutch employment contract. Where a service is delivered by a vetted partner, we tell you before you book.</p>
     </>
   )}
 
@@ -98,7 +98,7 @@ const faqItems = [
 
   {slugKey === 'privacy' && (
     <>
-      <p class="body-copy">{company.tradeName}, a trade name of {company.legalName}, looks after residential and commercial property in the Amsterdam region. We take the protection of your personal data seriously.</p>
+      <p class="body-copy">{company.tradeName}, a trade name of {company.legalName}, looks after residential and commercial property in the Netherlands. We take the protection of your personal data seriously.</p>
       <p class="body-copy">This website uses no cookies and has no form that stores or transmits data. Every enquiry is composed as a WhatsApp message that opens in WhatsApp itself — nothing is sent to or stored on dscliving.nl. WhatsApp is operated by Meta and is covered by Meta's own privacy policy once a message is sent.</p>
       <p class="body-copy">What we receive from you via WhatsApp, phone or email is used only to answer your enquiry and deliver the service you asked for. We keep it no longer than necessary or legally required, and never sell it.</p>
       <p class="body-copy">This site uses a cookieless, EU-hosted analytics service to measure aggregate visits. It uses no cookies and collects no personal data.</p>
@@ -114,13 +114,13 @@ const faqItems = [
   )}
 
   {slugKey === 'company-details' && (
-    <>
+    <div data-statutory class="flex flex-col gap-4">
       <p class="body-copy">{company.name} — {company.legalName}</p>
       <p class="body-copy">{company.address.street}, {company.address.postcode} {company.address.city}, the Netherlands</p>
       <p class="body-copy">KvK: {company.kvk}</p>
       <p class="body-copy">VAT: {company.btw}</p>
       <p class="body-copy">Phone: {company.phoneDisplay} · Email: {company.email}</p>
-    </>
+    </div>
   )}
 
   {slugKey === 'cookies' && (
