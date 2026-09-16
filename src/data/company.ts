@@ -41,13 +41,21 @@ export const company = {
 
   priceRange: '€€',
 
-  // From Part 7.7 — a management/oversight fee, not a services price. See
-  // the brief's note: do not reword as "packages from".
-  entryPrice: {
-    amount: 89,
+  // CR-01 Part 5 — membership, replacing the €89 management fee. This is
+  // a membership price, never a service price: it covers the property
+  // record, priority scheduling, the 24/7 support line and member rates.
+  // Do not present it as "cleaning from €20" (unavailable "from" price).
+  membership: {
+    amount: 20,
     currency: 'EUR',
-    display: '€89',
+    displayEN: '€20',
+    displayNL: '€ 20',
   },
+
+  // CR-01 Part 7 — the tax section links OUT to DSC Capital (different
+  // trading name, its own terms and privacy statement). No URL has been
+  // supplied yet; the link renders only once this is set.
+  dscCapitalUrl: '',
 
   social: {
     // Populate only the profiles that are real — Footer.astro renders

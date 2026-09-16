@@ -68,7 +68,7 @@ src/layouts/Service.astro  shell for service/hub pages (breadcrumbs, hero, closi
 src/layouts/Legal.astro    shell for trust/legal pages (68ch column)
 src/components/Header.astro  the mega-menu (Your needs / Services / Company)
 src/components/Footer.astro  statutory block + legal links, sourced from company.ts
-scripts/guards.mjs       the 12 postbuild guards from the brief
+scripts/guards.mjs       the 12 postbuild guards from the brief + 6 from CR-01
 ```
 
 Deviation from the brief's `src/content/{legal,services}/{nl,en}/*.md`
@@ -146,6 +146,34 @@ takes effect.
 - **Google Business Profile, Search Console, directory listings** — brief
   Part 13, not a developer task but flagged as higher-priority than most
   of the remaining build work.
+
+## Change Request 01 — open items (16 Sept 2026)
+
+Built and deployed, but these need real-world confirmation, as CR-01
+itself says Parts 5–7 should wait on them:
+
+- **Membership (€20/month)** must genuinely deliver what the homepage
+  lists: a maintained property record, real priority scheduling, a 24/7
+  support line (with AI disclosure if an assistant answers it), and a
+  member rate card visibly lower than the non-member rate. The figure
+  lives in `company.membership`.
+- **DSC Capital tax section**: no URL was supplied, so
+  `company.dscCapitalUrl` is empty and the CTA renders as "website coming
+  soon" instead of a dead link. Before relying on this section, confirm
+  the claim stays scoped to tax (not Wft-regulated investment advice),
+  DSC Capital has its own professional indemnity cover, and whoever signs
+  returns has RB or NOB membership.
+- **Partner disclosure**: the employment claim now promises that
+  partner-delivered work is disclosed before booking. That commitment
+  needs to exist in the WhatsApp templates and the standard proposal.
+- **Registered address**: the city was previously set to Hoofddorp as an
+  assumption; it is now `[[ TO POPULATE ]]` like the rest of the address.
+- **Meta descriptions** still describe staff as "in loondienst" /
+  "employed", per the v3 brief's instruction to leave metadata unchanged.
+  The homepage meta description was the one exception: it advertised the
+  €89 fee that no longer exists, so it now says "Lidmaatschap vanaf €20".
+- **Safety page** no longer has a link from the homepage (CR-01 Part 4).
+  If it underperforms in Search Console, one text link from `/` fixes it.
 
 ## WhatsApp
 

@@ -1,0 +1,47 @@
+---
+// CR-01 Part 7 — Dutch tax, delivered by DSC Capital (a different trading
+// name; its own terms and privacy statement govern it). Links OUT to DSC
+// Capital rather than into the DSC Living WhatsApp inbox. The claim is
+// scoped to tax deliberately — not "financial management", which would
+// shade into Wft-regulated investment advice. No structured data here.
+//
+// company.dscCapitalUrl is empty until a real URL is supplied; until then
+// the CTA renders as plain text rather than a dead or guessed link.
+import { company } from '../../../data/company'
+
+interface Props {
+  locale: 'nl' | 'en'
+}
+const { locale } = Astro.props
+const isNl = locale === 'nl'
+const url = company.dscCapitalUrl
+const ctaLabel = isNl ? 'Ga naar DSC Capital →' : 'Go to DSC Capital →'
+---
+
+<section class="section bg-ink text-onDarkSoft" data-section="tax" data-no-schema>
+  <div class="content-wrap">
+  <div class="max-w-[68ch]">
+    <h2 class="h2 text-onDark mb-3">
+      {isNl ? 'Begrijp het Nederlandse belastingstelsel' : 'Understand the Dutch tax system'}
+    </h2>
+    <p class="mb-6 text-[12px] font-bold uppercase tracking-[0.12em] text-accentLt" data-label>
+      {isNl ? 'Uitgevoerd door DSC Capital' : 'Delivered by DSC Capital'}
+    </p>
+    <p class="lead text-onDarkSoft mb-4">
+      {isNl
+        ? 'Het Nederlandse belastingstelsel spreekt niet vanzelf, en al helemaal niet als u er niet mee bent opgegroeid. Of u nu in loondienst bent of een eigen onderneming heeft: ons adviesteam doet het werk in plaats van het alleen toe te lichten — de aangifte zelf, de correspondentie, de termijnen, en box 3, waar de regels de afgelopen jaren meer dan eens zijn veranderd.'
+        : 'Dutch tax is not intuitive, and it is considerably worse if you did not grow up with it. Whether you are employed or running your own business, our advisory team does the work rather than only explaining it — the return itself, the correspondence, the deadlines, and Box 3, where the rules have changed more than once in recent years.'}
+    </p>
+    <p class="body-copy text-onDarkSoft mb-6">
+      {isNl
+        ? 'Zelfde groep, hetzelfde aanspreekpunt, hetzelfde uitgangspunt: u hoeft geen expert te worden in iets om het goed geregeld te krijgen.'
+        : 'Same group, same single point of contact, same principle: you should not have to become an expert in something to get it dealt with properly.'}
+    </p>
+    {url ? (
+      <a href={url} target="_blank" rel="noopener" class="text-[13px] font-bold text-accentLt hover:underline">{ctaLabel}</a>
+    ) : (
+      <span class="text-[13px] font-bold text-onDarkMute">{isNl ? 'DSC Capital — binnenkort online' : 'DSC Capital — website coming soon'}</span>
+    )}
+  </div>
+  </div>
+</section>

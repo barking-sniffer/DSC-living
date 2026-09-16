@@ -247,6 +247,34 @@ if (existsSafe(distDir)) {
   }
   if (g17 === 0) ok(17)
 
+  // Guard 18: AI and tax sections carry their labels and emit no structured data
+  const labels = {
+    ai: [/In ontwikkeling/, /In development/],
+    tax: [/Uitgevoerd door DSC Capital/, /Delivered by DSC Capital/],
+  }
+  let g18 = 0
+  let sectionsSeen = 0
+  for (const f of htmlFiles) {
+    const html = readFileSync(f, 'utf8')
+    for (const m of html.matchAll(/<section\b[^>]*data-section="(ai|tax)"[^>]*>([\s\S]*?)<\/section>/g)) {
+      sectionsSeen++
+      const [, kind, inner] = m
+      if (!labels[kind].some((re) => re.test(inner))) {
+        fail(18, `${relative(distDir, f)} — ${kind} section missing its required label`)
+        g18++
+      }
+      if (/application\/ld\+json|itemscope|itemtype/.test(inner)) {
+        fail(18, `${relative(distDir, f)} — ${kind} section emits structured data`)
+        g18++
+      }
+    }
+  }
+  if (sectionsSeen === 0) {
+    fail(18, 'no AI or tax section found in any built page')
+    g18++
+  }
+  if (g18 === 0) ok(18)
+
   // Guard 14: built CSS carries the global hidden rule verbatim
   const cssFiles = walk(distDir, '.css')
   const hasHiddenRule = cssFiles.some((f) => readFileSync(f, 'utf8').includes('[hidden]{display:none!important}'))

@@ -1,8 +1,10 @@
 ---
-// Brief Part 7.5 — explicitly marked "in development", no live product
-// implied (Art. 6:193c BW misleading-commercial-practice rule). Excluded
-// from structured data entirely — no JSON-LD is emitted anywhere on this
-// section.
+// CR-01 Part 6 — AI offerings. The "in development" label is mandatory:
+// without it this is an advertised capability that does not exist (Art.
+// 6:193c BW). "AI financial insights", not "manager" — manager implies
+// discretion over funds, which edges toward AFM-licensed activity.
+// Excluded from structured data: nothing in this section emits JSON-LD
+// (guard 18 checks this).
 import Figure from '../../Figure.astro'
 import CtaButton from '../../CtaButton.astro'
 import { images } from '../../../data/images'
@@ -14,24 +16,40 @@ interface Props {
 const { locale } = Astro.props
 const isNl = locale === 'nl'
 const img = images.aiPlaceholder
+
+const items = isNl
+  ? [
+      { t: 'Automatiseer uw woning en kantoor.', d: 'Verwarming, verlichting en toegang die meebewegen met hoe het pand werkelijk wordt gebruikt, ingericht en onderhouden door hetzelfde team dat de rest verzorgt.' },
+      { t: 'Virtueel bezichtigen.', d: 'Loop rustig door een pand voordat u ernaartoe reist.' },
+      { t: 'AI-inzicht in uw kosten.', d: 'Wat uw pand kost om te draaien, wat eraan komt, en waar het geld werkelijk heen gaat.' },
+    ]
+  : [
+      { t: 'Automate your home and office.', d: 'Heating, lighting and access that respond to how the building is actually used, set up and looked after by the same team that looks after everything else.' },
+      { t: 'Virtual property viewing.', d: 'Walk through a property properly before you travel to it.' },
+      { t: 'AI financial insights.', d: 'What your property costs to run, what is coming next, and where the money actually goes.' },
+    ]
 ---
 
-<section class="section bg-tint">
-  <div class="content-wrap grid grid-cols-1 items-center gap-10 md:grid-cols-2">
+<section class="section bg-tint" data-section="ai" data-no-schema>
+  <div class="content-wrap grid grid-cols-1 items-start gap-10 md:grid-cols-2">
     <div>
-      <p class="eyebrow mb-3">{isNl ? 'IN ONTWIKKELING' : 'IN DEVELOPMENT'}</p>
-      <h2 class="h2 mb-4">{isNl ? 'Verbeter uw woning met AI' : 'Upgrade your home with AI'}</h2>
-      <p class="body-copy mb-4">
-        {isNl
-          ? 'Wekelijks voor een pand zorgen levert veel informatie op over dat pand. Wij bouwen aan hulpmiddelen die daar iets bruikbaars van maken voor de eigenaar: wat er waarschijnlijk als volgende aandacht vraagt, wat dat gaat kosten, en wat de moeite waard is om nu te doen in plaats van later.'
-          : 'Looking after a property every week produces a great deal of information about it. We are building tools that turn that into something useful for the owner: what is likely to need attention next, what it will cost, and what is worth doing now rather than later.'}
+      <h2 class="h2 mb-3">
+        {isNl ? 'Ontdek onze AI-diensten voor comfortabeler wonen' : 'Explore our AI offerings to make your living more comfortable'}
+      </h2>
+      <p class="mb-6 inline-block rounded-[3px] border border-accent px-2 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-accent" data-label>
+        {isNl ? 'In ontwikkeling — nog niet beschikbaar' : 'In development — none of the below is available yet'}
       </p>
+      <div class="flex flex-col gap-4 mb-6">
+        {items.map((it) => (
+          <p class="body-copy"><strong class="text-ink">{it.t}</strong> {it.d}</p>
+        ))}
+      </div>
       <p class="body-copy font-semibold text-inkSoft mb-6">
         {isNl
-          ? 'Dit is nog niet beschikbaar. Wilt u horen wanneer het zover is, laat het ons weten — dan bent u de eerste die het hoort.'
-          : 'Nothing here is live yet. If you would like to hear when it is, let us know and we will tell you first.'}
+          ? 'Laat weten welke u zou gebruiken, dan bouwen wij die als eerste.'
+          : 'Tell us which of these you would use and we will build that one first.'}
       </p>
-      <CtaButton kind="question" message={aiInterestMessage(locale)} location="ai-upgrade" variant="outline" size="md">
+      <CtaButton kind="question" message={aiInterestMessage(locale)} location="ai-offerings" variant="outline" size="md">
         {isNl ? 'Houd mij op de hoogte →' : 'Register your interest →'}
       </CtaButton>
     </div>

@@ -38,8 +38,8 @@ export function whatsappQuestionMessage(locale: 'nl' | 'en'): string {
 
 export function aiInterestMessage(locale: 'nl' | 'en'): string {
   return locale === 'nl'
-    ? 'Hallo DSC Living, houd mij op de hoogte van de AI-functies zodra die beschikbaar zijn.'
-    : "Hi DSC Living, please let me know when the AI features are live."
+    ? 'Hallo DSC Living, houd mij op de hoogte van de AI-diensten (automatisering, virtueel bezichtigen, AI-inzicht in kosten). Ik zou vooral gebruiken: '
+    : "Hi DSC Living, please keep me posted on the AI offerings (home automation, virtual viewing, AI financial insights). The one I'd use most: "
 }
 
 // Analytics: fire a cookieless custom event (Plausible) for every outbound
