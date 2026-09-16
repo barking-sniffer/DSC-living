@@ -55,17 +55,7 @@
   [id] {
     scroll-margin-top: 96px;
   }
-  /* The header (Header.astro) is fixed at 64px / 76px tall; every page's
-     <main> needs matching top padding so content doesn't start underneath
-     it. */
-  main {
-    padding-top: 64px;
-  }
-  @media (min-width: 768px) {
-    main {
-      padding-top: 76px;
-    }
-  }
+
   h1, h2, h3 {
     @apply font-display text-ink;
   }
@@ -105,4 +95,12 @@
   .content-wrap {
     @apply max-w-content mx-auto;
   }
+}
+
+/* Global, deliberately outside any @layer and !important: a utility class
+   that sets display (flex, grid, block) otherwise beats the browser's own
+   [hidden] rule, leaving the attribute present but doing nothing. That is
+   exactly how the header's mega-menu panels got stuck open (CR-01 Part 1). */
+[hidden] {
+  display: none !important;
 }

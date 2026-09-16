@@ -190,6 +190,46 @@ if (existsSafe(distDir)) {
   }
 }
 
+// --- CR-01 guards ------------------------------------------------------
+if (existsSafe(distDir)) {
+  const htmlFiles = walk(distDir, '.html')
+  let g13 = 0
+  let g16 = 0
+  for (const f of htmlFiles) {
+    const rel = relative(distDir, f)
+    const html = readFileSync(f, 'utf8')
+
+    // Guard 13: every mega panel ships closed, every trigger collapsed
+    for (const tag of html.match(/<[a-z]+\b[^>]*data-mega-panel[^>]*>/g) || []) {
+      if (!/\shidden(\s|>|=)/.test(tag)) {
+        fail(13, `${rel} — mega panel without hidden attribute: ${tag.slice(0, 90)}`)
+        g13++
+      }
+    }
+    for (const tag of html.match(/<[a-z]+\b[^>]*data-mega-trigger[^>]*>/g) || []) {
+      if (!/aria-expanded="false"/.test(tag)) {
+        fail(13, `${rel} — mega trigger not aria-expanded="false": ${tag.slice(0, 90)}`)
+        g13++
+      }
+    }
+
+    // Guard 16: no "Log in" anywhere in the built header
+    const headerHtml = html.match(/<header\b[\s\S]*?<\/header>/)?.[0] ?? ''
+    if (/Log in/.test(headerHtml)) {
+      fail(16, `${rel} — "Log in" present in header`)
+      g16++
+    }
+  }
+  if (g13 === 0) ok(13)
+  if (g16 === 0) ok(16)
+
+  // Guard 14: built CSS carries the global hidden rule verbatim
+  const cssFiles = walk(distDir, '.css')
+  const hasHiddenRule = cssFiles.some((f) => readFileSync(f, 'utf8').includes('[hidden]{display:none!important}'))
+  if (hasHiddenRule) ok(14)
+  else fail(14, 'built CSS does not contain [hidden]{display:none!important}')
+}
+
 function existsSafe(p) {
   try {
     statSync(p)
