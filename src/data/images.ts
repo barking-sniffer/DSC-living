@@ -88,10 +88,11 @@ export const images: Record<string, ImageSlot> = {
 
   // public/images/property/vastgoedbeheer-nederland-landschap.jpg — 16:9 —
   // Supplied banner: aerial of a sustainable Dutch development at dusk.
-  // NOTE: the supplied file has a headline and a "Get to know us" button
-  // burned into the pixels. The alt text repeats that wording because it
-  // is an image of text (WCAG 1.4.5) — if the text is ever removed from
-  // the artwork, shorten the alt to describe the scene only.
+  // NOTE: the supplied file still has a headline burned into the pixels
+  // (the fake "Get to know us" button was removed in the 18 Sept version).
+  // The alt text repeats that wording because it is an image of text
+  // (WCAG 1.4.5) — if the headline is removed from the artwork too,
+  // shorten the alt to describe the scene only.
   heroPortfolio: {
     src: '/images/property/vastgoedbeheer-nederland-landschap.jpg',
     alt: 'Aerial view at dusk of a sustainable Dutch development beside a canal, with wind turbines and a windmill on the horizon. Overlaid text reads: Future of sustainable living and workplace is now.',

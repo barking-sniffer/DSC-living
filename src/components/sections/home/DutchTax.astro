@@ -25,14 +25,16 @@ const ctaLabel = isNl ? 'Ga naar DSC Capital →' : 'Go to DSC Capital →'
 ---
 
 <section class="section bg-ink text-onDarkSoft" data-section="tax" data-no-schema>
-  <div class="content-wrap">
-  <div class="max-w-[68ch]">
+  <div class="content-wrap grid grid-cols-1 gap-x-14 gap-y-6 md:grid-cols-[1fr_1.15fr] md:items-start">
+  <div>
     <h2 class="h2 text-onDark mb-3">
       {isNl ? 'Fiscale en juridische ondersteuning voor uw pand' : 'Tax & legal support for your property'}
     </h2>
     <p class="mb-6 text-[12px] font-bold uppercase tracking-[0.12em] text-accentLt" data-label>
       {isNl ? 'Uitgevoerd door DSC Capital' : 'Delivered by DSC Capital'}
     </p>
+    </div>
+    <div>
     <p class="lead text-onDarkSoft mb-6">
       {isNl
         ? 'Belastingen, erfopvolging en aanverwante zaken rond een pand kunnen ingewikkeld zijn. Wij zorgen dat u tijdens het hele traject gemoedsrust heeft. Ook box 3 nemen wij mee, als u vermogen in het buitenland heeft.'

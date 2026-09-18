@@ -18,15 +18,18 @@ const img = images.heroPortfolio
 
 <section id="top" class="section bg-paper">
   <div class="content-wrap">
-    <!-- 16/9, not the brief's 21/9: the supplied artwork is 16:9 with a
-         headline burned into the left edge, and a 21/9 crop cuts it. -->
-    <Figure src={img.src} alt={img.alt} note={img.note} ratio="16/9" priority class="rounded-[3px]" />
-    <div class="mt-8 max-w-[62ch]">
-      <h1 class="h1 mb-5">
+    <!-- 21/9 on desktop per the brief: the supplied 16:9 artwork loses
+         ~13% top and bottom, which clears the burned-in headline. Mobile
+         keeps 16/9, where a 21/9 band would be a letterbox sliver. -->
+    <Figure src={img.src} alt={img.alt} note={img.note} ratio="16/9" priority class="rounded-[3px] md:hidden" />
+    <Figure src={img.src} alt={img.alt} note={img.note} ratio="21/9" priority class="hidden rounded-[3px] md:block" />
+    <div class="mt-8 grid grid-cols-1 gap-x-14 gap-y-6 md:grid-cols-[1.05fr_1fr] md:items-start">
+      <h1 class="h1 mb-0">
         {isNl
           ? '360° vastgoedbeheer voor woningen en bedrijfspanden'
           : '360° property management for homes and businesses'}
       </h1>
+      <div>
       <p class="lead mb-4">
         {isNl
           ? 'Wij nemen uw pand onder onze hoede en houden het in stand — of u er nu woont, werkt, het verhuurt of het gereedmaakt voor verkoop.'
@@ -43,11 +46,12 @@ const img = images.heroPortfolio
           {isNl ? 'Stuur ons een WhatsApp-bericht' : 'Message us on WhatsApp'}
         </CtaButton>
       </div>
-      <p class="small-copy mt-5">
+      <p class="small-copy mt-5 max-w-[46ch]">
         {isNl
           ? 'Geef uw adres door, dan vertellen wij u wat wij daar kunnen doen. Wij werken door heel Nederland, zelf en via geselecteerde partners.'
           : 'Tell us your address and we will tell you what we can do there. We work across the Netherlands, directly and through vetted partners.'}
       </p>
+      </div>
     </div>
   </div>
 </section>
