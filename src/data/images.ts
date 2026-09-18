@@ -86,7 +86,10 @@ export const images: Record<string, ImageSlot> = {
   // the subject, wide and architectural, empty and immaculate, natural
   // daylight. Distinct in tone from the warmer /wonen photography above.
 
-  // public/images/property/vastgoedbeheer-nederland-landschap.jpg — 16:9 —
+  // public/images/property/vastgoedbeheer-nederland-landschap-v2.jpg — 16:9 —
+  // The "-v2" matters: /images/* is served immutable for a year, so
+  // replacing artwork MUST use a new filename or browsers and the CDN keep
+  // serving the old bytes. Never overwrite an image in place.
   // Supplied banner: aerial of a sustainable Dutch development at dusk.
   // NOTE: the supplied file still has a headline burned into the pixels
   // (the fake "Get to know us" button was removed in the 18 Sept version).
@@ -94,7 +97,7 @@ export const images: Record<string, ImageSlot> = {
   // (WCAG 1.4.5) — if the headline is removed from the artwork too,
   // shorten the alt to describe the scene only.
   heroPortfolio: {
-    src: '/images/property/vastgoedbeheer-nederland-landschap.jpg',
+    src: '/images/property/vastgoedbeheer-nederland-landschap-v2.jpg',
     alt: 'Aerial view at dusk of a sustainable Dutch development beside a canal, with wind turbines and a windmill on the horizon. Overlaid text reads: Future of sustainable living and workplace is now.',
     note: 'Wide architectural portfolio view — Dutch housing',
   },

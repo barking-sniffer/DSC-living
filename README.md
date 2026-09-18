@@ -78,6 +78,14 @@ separate Markdown content collection. Functionally equivalent (no copy is
 hardcoded in a shared component), but if a real CMS-editing workflow is
 wanted later, migrating to content collections is a clean follow-up.
 
+## Replacing a photo — use a new filename
+
+`/images/*` is served `public, max-age=31536000, immutable`. Overwriting a
+file in place therefore does **not** reach anyone: browsers and the CDN
+keep serving the old bytes until the year is up. Replacing artwork means a
+**new filename** (e.g. `...-v2.jpg`) and updating `src/data/images.ts` to
+point at it. This bit us on the hero image on 18 Sept 2026.
+
 ## Adding a photo
 
 Every image is a placeholder until a real photo lands — see
