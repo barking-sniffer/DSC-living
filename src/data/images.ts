@@ -123,11 +123,15 @@ export const images: Record<string, ImageSlot> = {
     alt: 'Aerial view of a modern office district at sunrise. Overlaid text reads: Unlock productivity with DSC for your commercial property.',
     note: 'Modern office district from the air',
   },
-  // public/images/property/ai-placeholder.jpg — 16:9 — Abstract and technical: a floor plan, an elevation, a tablet showing a building plan. Not a robot, not a glowing brain.
+  // public/images/property/ai-woningautomatisering.jpg — 16:9 — Supplied
+  // artwork for the AI section: a resident speaking a command, with
+  // lights/temperature/music responding, and a tablet showing an
+  // "AI HOME CONTROL" interface. Note this depicts a product that is not
+  // built yet, so the surrounding copy carries the honesty burden.
   aiPlaceholder: {
-    src: '',
-    alt: 'A tablet displaying a building floor plan',
-    note: 'Floor plan or elevation on a tablet — abstract, technical',
+    src: '/images/property/ai-woningautomatisering.jpg',
+    alt: 'A man in an armchair speaks a command in a living room overlooking Dutch meadows; overlaid text reads Lights: Warm, Temperature: Set to 21°C, Music: Play Jazz, and a tablet beside him shows a DSC Living AI home control screen.',
+    note: 'Home automation responding to a spoken command',
   },
 
   // --- Service-page hero slots. Filenames follow brief §3.5: descriptive

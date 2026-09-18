@@ -1,8 +1,16 @@
 ---
-// CR-01 Part 6 — AI offerings. The "in development" label is mandatory:
-// without it this is an advertised capability that does not exist (Art.
-// 6:193c BW). "AI financial insights", not "manager" — manager implies
-// discretion over funds, which edges toward AFM-licensed activity.
+// CR-01 Part 6 — AI offerings.
+//
+// The "in development" label was REMOVED on 18 Sept 2026 at the client's
+// explicit instruction. CR-01 §6.1 had called it "not optional": without
+// it, "Explore our AI offerings" invites people to something that does
+// not exist yet, which is Art. 6:193c BW (misleading commercial practice)
+// territory. The closing line ("we will build that one first") is now the
+// only remaining signal that these are not live. Restore the label if
+// legal review asks for it.
+//
+// "AI financial insights", not "manager" — manager implies discretion
+// over funds, which edges toward AFM-licensed activity.
 // Excluded from structured data: nothing in this section emits JSON-LD
 // (guard 18 checks this).
 import Figure from '../../Figure.astro'
@@ -33,12 +41,9 @@ const items = isNl
 <section class="section bg-tint" data-section="ai" data-no-schema>
   <div class="content-wrap grid grid-cols-1 items-start gap-10 md:grid-cols-2">
     <div>
-      <h2 class="h2 mb-3">
+      <h2 class="h2 mb-5">
         {isNl ? 'Ontdek onze AI-diensten voor comfortabeler wonen' : 'Explore our AI offerings to make your living more comfortable'}
       </h2>
-      <p class="mb-6 inline-block rounded-[3px] border border-accent px-2 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-accent" data-label>
-        {isNl ? 'In ontwikkeling — nog niet beschikbaar' : 'In development — none of the below is available yet'}
-      </p>
       <div class="flex flex-col gap-4 mb-6">
         {items.map((it) => (
           <p class="body-copy"><strong class="text-ink">{it.t}</strong> {it.d}</p>

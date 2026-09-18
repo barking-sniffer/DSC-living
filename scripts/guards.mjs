@@ -248,8 +248,12 @@ if (existsSafe(distDir)) {
   if (g17 === 0) ok(17)
 
   // Guard 18: AI and tax sections carry their labels and emit no structured data
+  // The AI "in development" label was removed at the client's explicit
+  // instruction on 18 Sept 2026 (see AiUpgrade.astro), so it is no longer
+  // required here. The no-structured-data rule still applies to both
+  // sections, and the tax section still must carry its label.
   const labels = {
-    ai: [/In ontwikkeling/, /In development/],
+    ai: [],
     tax: [/Uitgevoerd door DSC Capital/, /Delivered by DSC Capital/],
   }
   let g18 = 0
@@ -259,7 +263,7 @@ if (existsSafe(distDir)) {
     for (const m of html.matchAll(/<section\b[^>]*data-section="(ai|tax)"[^>]*>([\s\S]*?)<\/section>/g)) {
       sectionsSeen++
       const [, kind, inner] = m
-      if (!labels[kind].some((re) => re.test(inner))) {
+      if (labels[kind].length && !labels[kind].some((re) => re.test(inner))) {
         fail(18, `${relative(distDir, f)} — ${kind} section missing its required label`)
         g18++
       }
