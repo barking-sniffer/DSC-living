@@ -86,10 +86,15 @@ export const images: Record<string, ImageSlot> = {
   // the subject, wide and architectural, empty and immaculate, natural
   // daylight. Distinct in tone from the warmer /wonen photography above.
 
-  // public/images/property/hero-portfolio.jpg — 21:9 — Wide architectural view, a Dutch residential block or street, low angle low sun, or an aerial over Dutch housing. Reads as a portfolio, not one home.
+  // public/images/property/vastgoedbeheer-nederland-landschap.jpg — 16:9 —
+  // Supplied banner: aerial of a sustainable Dutch development at dusk.
+  // NOTE: the supplied file has a headline and a "Get to know us" button
+  // burned into the pixels. The alt text repeats that wording because it
+  // is an image of text (WCAG 1.4.5) — if the text is ever removed from
+  // the artwork, shorten the alt to describe the scene only.
   heroPortfolio: {
-    src: '',
-    alt: 'A wide architectural view of a Dutch residential street in low sun',
+    src: '/images/property/vastgoedbeheer-nederland-landschap.jpg',
+    alt: 'Aerial view at dusk of a sustainable Dutch development beside a canal, with wind turbines and a windmill on the horizon. Overlaid text reads: Future of sustainable living and workplace is now.',
     note: 'Wide architectural portfolio view — Dutch housing',
   },
   // public/images/property/survey.jpg — 4:3 — A condition survey underway: a tablet against a stairwell wall, a drawing on a worktop. Hands at most, no faces.
@@ -104,17 +109,19 @@ export const images: Record<string, ImageSlot> = {
     alt: 'An immaculate, empty communal entrance in clean daylight',
     note: 'Immaculate empty communal entrance — the result',
   },
-  // public/images/property/sector-residential.jpg — 3:2 — A Dutch terraced street or an apartment block façade.
+  // public/images/property/woningbeheer-woonwijk-luchtfoto.jpg — 16:9 —
+  // Supplied banner, headline burned in (see heroPortfolio note).
   sectorResidential: {
-    src: '',
-    alt: 'A Dutch terraced street of houses',
-    note: 'Dutch terraced street or apartment façade',
+    src: '/images/property/woningbeheer-woonwijk-luchtfoto.jpg',
+    alt: 'Aerial view of a Dutch residential neighbourhood of houses and apartments along a canal. Overlaid text reads: Residential property management.',
+    note: 'Dutch residential neighbourhood from the air',
   },
-  // public/images/property/sector-commercial.jpg — 3:2 — A modern office reception or an empty gym floor, daylight, nobody present.
+  // public/images/property/bedrijfspanden-kantorenpark.jpg — 16:9 —
+  // Supplied banner, headline burned in (see heroPortfolio note).
   sectorCommercial: {
-    src: '',
-    alt: 'A modern, empty office reception in daylight',
-    note: 'Modern office reception or empty gym floor',
+    src: '/images/property/bedrijfspanden-kantorenpark.jpg',
+    alt: 'Aerial view of a modern office district at sunrise. Overlaid text reads: Unlock productivity with DSC for your commercial property.',
+    note: 'Modern office district from the air',
   },
   // public/images/property/ai-placeholder.jpg — 16:9 — Abstract and technical: a floor plan, an elevation, a tablet showing a building plan. Not a robot, not a glowing brain.
   aiPlaceholder: {

@@ -18,7 +18,9 @@ const img = images.heroPortfolio
 
 <section id="top" class="section bg-paper">
   <div class="content-wrap">
-    <Figure src={img.src} alt={img.alt} note={img.note} ratio="21/9" priority class="rounded-[3px]" />
+    <!-- 16/9, not the brief's 21/9: the supplied artwork is 16:9 with a
+         headline burned into the left edge, and a 21/9 crop cuts it. -->
+    <Figure src={img.src} alt={img.alt} note={img.note} ratio="16/9" priority class="rounded-[3px]" />
     <div class="mt-8 max-w-[62ch]">
       <h1 class="h1 mb-5">
         {isNl
