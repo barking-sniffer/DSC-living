@@ -279,6 +279,27 @@ if (existsSafe(distDir)) {
   }
   if (g18 === 0) ok(18)
 
+  // Guard 19: exactly one Google tag per page, loader + config, no dupes.
+  // Google's own instruction: "Don't add more than one Google tag to each
+  // page." Two tags double-count every session.
+  const GA_ID = 'G-KRL77LZ41J'
+  let g19 = 0
+  for (const f of htmlFiles) {
+    const html = readFileSync(f, 'utf8')
+    const loaders = (html.match(/googletagmanager\.com\/gtag\/js\?id=/g) || []).length
+    const configs = (html.match(new RegExp(`gtag\\('config',\\s*'${GA_ID}'\\)`, 'g')) || []).length
+    const ids = (html.match(new RegExp(GA_ID, 'g')) || []).length
+    if (loaders !== 1 || configs !== 1) {
+      fail(19, `${relative(distDir, f)} — expected 1 gtag loader and 1 config, found ${loaders}/${configs}`)
+      g19++
+    }
+    if (ids && !html.includes(`gtag/js?id=${GA_ID}`)) {
+      fail(19, `${relative(distDir, f)} — measurement ID present but loader does not use it`)
+      g19++
+    }
+  }
+  if (g19 === 0) ok(19)
+
   // Guard 14: built CSS carries the global hidden rule verbatim
   const cssFiles = walk(distDir, '.css')
   const hasHiddenRule = cssFiles.some((f) => readFileSync(f, 'utf8').includes('[hidden]{display:none!important}'))

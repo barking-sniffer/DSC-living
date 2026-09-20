@@ -108,6 +108,35 @@ still deploy with the gap clearly marked); flip it to a hard `fail()` in
 `scripts/guards.mjs` once those values are real, ahead of a proper launch
 gate.
 
+## Analytics — GA4 added 20 Sept 2026, consent still outstanding
+
+Two analytics tools now run:
+
+- **Google Analytics 4** (`G-KRL77LZ41J`), added at the client's request,
+  in `src/layouts/Base.astro`. Exactly one tag per page — guard 19 fails
+  the build on a duplicate or missing tag.
+- **Plausible**, EU-hosted and cookieless, kept because it carries the
+  WhatsApp conversion events, which are still the only conversion metric.
+
+**GA4 sets cookies (`_ga`, `_ga_*`) on first load, before any consent.**
+Verified in a browser. That has three consequences the build brief had
+deliberately avoided:
+
+1. Under art. 11.7a Telecommunicatiewet, analytics cookies of this kind
+   are not consent-exempt, so a consent mechanism is required. None is
+   built — the brief had explicitly ruled a banner out because the old
+   cookieless setup didn't need one.
+2. GA4 involves processing by Google outside the EU, which the privacy
+   statement now discloses but which needs a proper legal basis and a
+   transfer assessment.
+3. The cookie policy and privacy statement were rewritten on this date;
+   they previously stated the site set no cookies, which the tag made
+   false. They still carry a `[[ TO POPULATE ]]` marker for the consent
+   mechanism and retention periods.
+
+Options, if you want this back onside: add a consent banner and fire GA
+only after opt-in, or drop GA and keep the cookieless setup.
+
 ## Hosting
 
 Deployed to the existing EC2 instance behind nginx (`https://dscliving.nl`,

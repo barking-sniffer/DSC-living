@@ -33,7 +33,7 @@ const meta: Record<string, { title: string; description: string; h1: string }> =
   reviews: { title: 'Reviews | DSC Living', description: 'Real, verified reviews from DSC Living customers — never invented or bought.', h1: 'Reviews' },
   accessibility: { title: 'Accessibility | DSC Living', description: 'Our commitment to an accessible website, and how to report an accessibility issue.', h1: 'Accessibility' },
   'company-details': { title: 'Company Details | DSC Living', description: "DSC Living's statutory details: KvK, VAT, address and contact.", h1: 'Company details' },
-  cookies: { title: 'Cookie Policy | DSC Living', description: 'This website does not use cookies. Here is exactly why not, and what happens instead.', h1: 'Cookie policy' },
+  cookies: { title: 'Cookie Policy | DSC Living', description: 'Which cookies this website sets, what they are for, and how to refuse or delete them.', h1: 'Cookie policy' },
   careers: { title: 'Careers | DSC Living', description: 'Working at DSC Living — current openings and how to apply.', h1: 'Careers' },
 }
 
@@ -101,7 +101,7 @@ const faqItems = [
       <p class="body-copy">{company.tradeName}, a trade name of {company.legalName}, looks after residential and commercial property in the Netherlands. We take the protection of your personal data seriously.</p>
       <p class="body-copy">This website uses no cookies and has no form that stores or transmits data. Every enquiry is composed as a WhatsApp message that opens in WhatsApp itself — nothing is sent to or stored on dscliving.nl. WhatsApp is operated by Meta and is covered by Meta's own privacy policy once a message is sent.</p>
       <p class="body-copy">What we receive from you via WhatsApp, phone or email is used only to answer your enquiry and deliver the service you asked for. We keep it no longer than necessary or legally required, and never sell it.</p>
-      <p class="body-copy">This site uses a cookieless, EU-hosted analytics service to measure aggregate visits. It uses no cookies and collects no personal data.</p>
+      <p class="body-copy">This site uses Google Analytics (GA4) to measure how the website is used. That places cookies on your device and involves processing by Google, including outside the EU. We also use a cookieless, EU-hosted analytics service for aggregate visit counts. See our <a href="/en/cookies/" class="text-accent hover:underline">cookie policy</a>.</p>
       <p class="small-copy">[[ TO POPULATE — full statement including retention periods and your rights under the GDPR ]]</p>
     </>
   )}
@@ -125,8 +125,20 @@ const faqItems = [
 
   {slugKey === 'cookies' && (
     <>
-      <p class="body-copy">This website does not set cookies.</p>
-      <p class="body-copy">We use a cookieless, EU-hosted analytics service that sets no cookies and does not track visitors across sites, so no cookie banner is needed here.</p>
+      <p class="body-copy">
+        This website uses Google Analytics (GA4), which places cookies on your device — including
+        <code>_ga</code> and <code>_ga_*</code> — so Google can measure how the site is used.
+        These cookies are not strictly necessary for the site to work.
+      </p>
+      <p class="body-copy">
+        We also use a cookieless, EU-hosted analytics service for aggregate visit counts. That one
+        sets no cookies and does not track you across sites.
+      </p>
+      <p class="body-copy">
+        You can refuse or delete cookies through your browser settings. Note that we do not yet
+        show a consent prompt; that is still to be added.
+        [[ TO POPULATE — consent mechanism and retention periods ]]
+      </p>
     </>
   )}
 

@@ -94,6 +94,26 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph }
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Google tag (gtag.js) — GA4 property G-KRL77LZ41J. Placed as early in
+      <head> as is safe; <meta charset> stays first because the spec wants
+      it inside the first 1024 bytes.
+
+      NOTE: gtag sets first-party cookies (_ga, _ga_*). Under art. 11.7a
+      Telecommunicatiewet these are not in the consent-exempt category, so
+      a consent mechanism is required — none is built (see README).
+      Every page inherits this layout, so the tag appears exactly once per
+      page; guard 19 enforces that.
+    -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-KRL77LZ41J"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KRL77LZ41J');
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
@@ -122,8 +142,9 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph }
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <!--
-      Analytics: Plausible, EU-hosted and cookieless. No consent banner
-      needed because no cookies are set and no personal data is processed.
+      Plausible: EU-hosted and cookieless, kept alongside GA4 because it
+      carries the WhatsApp conversion events (the only conversion metric in
+      this phase). It is GA4 above, not this, that introduces cookies.
     -->
     <script is:inline defer data-domain="dscliving.nl" src="https://plausible.io/js/script.outbound-links.js"></script>
   </head>

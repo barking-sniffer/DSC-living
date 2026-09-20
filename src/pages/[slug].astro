@@ -77,7 +77,7 @@ const meta: Record<string, { title: string; description: string; h1: string }> =
   },
   cookies: {
     title: 'Cookiebeleid | DSC Living',
-    description: 'Deze website gebruikt geen cookies. Hier leest u precies waarom niet, en wat er wel gebeurt.',
+    description: 'Welke cookies deze website plaatst, waarvoor ze dienen, en hoe u ze kunt weigeren of verwijderen.',
     h1: 'Cookiebeleid',
   },
   careers: {
@@ -154,7 +154,7 @@ const faqItems = [
         serieus.
       </p>
       <p class="body-copy">
-        Deze website gebruikt geen cookies en heeft geen formulier dat gegevens opslaat of
+        Deze website heeft geen formulier dat gegevens opslaat of
         verstuurt. Elke aanvraag wordt samengesteld als een WhatsApp-bericht dat in WhatsApp zelf
         opent — er wordt niets verzonden naar of opgeslagen op dscliving.nl. WhatsApp is een
         dienst van Meta en valt na verzending onder het privacybeleid van Meta.
@@ -165,8 +165,10 @@ const faqItems = [
         niet langer dan nodig of wettelijk vereist, en verkopen het nooit aan derden.
       </p>
       <p class="body-copy">
-        Deze site gebruikt een cookieloze, EU-gehoste analysedienst om geaggregeerde bezoeken te
-        meten. Die gebruikt geen cookies en verzamelt geen persoonsgegevens.
+        Deze site gebruikt Google Analytics (GA4) om het gebruik van de website te meten. Daarbij
+        worden cookies op uw apparaat geplaatst en worden gegevens verwerkt door Google, ook
+        buiten de EU. Daarnaast gebruiken wij een cookieloze, EU-gehoste analysedienst voor
+        geaggregeerde bezoekcijfers. Zie ons <a href="/cookies/" class="text-accent hover:underline">cookiebeleid</a>.
       </p>
       <p class="small-copy">[[ TO POPULATE — volledige verklaring inclusief bewaartermijnen en uw rechten onder de AVG ]]</p>
     </>
@@ -191,10 +193,20 @@ const faqItems = [
 
   {route.slug === 'cookies' && (
     <>
-      <p class="body-copy">Deze website plaatst geen cookies.</p>
       <p class="body-copy">
-        Wij gebruiken een cookieloze, EU-gehoste analysedienst die geen cookies plaatst en
-        bezoekers niet volgt over websites heen, zodat hier geen cookiebanner nodig is.
+        Deze website gebruikt Google Analytics (GA4). Daarbij worden cookies op uw apparaat
+        geplaatst — onder meer <code>_ga</code> en <code>_ga_*</code> — waarmee Google het gebruik
+        van de website meet. Deze cookies zijn niet strikt noodzakelijk voor de werking van de
+        site.
+      </p>
+      <p class="body-copy">
+        Daarnaast gebruiken wij een cookieloze, EU-gehoste analysedienst voor geaggregeerde
+        bezoekcijfers. Die plaatst geen cookies en volgt u niet over websites heen.
+      </p>
+      <p class="body-copy">
+        U kunt cookies weigeren of verwijderen via de instellingen van uw browser. Houd er
+        rekening mee dat wij op dit moment nog geen toestemmingsvenster tonen; dat wordt
+        toegevoegd. [[ TO POPULATE — toestemmingsmechanisme en bewaartermijnen ]]
       </p>
     </>
   )}
